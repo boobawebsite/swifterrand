@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works | SwiftErrand — Connecting Trust, Empowering Work</title>
+<meta name="description" content="Discover how SwiftErrand powers Nigeria's most trusted on-demand artisan and service ecosystem through SwiftShield™ dual escrow, multi-tier vetting, and real-time job dispatch.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #00A651;
+  --primary-dark: #007A3D;
+  --primary-light: #F0FDF4;
+  --primary-border: #BBF7D0;
+  --dark: #0F172A;
+  --dark-surface: #1E293B;
+  --dark-card: #090D16;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --bg-canvas: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --border-subtle: #E2E8F0;
+  --border-hairline: rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.08);
+  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================
+   NAVIGATION (EXACT HOMEPAGE FROSTED GLASSBAR)
+========================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-ghost:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 166, 81, 0.35);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* =========================================
+   HERO: ARCHITECTURAL PLATFORM OVERVIEW (SPLIT)
+========================================= */
+.hiw-hero {
+  padding: 130px 4% 80px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border-bottom: 1px solid var(--border-hairline);
+  position: relative;
+  overflow: hidden;
+}
+
+.hiw-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 166, 81, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.hiw-hero h1 {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.hiw-hero p.lead {
+  font-size: clamp(16px, 1.2vw, 19px);
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 30px;
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.hero-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-hairline);
+  border: 1px solid var(--border-hairline);
+}
+
+.stat-cell {
+  background: #FFFFFF;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--dark);
+  font-family: var(--font-heading);
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.stat-number span.accent {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Hero Right: Live Interactive Workflow Mockup */
+.hero-workflow-card {
+  background: #0F172A;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+  position: relative;
+}
+
+.workflow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4ADE80;
+}
+
+.radar-pulse {
+  width: 8px;
+  height: 8px;
+  background: #4ADE80;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.25);
+}
+
+.workflow-badge-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94A3B8;
+}
+
+/* Artisan Card inside Mockup */
+.mock-artisan-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 20px;
+}
+
+.mock-avatar {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mock-info h4 {
+  color: #FFFFFF;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.mock-info p {
+  color: #4ADE80;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.mock-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+/* Escrow Vault Box inside Mockup */
+.mock-escrow-box {
+  background: rgba(0, 166, 81, 0.12);
+  border: 1px solid rgba(0, 166, 81, 0.35);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.escrow-top-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.escrow-top-line span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4ADE80;
+}
+
+.escrow-top-line i {
+  color: #4ADE80;
+  font-size: 14px;
+}
+
+.escrow-amount {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.escrow-note {
+  font-size: 11.5px;
+  color: #A7F3D0;
+  margin-top: 4px;
+}
+
+/* Route Progress */
+.mock-route-box {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 20px;
+}
+
+.route-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #E2E8F0;
+  margin-bottom: 10px;
+}
+
+.route-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.route-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 72%;
+  background: var(--primary);
+}
+
+.mock-action-btn {
+  width: 100%;
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 12px;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.mock-action-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* =========================================
+   PIPELINE PROCESS: 5 PHASES OF WORK
+========================================= */
+.pipeline-section {
+  padding: 80px 4%;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.pipeline-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px;
+}
+
+.section-head .subtag {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+
+.section-head p {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.pipeline-steps-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+.pipe-card {
+  background: #F8FAFC;
+  border: 1px solid var(--border-subtle);
+  padding: 24px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.pipe-card:hover {
+  background: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.pipe-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.pipe-num {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.pipe-icon {
+  width: 36px;
+  height: 36px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.pipe-card:hover .pipe-icon {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.pipe-card h4 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.pipe-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* =========================================
+   TWO PILLARS: CLIENTS VS ARTISANS (WITH REAL PHOTOS)
+========================================= */
+.walkthrough-section {
+  padding: 90px 4%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* TABS SWITCHER */
+.track-tab-switcher {
+  display: flex;
+  justify-content: center;
+  border: 1px solid var(--border-hairline);
+  background: #FFFFFF;
+  width: fit-content;
+  margin: 0 auto 50px;
+}
+
+.tab-btn {
+  padding: 14px 34px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  border-radius: 0;
+}
+
+.tab-btn.active {
+  background: var(--dark);
+  color: #FFFFFF;
+}
+
+.tab-btn:hover:not(.active) {
+  background: #F1F5F9;
+  color: var(--dark);
+}
+
+/* STEP CARDS WITH VISUAL HEADERS */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.step-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 166, 81, 0.4);
+}
+
+.step-card-media {
+  position: relative;
+  height: 180px;
+  width: 100%;
+  overflow: hidden;
+  background: #0F172A;
+}
+
+.step-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.step-card:hover .step-card-media img {
+  transform: scale(1.06);
+}
+
+.step-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+}
+
+.step-tag-pill {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.step-card-body {
+  padding: 24px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.step-card-body h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.step-card-body p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.step-highlight {
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-highlight i {
+  color: var(--primary);
+}
+
+/* =========================================
+   ECONOMIC IMPACT: INFORMAL LABOR TRANSFORMATION
+========================================= */
+.economic-impact-section {
+  background: #090D16;
+  color: #FFFFFF;
+  padding: 100px 4%;
+  position: relative;
+  overflow: hidden;
+}
+
+.economic-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.economic-text h2 {
+  color: #FFFFFF;
+  font-size: clamp(32px, 3.4vw, 48px);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 22px;
+}
+
+.economic-text p {
+  color: #94A3B8;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.economic-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.economic-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: #E2E8F0;
+}
+
+.economic-list li i {
+  color: #4ADE80;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.economic-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empower-metric-card {
+  background: #151D2C;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.2s ease;
+}
+
+.empower-metric-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.metric-glyph {
+  width: 52px;
+  height: 52px;
+  background: rgba(0, 166, 81, 0.15);
+  border: 1px solid rgba(0, 166, 81, 0.4);
+  color: #4ADE80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.metric-details h4 {
+  color: #FFFFFF;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.metric-details p {
+  color: #94A3B8;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FOUR PILLARS OF INSTITUTIONAL TRUST
+========================================= */
+.trust-architecture {
+  padding: 90px 4%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.trust-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  padding: 34px 30px;
+  display: flex;
+  gap: 22px;
+  transition: transform 0.25s ease;
+}
+
+.trust-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 166, 81, 0.4);
+  box-shadow: var(--shadow-md);
+}
+
+.trust-card-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.trust-card-body h3 {
+  font-size: 19px;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.trust-card-body p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.trust-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trust-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: #F1F5F9;
+  color: var(--dark);
+  padding: 4px 10px;
+  border: 1px solid var(--border-subtle);
+}
+
+/* =========================================
+   COMPARISON TABLE: STREET VS SWIFTERRAND
+========================================= */
+.comparison-section {
+  background: #FFFFFF;
+  padding: 90px 4%;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.comparison-table-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid var(--border-hairline);
+  overflow: hidden;
+}
+
+.comp-header {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--border-hairline);
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.comp-header .cell {
+  padding: 18px 24px;
+}
+
+.comp-header .cell-good {
+  color: var(--primary-dark);
+  background: #ECFDF5;
+  border-left: 1px solid var(--border-hairline);
+}
+
+.comp-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 13.5px;
+}
+
+.comp-row:last-child {
+  border-bottom: none;
+}
+
+.comp-row .cell {
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.comp-row .cell-title {
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.comp-row .cell-bad {
+  color: #64748B;
+  background: #FFFFFF;
+}
+
+.comp-row .cell-bad i {
+  color: #EF4444;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.comp-row .cell-good {
+  color: #0F172A;
+  background: #F0FDF4;
+  border-left: 1px solid var(--border-hairline);
+  font-weight: 600;
+}
+
+.comp-row .cell-good i {
+  color: #00A651;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* =========================================
+   FAQ ACCORDION
+========================================= */
+.faq-section {
+  padding: 90px 4%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.faq-question {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--dark);
+  user-select: none;
+}
+
+.faq-question:hover {
+  background: #F8FAFC;
+}
+
+.faq-question i {
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+
+.faq-item.open .faq-question i {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.faq-answer {
+  padding: 0 24px 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* =========================================
+   APPLE DUO CTA BANNER (SHARP RECTANGULAR)
+========================================= */
+.apple-duo-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.duo-box {
+  padding: clamp(60px, 6vw, 90px) clamp(30px, 5vw, 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.duo-box.duo-dark {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.duo-box.duo-light {
+  background: #F1F5F9;
+  color: var(--dark);
+  border-left: 1px solid var(--border-hairline);
+}
+
+.duo-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.duo-dark .duo-eyebrow {
+  color: #4ADE80;
+}
+
+.duo-light .duo-eyebrow {
+  color: var(--primary-dark);
+}
+
+.duo-box h2 {
+  font-size: clamp(30px, 3.2vw, 42px);
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
+.duo-dark h2 {
+  color: #FFFFFF;
+}
+
+.duo-box p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+
+.duo-dark p {
+  color: #94A3B8;
+}
+
+.duo-light p {
+  color: var(--text-muted);
+}
+
+/* =========================================
+   FOOTER (EXACT HOMEPAGE FOOTER)
+========================================= */
+.footer {
+  background: #FFFFFF;
+  border-top: 1px solid var(--border-hairline);
+  padding: 70px 4% 40px;
+  margin-top: 0;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-about p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 16px 0 20px;
+  max-width: 320px;
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+  color: var(--dark);
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col a {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+/* =========================================
+   RESPONSIVENESS
+========================================= */
+@media (max-width: 1160px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-steps-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .economic-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .apple-duo-cta {
+    grid-template-columns: 1fr;
+  }
+  .duo-box.duo-light {
+    border-left: none;
+    border-top: 1px solid var(--border-hairline);
+  }
+  .pipeline-steps-row {
+    grid-template-columns: 1fr;
+  }
+  .hero-stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nav-menu, .nav-actions .btn-ghost {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-stats-strip {
+    grid-template-columns: 1fr;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .comp-header, .comp-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<header class="navbar" id="navbar">
+  <div class="brand">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+        <span class="brand-sub">Trusted Help. Fast.</span>
+      </div>
+    </a>
+  </div>
+
+  <ul class="nav-menu">
+    <li><a href="services.html" class="nav-link">Services</a></li>
+    <li><a href="how-it-works.html" class="nav-link active">How It Works</a></li>
+    <li><a href="booking.html" class="nav-link">Book an Artisan</a></li>
+    <li><a href="become-provider.html" class="nav-link">For Artisans</a></li>
+    <li><a href="support.html" class="nav-link">Support Desk</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-ghost">Sign In</a>
+    <a href="services.html" class="btn btn-primary">
+      <i class="fa-solid fa-magnifying-glass"></i> Find Help
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<!-- HERO SECTION: ARCHITECTURAL OVERVIEW & LIVE DISPATCH MOCKUP -->
+<section class="hiw-hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-pill-badge">
+        <i class="fa-solid fa-shield-halved"></i> Institutional Trust &middot; Real-Time Dispatch &middot; Dual Escrow
+      </div>
+      <h1>Connecting verified craftspeople with households and businesses across Nigeria.</h1>
+      <p class="lead">SwiftErrand replaces the uncertainty, price exploitation, and safety risks of street-corner artisan hiring with a military-grade vetted digital marketplace. Powered by SwiftShield™ dual escrow, GPS dispatch, and accredited guilds.</p>
+
+      <div class="hero-ctas">
+        <a href="booking.html" class="btn btn-primary" style="padding: 14px 30px; font-size: 15px;">
+          <i class="fa-solid fa-calendar-check"></i> Book a Technician Now
+        </a>
+        <a href="become-provider.html" class="btn btn-ghost" style="padding: 14px 26px; font-size: 15px; background: #fff;">
+          <i class="fa-solid fa-id-card"></i> Join as a Verified Artisan
+        </a>
+      </div>
+
+      <!-- Live Performance Metrics -->
+      <div class="hero-stats-strip">
+        <div class="stat-cell">
+          <div class="stat-number">100<span class="accent">%</span></div>
+          <div class="stat-label">SwiftShield™ Escrow</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">15<span class="accent">m</span></div>
+          <div class="stat-label">Average Uyo Arrival ETA</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">4<span class="accent">-Tier</span></div>
+          <div class="stat-label">NIN & Guild Vetting</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">₦0</div>
+          <div class="stat-label">Unpaid Labor Risk</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Right: Live Interactive Workflow Mockup -->
+    <div class="hero-right">
+      <div class="hero-workflow-card">
+        <div class="workflow-header">
+          <div class="live-indicator">
+            <span class="radar-pulse"></span> LIVE DISPATCH &bull; UYO HUB
+          </div>
+          <span class="workflow-badge-num">CONTRACT #SE-9082</span>
+        </div>
+
+        <!-- Artisan Micro Profile -->
+        <div class="mock-artisan-strip">
+          <img src="assets/images/hero-artisan.jpg" alt="Jeremiah Bassey" class="mock-avatar">
+          <div class="mock-info">
+            <h4>Jeremiah Bassey</h4>
+            <p>Solar, Inverter & Electrical Lead</p>
+            <div class="mock-meta-row">
+              <span><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (124 jobs)</span>
+              <span>&bull;</span>
+              <span><i class="fa-solid fa-shield-halved" style="color:#4ADE80;"></i> Guild Verified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Route Telemetry -->
+        <div class="mock-route-box">
+          <div class="route-text">
+            <span><i class="fa-solid fa-location-dot" style="color:#4ADE80;"></i> En Route &bull; 8 mins away</span>
+            <span style="font-weight:700;">Shelter Afrique Estate</span>
+          </div>
+          <div class="route-bar">
+            <div class="route-progress"></div>
+          </div>
+        </div>
+
+        <!-- SwiftShield Escrow Vault -->
+        <div class="mock-escrow-box">
+          <div class="escrow-top-line">
+            <span>SwiftShield™ Dual Escrow Vault</span>
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="escrow-amount">₦28,000.00</div>
+          <div class="escrow-note"><i class="fa-solid fa-circle-check"></i> Funds Locked &bull; Released Only Upon Customer Sign-Off</div>
+        </div>
+
+        <button type="button" class="mock-action-btn" onclick="window.location.href='booking.html'">
+          Inspect & Book Verified Help <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE PROCESS: THE 5 PHASES OF WORKMANSHIP -->
+<section class="pipeline-section">
+  <div class="pipeline-inner">
+    <div class="section-head">
+      <span class="subtag">End-to-End Execution</span>
+      <h2>The 5 Stages of Every Contract</h2>
+      <p>How the SwiftErrand operating system orchestrates transparency, safety, and instant liquidity from booking to completion.</p>
+    </div>
+
+    <div class="pipeline-steps-row">
+      <div class="pipe-card">
+        <div class="pipe-header">
+          <span class="pipe-num">PHASE 01</span>
+          <div class="pipe-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        </div>
+        <h4>Search & Request</h4>
+        <p>Customer selects trade category or enters an urgent problem. Platform runs geo-fenced matching across Uyo.</p>
+      </div>
+
+      <div class="pipe-card">
+        <div class="pipe-header">
+          <span class="pipe-num">PHASE 02</span>
+          <div class="pipe-icon"><i class="fa-solid fa-vault"></i></div>
+        </div>
+        <h4>Escrow Vault Funding</h4>
+        <p>Agreed labor rate is funded into the SwiftShield™ vault. The technician departs knowing wages are 100% secured.</p>
+      </div>
+
+      <div class="pipe-card">
+        <div class="pipe-header">
+          <span class="pipe-num">PHASE 03</span>
+          <div class="pipe-icon"><i class="fa-solid fa-route"></i></div>
+        </div>
+        <h4>Live GPS Dispatch</h4>
+        <p>Technician arrives on-site within 15-25 mins with verified digital credentials and proper specialized tooling.</p>
+      </div>
+
+      <div class="pipe-card">
+        <div class="pipe-header">
+          <span class="pipe-num">PHASE 04</span>
+          <div class="pipe-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        </div>
+        <h4>On-Site Execution</h4>
+        <p>Work is completed strictly to guild code with digital photo time-stamping and real-time worksite safety logs.</p>
+      </div>
+
+      <div class="pipe-card">
+        <div class="pipe-header">
+          <span class="pipe-num">PHASE 05</span>
+          <div class="pipe-icon"><i class="fa-solid fa-handshake-simple"></i></div>
+        </div>
+        <h4>Sign-Off & Payout</h4>
+        <p>Client inspects and approves. Escrow releases instantly to the technician's wallet for immediate bank cashout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL-TRACK WALKTHROUGH SECTION WITH REAL PHOTOS -->
+<section class="walkthrough-section" id="walkthrough">
+  <div class="section-head">
+    <span class="subtag">User Experience Architecture</span>
+    <h2>Step-by-Step Platform Walkthrough</h2>
+    <p>Choose your pathway to explore how SwiftErrand serves customers seeking verified help and master craftspeople scaling their trade.</p>
+  </div>
+
+  <!-- Switcher Tabs -->
+  <div class="track-tab-switcher">
+    <button type="button" class="tab-btn active" id="tabClients" onclick="switchTrack('clients')">
+      <i class="fa-solid fa-user-check"></i> For Individuals & Businesses
+    </button>
+    <button type="button" class="tab-btn" id="tabArtisans" onclick="switchTrack('artisans')">
+      <i class="fa-solid fa-screwdriver-wrench"></i> For Artisans & Technicians
+    </button>
+  </div>
+
+  <!-- Track 1: Client Journey -->
+  <div class="steps-grid" id="trackClients">
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-plumber.jpg" alt="Discover verified plumbers and technicians" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 01 &bull; Discovery</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Search & Select Vetted Pros</h3>
+        <p>Browse our directory of verified artisans or enter your repair task. SwiftMatch™ checks live ratings, reviews, and proximity across Uyo corridors.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> Verified badges & past job photos
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-cleaning.jpg" alt="SwiftShield Escrow Protection" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 02 &bull; Escrow Lock</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Deposit to SwiftShield™</h3>
+        <p>Fund the agreed labor cost safely using card or bank transfer. Your money is secured in our escrow holding vault and never released until you are satisfied.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> Zero risk of artisan abandonment
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-ac.jpg" alt="Real time technician arrival" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 03 &bull; GPS Dispatch</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Track Arrival & Execution</h3>
+        <p>Monitor your technician's approach live on the map. They check in with an official digital badge, diagnose faults, and complete work professionally.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> 15m average ETA in Uyo residential hubs
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-painter.jpg" alt="Inspect work and release funds" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 04 &bull; Inspection</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Inspect & Release Payment</h3>
+        <p>Test the repaired device or examine completed finishing. When satisfied, release funds with one click. Backed by our 7-Day Workmanship Warranty.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> 7-day recall guarantee & dispute support
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Track 2: Artisan Journey (Hidden by default) -->
+  <div class="steps-grid" id="trackArtisans" style="display: none;">
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-artisan.jpg" alt="4-Tier Guild Accreditation" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 01 &bull; Accreditation</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>4-Tier Guild Verification</h3>
+        <p>Submit your National Identification Number (NIN), workshop address, and trade references. Undergo physical evaluation to earn your verified badge.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> Official state guild certification
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-generator.jpg" alt="Instant Job Broadcasts" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 02 &bull; Direct Jobs</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>High-Ticket Job Broadcasts</h3>
+        <p>Receive direct booking requests from verified residential estates and corporate offices. Review exact job scope and agreed budget before accepting.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> Zero street-corner scouting or cuts
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-carpenter.jpg" alt="Escrow Payment Protection" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 03 &bull; Escrow Protection</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Guaranteed Escrow Pay</h3>
+        <p>Depart your workshop with total peace of mind. SwiftShield™ guarantees customer funds are already deposited in escrow before you lift a single tool.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> 100% protection against client payment default
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card">
+      <div class="step-card-media">
+        <img src="assets/images/hero-dispatch.jpg" alt="Instant Bank Withdrawal" loading="lazy">
+        <div class="step-media-overlay">
+          <span class="step-tag-pill">Step 04 &bull; Liquidity</span>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <h3>Instant Bank Payout</h3>
+        <p>Upon customer sign-off, money is immediately in your wallet. Cash out instantly to any Nigerian commercial or microfinance bank within seconds.</p>
+        <div class="step-highlight">
+          <i class="fa-solid fa-circle-check"></i> Digital statement history for tool financing
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON: OLD INFORMAL WAY VS SWIFTERRAND STANDARD -->
+<section class="comparison-section">
+  <div class="section-head">
+    <span class="subtag">Market Transformation</span>
+    <h2>The Standard of Service You Deserve</h2>
+    <p>How SwiftErrand solves the systemic failures of the informal labor market across Nigerian metropolises.</p>
+  </div>
+
+  <div class="comparison-table-wrapper">
+    <div class="comp-header">
+      <div class="cell">Evaluation Dimension</div>
+      <div class="cell">Traditional Informal Scouting</div>
+      <div class="cell cell-good">SwiftErrand Standard</div>
+    </div>
+
+    <div class="comp-row">
+      <div class="cell cell-title">Identity & Security</div>
+      <div class="cell cell-bad">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Unknown individuals invited into homes with zero background checks.</span>
+      </div>
+      <div class="cell cell-good">
+        <i class="fa-solid fa-check"></i>
+        <span>NIN validation, biometric check, residential proof, and guild registration.</span>
+      </div>
+    </div>
+
+    <div class="comp-row">
+      <div class="cell cell-title">Payment Safety</div>
+      <div class="cell cell-bad">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Direct cash advances prone to artisan abandonment or client default.</span>
+      </div>
+      <div class="cell cell-good">
+        <i class="fa-solid fa-check"></i>
+        <span>SwiftShield™ dual escrow: funds locked safely until both parties inspect and approve.</span>
+      </div>
+    </div>
+
+    <div class="comp-row">
+      <div class="cell cell-title">Pricing Transparency</div>
+      <div class="cell cell-bad">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Arbitrary quotes, material markup scams, and mid-job price extortion.</span>
+      </div>
+      <div class="cell cell-good">
+        <i class="fa-solid fa-check"></i>
+        <span>Standardized labor baselines, upfront agreement, and transparent digital receipts.</span>
+      </div>
+    </div>
+
+    <div class="comp-row">
+      <div class="cell cell-title">Workmanship Guarantee</div>
+      <div class="cell cell-bad">
+        <i class="fa-solid fa-xmark"></i>
+        <span>No warranty. Unreachable technician if pipes leak or electrical faults return.</span>
+      </div>
+      <div class="cell cell-good">
+        <i class="fa-solid fa-check"></i>
+        <span>7-day recall guarantee backed by platform arbitration and guild discipline.</span>
+      </div>
+    </div>
+
+    <div class="comp-row">
+      <div class="cell cell-title">Artisan Dignity & Growth</div>
+      <div class="cell cell-bad">
+        <i class="fa-solid fa-xmark"></i>
+        <span>Subsistence hand-to-mouth living, irregular income, zero banking history.</span>
+      </div>
+      <div class="cell cell-good">
+        <i class="fa-solid fa-check"></i>
+        <span>Digital portfolio, verified credit record, tool loan qualification, and continuous contracts.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE 4 ENGINES OF INSTITUTIONAL TRUST -->
+<section class="trust-architecture">
+  <div class="section-head">
+    <span class="subtag">Infrastructure Architecture</span>
+    <h2>The 4 Engines Powering the Ecosystem</h2>
+    <p>Behind every seamless booking on SwiftErrand sits a robust framework engineered to guarantee speed, safety, and operational excellence.</p>
+  </div>
+
+  <div class="trust-grid">
+    <!-- Engine 1 -->
+    <div class="trust-card">
+      <div class="trust-card-icon"><i class="fa-solid fa-vault"></i></div>
+      <div class="trust-card-body">
+        <h3>SwiftShield™ Dual Escrow Vault</h3>
+        <p>Eliminates the #1 source of dispute in Nigerian services: money. Client payments are held securely in bank-grade escrow accounts. Artisans never risk working without pay, and clients never risk losing deposits to incomplete jobs.</p>
+        <div class="trust-pill-list">
+          <span class="trust-tag">Milestone Release</span>
+          <span class="trust-tag">Zero Deposit Loss</span>
+          <span class="trust-tag">Dispute Freeze</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engine 2 -->
+    <div class="trust-card">
+      <div class="trust-card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+      <div class="trust-card-body">
+        <h3>Hyper-Local SwiftMatch™ Dispatch</h3>
+        <p>Our routing engine factors in estate security clearance, live traffic corridor constraints (such as Ikot Ekpene Road and 4-Lane Junction), and specialized artisan tool inventory to match requests with the nearest capable specialist.</p>
+        <div class="trust-pill-list">
+          <span class="trust-tag">15-Minute Target</span>
+          <span class="trust-tag">Estate Geofencing</span>
+          <span class="trust-tag">Live Telemetry</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engine 3 -->
+    <div class="trust-card">
+      <div class="trust-card-icon"><i class="fa-solid fa-certificate"></i></div>
+      <div class="trust-card-body">
+        <h3>Master Craftsperson Accreditation</h3>
+        <p>We partner with state chapters of the Nigerian Automobile Technicians Association (NATA), Electrical Contractors, and Plumbing Guilds to physically inspect workshops, verify apprenticeships, and ensure adherence to safety standards.</p>
+        <div class="trust-pill-list">
+          <span class="trust-tag">NIN & Bio Vetting</span>
+          <span class="trust-tag">Workshop Inspection</span>
+          <span class="trust-tag">Guild Endorsements</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engine 4 -->
+    <div class="trust-card">
+      <div class="trust-card-icon"><i class="fa-solid fa-shield-virus"></i></div>
+      <div class="trust-card-body">
+        <h3>SwiftSafety™ Worksite Protocol</h3>
+        <p>Every active job carries digital check-in protocols, time-stamped task logs, and an in-app emergency dispatch link directly tied to our security command center and local emergency response teams in Akwa Ibom State.</p>
+        <div class="trust-pill-list">
+          <span class="trust-tag">Real-Time SOS</span>
+          <span class="trust-tag">Photo Verification</span>
+          <span class="trust-tag">Dispute Arbitration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMIC EMPOWERMENT & JOB CREATION -->
+<section class="economic-impact-section">
+  <div class="economic-inner">
+    <div class="economic-text">
+      <h2>Transforming Informal Labor into Dignified Careers.</h2>
+      <p>Nigeria possesses millions of profoundly skilled technicians whose talents are stifled by lack of discoverability, broken trust, and payment uncertainty. SwiftErrand is built as an economic engine to organize, dignify, and scale this workforce.</p>
+
+      <ul class="economic-list">
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span><strong>Predictable, Dignified Livelihoods:</strong> Providing consistent job volume to eliminate the volatility of daily wage searching.</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span><strong>Formal Banking Inclusion:</strong> Building an audited digital transaction history that unlocks commercial micro-credit, tool loans, and health coverage.</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span><strong>Youth Apprenticeship Pipelines:</strong> Connecting accredited technical college graduates directly with certified master artisans for paid apprenticeships.</span>
+        </li>
+      </ul>
+
+      <a href="become-provider.html" class="btn btn-primary" style="padding: 14px 28px;">
+        <i class="fa-solid fa-arrow-trend-up"></i> Apply for Artisan Accreditation &rarr;
+      </a>
+    </div>
+
+    <div class="economic-card-stack">
+      <div class="empower-metric-card">
+        <div class="metric-glyph"><i class="fa-solid fa-coins"></i></div>
+        <div class="metric-details">
+          <h4>3.2x Average Earnings Increase</h4>
+          <p>Verified artisans on SwiftErrand earn significantly more per month by eliminating idle time and winning verified corporate jobs.</p>
+        </div>
+      </div>
+
+      <div class="empower-metric-card">
+        <div class="metric-glyph"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <div class="metric-details">
+          <h4>Zero Payment Default Days</h4>
+          <p>Over ₦50M+ in contracts safely paid out with zero unfulfilled labor claims thanks to locked upfront escrow.</p>
+        </div>
+      </div>
+
+      <div class="empower-metric-card">
+        <div class="metric-glyph"><i class="fa-solid fa-award"></i></div>
+        <div class="metric-details">
+          <h4>Guild Certified Standards</h4>
+          <p>Over 800+ technicians trained on customer service, safety gear, and precision tooling across Uyo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS ACCORDION -->
+<section class="faq-section">
+  <div class="section-head">
+    <span class="subtag">Got Questions?</span>
+    <h2>Frequently Asked Questions</h2>
+    <p>Everything you need to know about operating on SwiftErrand as a client or accredited service professional.</p>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>How does the SwiftShield™ dual escrow vault protect my money?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        When you book a service, your payment is debited and transferred into a secure, regulated escrow holding vault. The artisan is alerted that the job is fully funded and begins work immediately. The artisan does not receive the funds until you physically inspect the work, verify it functions properly, and click "Release Funds" from your dashboard. If a job is abandoned or substandard, our dispute desk arbitrates or refunds your deposit.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>What criteria must an artisan meet to become verified on SwiftErrand?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Every artisan undergoes a rigorous 4-tier accreditation check: (1) Official identity verification using the National Identity Management Commission (NIMC) database via NIN; (2) Physical workshop and residential address inspection by our Uyo field team; (3) Peer reference check from recognized trade guilds (e.g. Electrical, Plumbing, NATA); and (4) Practical test job evaluation.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>How are prices determined? Can an artisan change the price on arrival?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Standard jobs (such as diagnostic scans, AC gas refills, or routine servicing) carry transparent platform benchmark rates. For custom jobs, the artisan provides an itemized labor quote before commencing work. Once you agree and fund the escrow, the price is locked. An artisan cannot unilaterally raise prices on-site. If unforeseen replacement parts are needed, an official variation request must be digitally logged and approved by you.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>How quickly can an artisan arrive at my location in Uyo?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Our automated dispatch algorithm matches you with active, verified technicians stationed within your immediate quadrant. In central zones such as Shelter Afrique, Ewet Housing, Osongama, and Oron Road, average technician arrival time is 15 to 25 minutes. You can monitor their live GPS approach on your interactive tracking screen.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>I am an artisan. How quickly do I receive my money after finishing a job?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Instantly. The moment the customer marks the job complete and signs off, the escrow funds are immediately deposited into your SwiftWallet. From there, you can click "Withdraw" and transfer funds directly into your Nigerian bank account (Access, GTB, Zenith, OPay, PalmPay, Kuda) within seconds with zero delay.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLE DUO CTA BANNER -->
+<section class="apple-duo-cta">
+  <div class="duo-box duo-dark">
+    <span class="duo-eyebrow">For Individuals & Businesses</span>
+    <h2>Fix it right. The first time.</h2>
+    <p>Connect with accredited technicians, cleaners, carpenters, and logistics pros in your neighborhood with complete escrow protection.</p>
+    <a href="services.html" class="btn btn-primary" style="width: fit-content; padding: 14px 28px;">
+      Explore All Verified Services &rarr;
+    </a>
+  </div>
+
+  <div class="duo-box duo-light">
+    <span class="duo-eyebrow">For Craftsmen & Service Providers</span>
+    <h2>Build your trade into an empire.</h2>
+    <p>Join Uyo's highest-earning network of certified professionals. Get constant job flow and guaranteed payment on every contract.</p>
+    <a href="become-provider.html" class="btn btn-ghost" style="width: fit-content; padding: 14px 28px; background: #0F172A; color: #FFFFFF; border: none;">
+      Join the Guild as an Artisan &rarr;
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">SwiftErrand</span>
+          <span class="brand-sub">Trusted Help. Fast.</span>
+        </div>
+      </div>
+      <p>Building Africa's most trusted on-demand home services and errands infrastructure. Starting in Uyo, Akwa Ibom State.</p>
+      <div style="font-size:13px;color:var(--text-muted);">
+        <i class="fa-solid fa-location-dot" style="color:var(--primary);margin-right:6px;"></i> Operational Hub: Ikot Ekpene Road Corridor, Uyo
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">Plumbing Repairs</a></li>
+        <li><a href="services.html">Electrical & Inverters</a></li>
+        <li><a href="services.html">AC Servicing</a></li>
+        <li><a href="services.html">Deep Cleaning</a></li>
+        <li><a href="services.html">Express Dispatch</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="services.html">Verified Directory</a></li>
+        <li><a href="become-provider.html">Become a Provider</a></li>
+        <li><a href="dashboard.html">Customer Dashboard</a></li>
+        <li><a href="provider-dashboard.html">Provider Hub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support & Safety</h4>
+      <ul>
+        <li><a href="support.html">Help & Dispute Desk</a></li>
+        <li><a href="emergency.html">SwiftSafety™ SOS</a></li>
+        <li><a href="about.html">About SwiftErrand</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Sign In</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Interactive Tab Switching
+function switchTrack(track) {
+  const clientsGrid = document.getElementById('trackClients');
+  const artisansGrid = document.getElementById('trackArtisans');
+  const tabClients = document.getElementById('tabClients');
+  const tabArtisans = document.getElementById('tabArtisans');
+
+  if (track === 'clients') {
+    clientsGrid.style.display = 'grid';
+    artisansGrid.style.display = 'none';
+    tabClients.classList.add('active');
+    tabArtisans.classList.remove('active');
+  } else {
+    clientsGrid.style.display = 'none';
+    artisansGrid.style.display = 'grid';
+    tabArtisans.classList.add('active');
+    tabClients.classList.remove('active');
+  }
+}
+
+// Interactive FAQ Accordion
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  
+  // Close all open items
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  
+  // If it wasn't open, open it
+  if (!wasOpen) {
+    item.classList.add('open');
+  }
+}
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    const menu = document.querySelector('.nav-menu');
+    if (menu) {
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+        menu.style.flexDirection = 'column';
+        menu.style.position = 'absolute';
+        menu.style.top = '74px';
+        menu.style.left = '0';
+        menu.style.right = '0';
+        menu.style.background = '#fff';
+        menu.style.padding = '20px';
+        menu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

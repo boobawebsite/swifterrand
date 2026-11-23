@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings | SwiftErrand</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Manrope',sans-serif;
+}
+
+body{
+background:#F8FAFC;
+display:flex;
+}
+
+.sidebar{
+width:280px;
+height:100vh;
+background:#0F172A;
+position:fixed;
+padding:30px;
+overflow:auto;
+}
+
+.sidebar h2{
+color:#22C55E;
+margin-bottom:40px;
+}
+
+.sidebar a{
+display:flex;
+align-items:center;
+gap:15px;
+padding:16px;
+margin-bottom:12px;
+border-radius:12px;
+text-decoration:none;
+color:#CBD5E1;
+font-weight:600;
+transition:.3s;
+}
+
+.sidebar a:hover,
+.sidebar .active{
+background:#16A34A;
+color:#fff;
+}
+
+.main{
+margin-left:280px;
+width:100%;
+padding:40px;
+}
+
+.page-title{
+margin-bottom:35px;
+}
+
+.settings-card{
+
+background:#fff;
+
+padding:35px;
+
+border-radius:20px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+margin-bottom:30px;
+
+}
+
+.settings-card h2{
+
+margin-bottom:25px;
+
+font-size:24px;
+
+}
+
+.setting{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px 0;
+
+border-bottom:1px solid #E5E7EB;
+
+}
+
+.setting:last-child{
+
+border-bottom:none;
+
+}
+
+.setting h4{
+
+margin-bottom:5px;
+
+}
+
+.setting p{
+
+color:#64748B;
+
+font-size:14px;
+
+}
+
+.switch{
+
+position:relative;
+
+display:inline-block;
+
+width:60px;
+
+height:32px;
+
+}
+
+.switch input{
+
+display:none;
+
+}
+
+.slider{
+
+position:absolute;
+
+cursor:pointer;
+
+top:0;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+background:#CBD5E1;
+
+border-radius:30px;
+
+transition:.3s;
+
+}
+
+.slider:before{
+
+content:"";
+
+position:absolute;
+
+width:24px;
+
+height:24px;
+
+left:4px;
+
+bottom:4px;
+
+background:#fff;
+
+border-radius:50%;
+
+transition:.3s;
+
+}
+
+input:checked + .slider{
+
+background:#16A34A;
+
+}
+
+input:checked + .slider:before{
+
+transform:translateX(28px);
+
+}
+
+@media(max-width:900px){
+
+.sidebar{
+
+display:none;
+
+}
+
+.main{
+
+margin-left:0;
+
+padding:20px;
+
+}
+
+.setting{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
+
+}
+
+/*=========================
+SELECT
+=========================*/
+
+.setting-select{
+
+padding:12px 16px;
+
+border:1px solid #E2E8F0;
+
+border-radius:10px;
+
+font-size:15px;
+
+outline:none;
+
+min-width:220px;
+
+}
+
+/*=========================
+DANGER BUTTON
+=========================*/
+
+.danger-btn{
+
+padding:14px 25px;
+
+background:#EF4444;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.danger-btn:hover{
+
+background:#DC2626;
+
+}
+
+/*=========================
+FOOTER
+=========================*/
+
+.settings-footer{
+
+margin-top:50px;
+
+padding:30px 0;
+
+text-align:center;
+
+color:#64748B;
+
+font-size:15px;
+
+}
+
+/*=========================
+INPUTS
+=========================*/
+
+.setting-select:focus{
+
+border-color:#16A34A;
+
+box-shadow:0 0 0 3px rgba(22,163,74,.15);
+
+}
+
+.setting:hover{
+
+background:#F8FAFC;
+
+padding-left:10px;
+
+padding-right:10px;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+/*=========================
+RESPONSIVE
+=========================*/
+
+@media(max-width:768px){
+
+.setting-select{
+
+width:100%;
+
+min-width:100%;
+
+}
+
+.danger-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>SwiftErrand</h2>
+
+<a href="dashboard.html"><i class="fas fa-house"></i> Dashboard</a>
+
+<a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+
+<a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a>
+
+<a href="settings.html" class="active"><i class="fas fa-gear"></i> Settings</a>
+
+<a href="login.html"><i class="fas fa-right-from-bracket"></i> Logout</a>
+
+</div>
+
+<div class="main">
+
+<div class="page-title">
+
+<h1>Settings</h1>
+
+<p>Manage your account preferences and application settings.</p>
+
+</div>
+
+<div class="settings-card">
+
+<h2>Notifications</h2>
+
+<div class="setting">
+
+<div>
+
+<h4>Push Notifications</h4>
+
+<p>Receive booking and payment alerts.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Email Notifications</h4>
+
+<p>Receive updates via email.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>SMS Notifications</h4>
+
+<p>Receive important SMS alerts.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<!-- PART 2 STARTS HERE -->
+
+<div class="settings-card">
+
+<h2>Privacy & Security</h2>
+
+<div class="setting">
+
+<div>
+
+<h4>Two-Factor Authentication</h4>
+
+<p>Add an extra layer of protection to your account.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Biometric Login</h4>
+
+<p>Login using Face ID or Fingerprint.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Remember This Device</h4>
+
+<p>Keep me signed in on this device.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="settings-card">
+
+<h2>Application Preferences</h2>
+
+<div class="setting">
+
+<div>
+
+<h4>Dark Mode</h4>
+
+<p>Switch between light and dark themes.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" id="darkMode">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Location Access</h4>
+
+<p>Allow SwiftErrand to find nearby providers.</p>
+
+</div>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Language</h4>
+
+<p>Select your preferred language.</p>
+
+</div>
+
+<select class="setting-select">
+
+<option selected>English</option>
+
+<option>French</option>
+
+<option>Yoruba</option>
+
+<option>Hausa</option>
+
+<option>Igbo</option>
+
+</select>
+
+</div>
+
+<div class="setting">
+
+<div>
+
+<h4>Currency</h4>
+
+<p>Choose your preferred currency.</p>
+
+</div>
+
+<select class="setting-select">
+
+<option selected>Nigerian Naira (₦)</option>
+
+<option>US Dollar ($)</option>
+
+<option>British Pound (£)</option>
+
+<option>Euro (€)</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="settings-card">
+
+<h2>Danger Zone</h2>
+
+<div class="setting">
+
+<div>
+
+<h4>Delete Account</h4>
+
+<p>Permanently remove your SwiftErrand account.</p>
+
+</div>
+
+<button class="danger-btn">
+
+Delete Account
+
+</button>
+
+</div>
+
+</div>
+
+<!-- PART 3 STARTS HERE -->
+
+<footer class="settings-footer">
+
+<p>
+
+© 2026 SwiftErrand. All Rights Reserved.
+
+</p>
+
+</footer>
+
+<script>
+
+const darkMode=document.getElementById("darkMode");
+
+darkMode.addEventListener("change",function(){
+
+if(this.checked){
+
+document.body.style.background="#0F172A";
+
+document.querySelectorAll(".settings-card").forEach(card=>{
+
+card.style.background="#1E293B";
+
+card.style.color="#fff";
+
+});
+
+document.querySelector(".main").style.color="#fff";
+
+}else{
+
+location.reload();
+
+}
+
+});
+
+document.querySelector(".danger-btn").addEventListener("click",function(){
+
+const confirmDelete=confirm("Are you sure you want to permanently delete your account?");
+
+if(confirmDelete){
+
+alert("Your account deletion request has been submitted.");
+
+}
+
+});
+
+document.querySelectorAll(".switch input").forEach(toggle=>{
+
+toggle.addEventListener("change",function(){
+
+const status=this.checked ? "Enabled" : "Disabled";
+
+console.log(status);
+
+});
+
+});
+
+</script>
+
+</div>
+
+</body>
+
+</html>

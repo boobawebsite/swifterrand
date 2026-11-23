@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | Book a Verified Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+body{background:#f8fafc;color:#0f172a;}
+nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
+.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:600;}
+.container{max-width:1150px;margin:40px auto 80px;padding:0 20px;display:grid;grid-template-columns:1.8fr 1.2fr;gap:35px;}
+.card{background:#fff;border-radius:24px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.04);border:1px solid #f1f5f9;}
+h2{font-size:26px;margin-bottom:8px;}
+p.sub{color:#64748b;font-size:15px;margin-bottom:25px;}
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;margin-bottom:8px;font-weight:700;font-size:14px;color:#334155;}
+.form-group select,.form-group input,.form-group textarea{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;background:#fff;transition:.2s;}
+.form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:#00A651;}
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:25px;}
+.mode-btn{padding:14px;border:2px solid #e2e8f0;background:#fff;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s;color:#64748b;}
+.mode-btn.active{border-color:#00A651;background:#f0fdf4;color:#00A651;}
+.summary-card{background:linear-gradient(145deg,#00A651,#007A3D);color:#fff;border-radius:24px;padding:35px;position:sticky;top:100px;box-shadow:0 20px 40px rgba(0,166,81,.2);}
+.summary-card h3{font-size:22px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.summary-line{display:flex;justify-content:space-between;margin-bottom:14px;font-size:15px;opacity:.95;}
+.total-box{border-top:1px solid rgba(255,255,255,.2);margin-top:20px;padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.total-box h4{font-size:18px;}
+.total-box .price{font-size:32px;font-weight:800;}
+.guarantee-box{background:rgba(255,255,255,.1);border-radius:14px;padding:15px;margin:25px 0;font-size:13px;line-height:1.5;}
+.guarantee-box i{color:#bbf7d0;margin-right:6px;}
+.btn-proceed{width:100%;padding:18px;border:none;background:#fff;color:#00A651;font-size:17px;font-weight:800;border-radius:14px;cursor:pointer;transition:.3s;box-shadow:0 10px 20px rgba(0,0,0,.1);}
+.btn-proceed:hover{background:#f0fdf4;transform:translateY(-2px);}
+@media(max-width:900px){.container{grid-template-columns:1fr;}.summary-card{position:static;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+    <span>SwiftErrand</span>
+  </a>
+  <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Book a Verified Service in Uyo</h2>
+    <p class="sub">Select your required task, Uyo landmark, and preferred arrival window.</p>
+
+    <div class="mode-toggle">
+      <button type="button" class="mode-btn active" id="btnDo" onclick="setMode('DO IT')">
+        <i class="fa-solid fa-screwdriver-wrench"></i> DO IT (Artisan & Repairs)
+      </button>
+      <button type="button" class="mode-btn" id="btnMove" onclick="setMode('MOVE IT')">
+        <i class="fa-solid fa-truck-fast"></i> MOVE IT (Errands & Logistics)
+      </button>
+    </div>
+
+    <form id="bookForm" onsubmit="proceedToCheckout(event)">
+      <div class="form-group">
+        <label>Service Category</label>
+        <select id="selCategory" onchange="updatePriceEstimate()" required>
+          <option value="Plumbing & Leak Repair" data-labor="8500" data-callout="2500" selected>Plumbing & Leak Repair (Est. ₦8,500 + ₦2,500 callout)</option>
+          <option value="Electrical & Inverter Maintenance" data-labor="10000" data-callout="2500">Electrical & Inverter Maintenance (Est. ₦10,000 + ₦2,500 callout)</option>
+          <option value="AC Servicing & Gas Refill" data-labor="12000" data-callout="2500">AC Servicing & Gas Refill (Est. ₦12,000 + ₦2,500 callout)</option>
+          <option value="Home & Office Deep Cleaning" data-labor="7500" data-callout="2000">Home & Office Deep Cleaning (Est. ₦7,500 + ₦2,000 callout)</option>
+          <option value="Carpentry & Furniture Assembly" data-labor="9000" data-callout="2500">Carpentry & Furniture Assembly (Est. ₦9,000 + ₦2,500 callout)</option>
+          <option value="Generator Servicing & Diagnostics" data-labor="8000" data-callout="2500">Generator Servicing & Diagnostics (Est. ₦8,000 + ₦2,500 callout)</option>
+          <option value="Express Logistics & Market Errands" data-labor="3500" data-callout="1000">Express Logistics & Market Errands (Est. ₦3,500 + ₦1,000 callout)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Nearest Uyo Landmark (For Accurate Dispatch)</label>
+        <select id="selLandmark" required>
+          <option value="Shelter Afrique Estate" selected>Shelter Afrique Estate (Gate 1 or 2)</option>
+          <option value="Ewet Housing Estate">Ewet Housing Estate</option>
+          <option value="Osongama Estate">Osongama Estate</option>
+          <option value="Ikot Ekpene Road Corridor">Ikot Ekpene Road Corridor</option>
+          <option value="Oron Road / 4-Lane Junction">Oron Road / 4-Lane Junction</option>
+          <option value="Aka Road / Stadium">Aka Road / Stadium Area</option>
+          <option value="Uniuyo Permanent Site">Uniuyo Permanent Site</option>
+          <option value="Ibom Plaza / City Center">Ibom Plaza / City Center</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Detailed Address & Compound Description</label>
+        <input type="text" id="txtAddress" placeholder="e.g. Plot 14, Unit C, Black Gate with razor wire" value="Plot 14, Unit C, Shelter Afrique Estate, Uyo" required>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div class="form-group">
+          <label>Appointment Date</label>
+          <input type="date" id="txtDate" required>
+        </div>
+        <div class="form-group">
+          <label>Preferred Time Slot</label>
+          <select id="selTime">
+            <option>Immediate / ASAP (Within 30 mins)</option>
+            <option>Morning (08:00 AM - 11:00 AM)</option>
+            <option>Afternoon (12:00 PM - 03:00 PM)</option>
+            <option>Evening (04:00 PM - 07:00 PM)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Task Details & Instructions for Provider</label>
+        <textarea id="txtNotes" rows="3" placeholder="Describe the fault or errand instructions clearly... (e.g. kitchen sink pipe is leaking onto floor)">Kitchen sink pipe is leaking water under the cabinet. Requires washer replacement or new flexible pipe.</textarea>
+      </div>
+
+      <button type="submit" style="display:none;" id="hiddenSubmit"></button>
+    </form>
+  </div>
+
+  <div class="summary-card">
+    <h3><i class="fa-solid fa-shield-halved"></i> SwiftShield™ Summary</h3>
+    <div class="summary-line">
+      <span>Service Mode:</span>
+      <strong id="sumMode">DO IT</strong>
+    </div>
+    <div class="summary-line">
+      <span>Category:</span>
+      <strong id="sumCat">Plumbing & Leak Repair</strong>
+    </div>
+    <div class="summary-line">
+      <span>Diagnostic / Call-Out Fee:</span>
+      <strong id="sumCallout">₦2,500</strong>
+    </div>
+    <div class="summary-line">
+      <span>Estimated Labor (In Escrow):</span>
+      <strong id="sumLabor">₦8,500</strong>
+    </div>
+
+    <div class="guarantee-box">
+      <p><i class="fa-solid fa-check"></i> <strong>Call-Out Protection:</strong> Deducted from final labor bill upon repair completion.</p>
+      <p style="margin-top:6px;"><i class="fa-solid fa-check"></i> <strong>PIN Security:</strong> Funds held in escrow until you verify the work with your 4-digit PIN.</p>
+    </div>
+
+    <div class="total-box">
+      <div>
+        <h4>Total Escrow Deposit</h4>
+        <small style="opacity:.8;">Secured by SwiftShield™</small>
+      </div>
+      <div class="price" id="sumTotal">₦11,000</div>
+    </div>
+
+    <button type="button" class="btn-proceed" onclick="document.getElementById('hiddenSubmit').click();" style="margin-top:25px;">
+      Proceed to Secure Payment <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+let currentMode = "DO IT";
+let currentLabor = 8500;
+let currentCallout = 2500;
+
+document.getElementById('txtDate').valueAsDate = new Date();
+
+// Check URL params
+const params = new URLSearchParams(window.location.search);
+if (params.get('mode')) setMode(params.get('mode'));
+if (params.get('category')) {
+  const cat = params.get('category').toLowerCase();
+  const sel = document.getElementById('selCategory');
+  for (let i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].value.toLowerCase().includes(cat)) {
+      sel.selectedIndex = i;
+      break;
+    }
+  }
+}
+updatePriceEstimate();
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('btnDo').classList.toggle('active', mode === 'DO IT');
+  document.getElementById('btnMove').classList.toggle('active', mode === 'MOVE IT');
+  document.getElementById('sumMode').innerText = mode;
+}
+
+function updatePriceEstimate() {
+  const sel = document.getElementById('selCategory');
+  const opt = sel.options[sel.selectedIndex];
+  currentLabor = parseInt(opt.dataset.labor || "8000", 10);
+  currentCallout = parseInt(opt.dataset.callout || "2500", 10);
+  const total = currentLabor + currentCallout;
+
+  document.getElementById('sumCat').innerText = opt.value.split('(')[0].trim();
+  document.getElementById('sumCallout').innerText = "₦" + currentCallout.toLocaleString();
+  document.getElementById('sumLabor').innerText = "₦" + currentLabor.toLocaleString();
+  document.getElementById('sumTotal').innerText = "₦" + total.toLocaleString();
+}
+
+function proceedToCheckout(e) {
+  e.preventDefault();
+  const selCat = document.getElementById('selCategory').value.split('(')[0].trim();
+  const landmark = document.getElementById('selLandmark').value;
+  const address = document.getElementById('txtAddress').value;
+  const date = document.getElementById('txtDate').value;
+  const time = document.getElementById('selTime').value;
+  const notes = document.getElementById('txtNotes').value;
+
+  const bookingDraft = {
+    service: selCat,
+    serviceMode: currentMode,
+    landmark: landmark,
+    address: address,
+    date: date,
+    time: time,
+    notes: notes,
+    calloutFee: currentCallout,
+    laborFee: currentLabor,
+    totalAmount: currentCallout + currentLabor
+  };
+
+  sessionStorage.setItem('swifterrand_booking_draft', JSON.stringify(bookingDraft));
+  showToast("Booking details saved! Redirecting to payment...", "success");
+
+  setTimeout(() => {
+    window.location.href = `payment.html?amount=${bookingDraft.totalAmount}&service=${encodeURIComponent(selCat)}`;
+  }, 400);
+}
+</script>
+</body>
+</html>

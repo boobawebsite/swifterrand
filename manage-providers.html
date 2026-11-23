@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Providers | SwiftErrand</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Manrope,sans-serif;}
+body{background:#f5f7fb;padding:30px 40px;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;flex-wrap:wrap;gap:15px;}
+.header h1{font-size:32px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;background:#fff;border:1px solid #ddd;color:#0f172a;text-decoration:none;font-weight:700;}
+.search{padding:14px 20px;width:320px;border-radius:12px;border:2px solid #ddd;font-size:15px;outline:none;}
+.search:focus{border-color:#16a34a;}
+table{width:100%;background:white;border-collapse:collapse;border-radius:20px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.05);}
+th,td{padding:18px;text-align:left;border-bottom:1px solid #eee;font-size:14px;}
+th{background:#f8fafc;color:#64748b;}
+img{width:50px;height:50px;border-radius:50%;object-fit:cover;}
+.status{padding:6px 14px;border-radius:30px;font-weight:700;font-size:12px;}
+.pending{background:#fef3c7;color:#92400e;}
+.approved{background:#dcfce7;color:#166534;}
+.rejected{background:#fee2e2;color:#dc2626;}
+button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;margin-right:6px;font-weight:700;font-size:13px;transition:.2s;}
+.approve{background:#16a34a;color:white;}
+.reject{background:#ef4444;color:white;}
+.view{background:#2563eb;color:white;}
+button:hover{opacity:.9;transform:translateY(-1px);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <a href="admin-dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Admin Console</a>
+    <h1>Manage Artisans & Providers</h1>
+  </div>
+  <input class="search" id="searchBox" placeholder="Search provider by name or skill..." oninput="filterProviders()">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th>Name</th>
+      <th>Service Category</th>
+      <th>Phone Number</th>
+      <th>Trust Rating</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="providerRows">
+    <!-- Populated by JavaScript -->
+  </tbody>
+</table>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+function renderProviders(query = "") {
+  const provs = SwiftErrand.getProviders();
+  const tbody = document.getElementById('providerRows');
+  tbody.innerHTML = '';
+
+  const filtered = provs.filter(p => 
+    p.name.toLowerCase().includes(query.toLowerCase()) || 
+    p.skill.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:30px;color:#64748b;">No providers matching "${query}"</td></tr>`;
+    return;
+  }
+
+  filtered.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><img src="${p.avatar || 'assets/images/provider1.jpg'}" alt="Provider"></td>
+      <td><strong>${p.name}</strong></td>
+      <td>${p.skill}</td>
+      <td>${p.phone}</td>
+      <td><strong style="color:#16a34a;">${p.rating} ★</strong> (${p.jobs} jobs)</td>
+      <td><span class="status ${p.status === 'Approved' ? 'approved' : (p.status === 'Rejected' ? 'rejected' : 'pending')}">${p.status}</span></td>
+      <td>
+        <button class="approve" onclick="updateStatus('${p.id}', 'Approved')">Approve</button>
+        <button class="reject" onclick="updateStatus('${p.id}', 'Rejected')">Reject</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateStatus(id, st) {
+  SwiftErrand.updateProviderStatus(id, st);
+  renderProviders(document.getElementById('searchBox').value);
+}
+
+function filterProviders() {
+  const q = document.getElementById('searchBox').value.trim();
+  renderProviders(q);
+}
+
+renderProviders();
+</script>
+</body>
+</html>

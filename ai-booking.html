@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | SwiftMatch™ AI Task Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+body{background:#f8fafc;color:#0f172a;}
+nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
+.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:600;}
+.container{max-width:900px;margin:40px auto 80px;padding:0 20px;}
+.hero-ai{text-align:center;margin-bottom:30px;}
+.hero-ai h1{font-size:36px;margin-bottom:10px;background:linear-gradient(135deg,#00A651,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-ai p{color:#64748b;font-size:16px;}
+.card{background:#fff;border-radius:24px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.04);border:1px solid #f1f5f9;margin-bottom:25px;}
+.prompt-box{display:flex;gap:12px;margin-bottom:20px;}
+.prompt-box input{flex:1;padding:16px 20px;border:2px solid #e2e8f0;border-radius:16px;font-size:16px;outline:none;transition:.2s;}
+.prompt-box input:focus{border-color:#00A651;}
+.btn-analyze{padding:16px 28px;background:#00A651;color:#fff;border:none;border-radius:16px;font-weight:800;font-size:16px;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.samples{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px;}
+.sample-pill{padding:8px 14px;background:#f1f5f9;border-radius:20px;font-size:13px;font-weight:600;color:#475569;cursor:pointer;border:1px solid #e2e8f0;transition:.2s;}
+.sample-pill:hover{background:#f0fdf4;color:#00A651;border-color:#00A651;}
+.result-box{background:#f8fafc;border:2px solid #bbf7d0;border-radius:20px;padding:25px;display:none;}
+.match-card{display:flex;align-items:center;gap:18px;background:#fff;padding:20px;border-radius:16px;border:1px solid #e2e8f0;margin:20px 0;}
+.match-card img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #00A651;}
+.btn-proceed{width:100%;padding:16px;background:#00A651;color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+    <span>SwiftErrand SwiftMatch™</span>
+  </a>
+  <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+</nav>
+
+<div class="container">
+  <div class="hero-ai">
+    <h1>SwiftMatch™ AI Task Assistant</h1>
+    <p>Describe your problem in everyday English or Nigerian Pidgin. We will diagnose the task, calculate fair estimates, and match top verified artisans in Uyo.</p>
+  </div>
+
+  <div class="card">
+    <div class="prompt-box">
+      <input type="text" id="aiInput" placeholder="e.g. My kitchen sink is leaking water onto the floor in Shelter Afrique..." onkeypress="if(event.key==='Enter')analyzeTask()">
+      <button type="button" class="btn-analyze" onclick="analyzeTask()"><i class="fa-solid fa-bolt"></i> Diagnose</button>
+    </div>
+
+    <div class="samples">
+      <span style="font-size:12px;font-weight:700;color:#94a3b8;align-self:center;">Try clicking:</span>
+      <span class="sample-pill" onclick="setSample('My kitchen sink is leaking heavily in Shelter Afrique Gate 2')">💧 Leaking Kitchen Sink (Shelter Afrique)</span>
+      <span class="sample-pill" onclick="setSample('Split AC in master bedroom blowing warm air in Ewet Housing')">❄️ AC Blowing Hot Air (Ewet Housing)</span>
+      <span class="sample-pill" onclick="setSample('Need full deep cleaning of 3 bedroom apartment on Oron Road')">🧹 3-Bedroom Deep Clean (Oron Road)</span>
+      <span class="sample-pill" onclick="setSample('Generator is making loud knocking noise and smoking on Aka Road')">⚡ Generator Knocking (Aka Road)</span>
+    </div>
+
+    <div class="result-box" id="aiResult">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span style="background:#dcfce7;color:#166534;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;">
+          <i class="fa-solid fa-circle-check"></i> DIAGNOSIS COMPLETE
+        </span>
+        <strong id="aiConfidence" style="color:#00A651;font-size:14px;">99% Match Confidence</strong>
+      </div>
+
+      <h3 id="resCategory" style="font-size:22px;margin-bottom:6px;">Plumbing & Piping Repairs</h3>
+      <p id="resDiagnosis" style="color:#475569;font-size:14px;line-height:1.5;">
+        Identified: Under-sink drainage or flexible hose failure. Estimated 45 minutes labor + call-out inspection.
+      </p>
+
+      <div class="match-card">
+        <img src="assets/images/provider1.jpg" id="resProvImg" alt="Provider">
+        <div style="flex:1;">
+          <h4 id="resProvName" style="font-size:18px;">Emeka Okon</h4>
+          <p id="resProvSkill" style="font-size:13px;color:#64748b;">Verified Master Plumber (Akwa Ibom Guild Endorsed)</p>
+          <div style="color:#00A651;font-weight:700;font-size:13px;margin-top:4px;">
+            <i class="fa-solid fa-star" style="color:#eab308;"></i> 4.9 ★ (84 Uyo jobs) • 12 mins ETA
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:20px;font-weight:800;color:#00A651;" id="resPrice">₦11,000</div>
+          <small style="color:#64748b;">(Includes ₦2,500 callout)</small>
+        </div>
+      </div>
+
+      <button type="button" class="btn-proceed" onclick="proceedFromAI()">
+        Confirm & Book This Provider Now <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+let lastExtractedCategory = "Plumbing";
+
+function setSample(txt) {
+  document.getElementById('aiInput').value = txt;
+  analyzeTask();
+}
+
+function analyzeTask() {
+  const query = document.getElementById('aiInput').value.trim().toLowerCase();
+  if (!query) return;
+
+  showToast("SwiftMatch™ AI analyzing task semantics...", "info");
+  
+  setTimeout(() => {
+    const resBox = document.getElementById('aiResult');
+    resBox.style.display = 'block';
+
+    if (query.includes('ac') || query.includes('cool') || query.includes('air')) {
+      lastExtractedCategory = "AC Servicing & Gas Refill";
+      document.getElementById('resCategory').innerText = "AC Servicing & Gas Refill";
+      document.getElementById('resDiagnosis').innerText = "Potential refrigerant gas depletion or compressor capacitor fault. Requires gauge inspection.";
+      document.getElementById('resProvName').innerText = "Aniefiok Effiong";
+      document.getElementById('resProvSkill').innerText = "Refrigeration Specialist • Ewet Housing Hub";
+      document.getElementById('resProvImg').src = "assets/images/provider4.jpg";
+      document.getElementById('resPrice').innerText = "₦14,500";
+    } else if (query.includes('clean')) {
+      lastExtractedCategory = "Home & Office Deep Cleaning";
+      document.getElementById('resCategory').innerText = "Home & Office Deep Cleaning";
+      document.getElementById('resDiagnosis').innerText = "Standard 3-bedroom residential deep sanitization and floor scrubbing.";
+      document.getElementById('resProvName').innerText = "Blessing Udoh";
+      document.getElementById('resProvSkill').innerText = "Cleaning Supervisor • Osongama Zone";
+      document.getElementById('resProvImg').src = "assets/images/provider3.jpg";
+      document.getElementById('resPrice').innerText = "₦9,500";
+    } else if (query.includes('generator') || query.includes('smoke')) {
+      lastExtractedCategory = "Generator Servicing & Diagnostics";
+      document.getElementById('resCategory').innerText = "Generator Servicing & Diagnostics";
+      document.getElementById('resDiagnosis').innerText = "Engine valve clearance or piston ring wear. Urgent diagnostic needed.";
+      document.getElementById('resProvName').innerText = "Jeremiah Bassey";
+      document.getElementById('resProvSkill').innerText = "Heavy Plant & Generator Technician • Aka Road";
+      document.getElementById('resProvImg').src = "assets/images/provider2.jpg";
+      document.getElementById('resPrice').innerText = "₦10,500";
+    } else {
+      lastExtractedCategory = "Plumbing & Leak Repair";
+      document.getElementById('resCategory').innerText = "Plumbing & Leak Repair";
+      document.getElementById('resDiagnosis').innerText = "Identified: Under-sink drainage or flexible hose failure. Estimated 45 minutes labor + call-out inspection.";
+      document.getElementById('resProvName').innerText = "Emeka Okon";
+      document.getElementById('resProvSkill').innerText = "Verified Master Plumber (Akwa Ibom Guild Endorsed)";
+      document.getElementById('resProvImg').src = "assets/images/provider1.jpg";
+      document.getElementById('resPrice').innerText = "₦11,000";
+    }
+
+    showToast("Match Found! 1 top verified provider ready in Uyo.", "success");
+    resBox.scrollIntoView({ behavior: 'smooth' });
+  }, 700);
+}
+
+function proceedFromAI() {
+  window.location.href = `booking.html?category=${encodeURIComponent(lastExtractedCategory)}`;
+}
+</script>
+</body>
+</html>

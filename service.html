@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Services | SwiftErrand</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Manrope',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#F8FAFC;
+color:#111827;
+overflow-x:hidden;
+}
+
+/*=========================
+NAVBAR
+=========================*/
+
+.navbar{
+
+position:fixed;
+top:18px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:1350px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:16px 35px;
+
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(18px);
+
+border-radius:18px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+z-index:9999;
+
+transition:.3s;
+
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+text-decoration:none;
+
+font-size:28px;
+
+font-weight:800;
+
+color:#16A34A;
+
+}
+
+.logo img{
+
+width:45px;
+
+}
+
+.nav-links{
+
+display:flex;
+gap:35px;
+
+list-style:none;
+
+}
+
+.nav-links a{
+
+text-decoration:none;
+
+color:#334155;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.nav-links a:hover,
+.nav-links .active{
+
+color:#16A34A;
+
+}
+
+.nav-buttons{
+
+display:flex;
+gap:15px;
+
+}
+
+.login{
+
+text-decoration:none;
+
+color:#111827;
+
+padding:13px 22px;
+
+font-weight:700;
+
+}
+
+.signup{
+
+background:#16A34A;
+
+color:white;
+
+padding:14px 28px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.signup:hover{
+
+transform:translateY(-4px);
+
+}
+
+.menu{
+
+display:none;
+
+font-size:30px;
+
+cursor:pointer;
+
+}
+
+/*=========================
+HERO
+=========================*/
+
+.hero{
+
+min-height:85vh;
+
+background:
+
+linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+
+url("assets/images/services-bg.jpg");
+
+background-size:cover;
+
+background-position:center;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:150px 8% 100px;
+
+text-align:center;
+
+}
+
+.hero-content{
+
+max-width:900px;
+
+color:white;
+
+}
+
+.hero h1{
+
+font-size:68px;
+
+margin-bottom:20px;
+
+font-weight:800;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+line-height:1.8;
+
+margin-bottom:45px;
+
+opacity:.95;
+
+}
+
+.search-box{
+
+background:white;
+
+padding:20px;
+
+border-radius:22px;
+
+display:grid;
+
+grid-template-columns:2fr 1fr 1fr auto;
+
+gap:15px;
+
+box-shadow:0 25px 60px rgba(0,0,0,.15);
+
+}
+
+.search-box input,
+.search-box select{
+
+padding:18px;
+
+border:1px solid #E2E8F0;
+
+border-radius:12px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+.search-btn{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:18px 28px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:700;
+
+text-decoration:none;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+.search-btn:hover{
+
+background:#15803D;
+
+}
+
+/*=========================
+SECTION TITLE
+=========================*/
+
+.section-title{
+
+text-align:center;
+
+margin-bottom:60px;
+
+}
+
+.section-title span{
+
+color:#16A34A;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+}
+
+.section-title h2{
+
+font-size:48px;
+
+margin:15px 0;
+
+}
+
+.section-title p{
+
+color:#64748B;
+
+font-size:18px;
+
+}
+
+/*=========================
+RESPONSIVE
+=========================*/
+
+@media(max-width:1000px){
+
+.nav-links,
+.nav-buttons{
+
+display:none;
+
+}
+
+.menu{
+
+display:block;
+
+}
+
+.hero h1{
+
+font-size:45px;
+
+}
+
+.search-box{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+/*=========================
+SERVICES GRID
+=========================*/
+
+.services-section{
+
+padding:100px 8%;
+
+}
+
+.services-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:35px;
+
+margin-top:60px;
+
+}
+
+.service-card{
+
+background:white;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+transition:.35s;
+
+}
+
+.service-card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 25px 60px rgba(22,163,74,.18);
+
+}
+
+.service-card img{
+
+width:100%;
+
+height:230px;
+
+object-fit:cover;
+
+transition:.4s;
+
+}
+
+.service-card:hover img{
+
+transform:scale(1.08);
+
+}
+
+.service-content{
+
+padding:25px;
+
+}
+
+.service-content h3{
+
+font-size:25px;
+
+margin-bottom:10px;
+
+}
+
+.service-content p{
+
+color:#64748B;
+
+line-height:1.7;
+
+margin-bottom:20px;
+
+}
+
+.service-meta{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:20px;
+
+font-weight:700;
+
+color:#16A34A;
+
+}
+
+.service-bottom{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.service-bottom h4{
+
+font-size:28px;
+
+color:#16A34A;
+
+}
+
+.service-bottom a{
+
+background:#16A34A;
+
+padding:13px 24px;
+
+border-radius:12px;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.service-bottom a:hover{
+
+background:#15803D;
+
+}
+
+/*=========================
+WHY CHOOSE
+=========================*/
+
+.why-services{
+
+padding:100px 8%;
+
+background:#F8FAFC;
+
+}
+
+.why-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:30px;
+
+margin-top:60px;
+
+}
+
+.why-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+transition:.3s;
+
+}
+
+.why-card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.icon{
+
+font-size:50px;
+
+margin-bottom:20px;
+
+}
+
+.why-card h3{
+
+margin-bottom:15px;
+
+}
+
+/*=========================
+CTA
+=========================*/
+
+.cta{
+
+padding:110px 8%;
+
+text-align:center;
+
+background:linear-gradient(135deg,#16A34A,#15803D);
+
+color:white;
+
+}
+
+.cta h2{
+
+font-size:50px;
+
+margin-bottom:20px;
+
+}
+
+.cta p{
+
+font-size:20px;
+
+margin-bottom:35px;
+
+}
+
+.cta a{
+
+display:inline-block;
+
+padding:18px 35px;
+
+background:white;
+
+color:#16A34A;
+
+text-decoration:none;
+
+border-radius:12px;
+
+font-weight:700;
+
+}
+
+/*=========================
+FOOTER
+=========================*/
+
+footer{
+
+background:#0F172A;
+
+color:white;
+
+padding:80px 8% 30px;
+
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:2fr 1fr 1fr 1fr;
+
+gap:40px;
+
+}
+
+.footer-grid a{
+
+display:block;
+
+margin:12px 0;
+
+text-decoration:none;
+
+color:#CBD5E1;
+
+}
+
+.footer-grid a:hover{
+
+color:#16A34A;
+
+}
+
+footer hr{
+
+margin:40px 0;
+
+border:none;
+
+height:1px;
+
+background:#334155;
+
+}
+
+.footer-bottom{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.footer-bottom a{
+
+color:white;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
+@media(max-width:900px){
+
+.footer-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.footer-bottom{
+
+flex-direction:column;
+
+gap:20px;
+
+text-align:center;
+
+}
+
+.cta h2{
+
+font-size:36px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+<a href="index.html" class="logo">
+
+<img src="assets/images/logo.png">
+
+SwiftErrand
+
+</a>
+
+<ul class="nav-links">
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="services.html" class="active">Services</a></li>
+
+<li><a href="ai-booking.html">AI Booking</a></li>
+
+<li><a href="become-provider.html">Providers</a></li>
+
+<li><a href="about.html">About</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+<div class="nav-buttons">
+
+<a href="login.html" class="login">Login</a>
+
+<a href="register.html" class="signup">Get Started</a>
+
+</div>
+
+<div class="menu">
+
+☰
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>
+
+Find Trusted Professionals
+
+</h1>
+
+<p>
+
+Book verified cleaners, electricians, plumbers, dispatch riders, laundry experts, painters and more across Nigeria.
+
+</p>
+
+<div class="search-box">
+
+<input type="text" placeholder="Search for a service...">
+
+<select>
+
+<option>Category</option>
+
+<option>Cleaning</option>
+
+<option>Electrical</option>
+
+<option>Plumbing</option>
+
+<option>Laundry</option>
+
+<option>Dispatch</option>
+
+<option>Car Wash</option>
+
+<option>Painting</option>
+
+<option>Carpentry</option>
+
+</select>
+
+<select>
+
+<option>Location</option>
+
+<option>Lagos</option>
+
+<option>Abuja</option>
+
+<option>Port Harcourt</option>
+
+<option>Uyo</option>
+
+<option>Calabar</option>
+
+</select>
+
+<a href="booking.html" class="search-btn">
+
+Search
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PART 2 STARTS HERE -->
+
+<!-- ===========================
+POPULAR SERVICES
+=========================== -->
+
+<section class="services-section">
+
+<div class="section-title">
+
+<span>POPULAR SERVICES</span>
+
+<h2>Explore Our Most Requested Services</h2>
+
+<p>Trusted professionals ready to serve you.</p>
+
+</div>
+
+<div class="services-grid">
+
+<!-- Cleaning -->
+
+<div class="service-card">
+
+<img src="assets/images/cleaning.jpg" alt="Cleaning">
+
+<div class="service-content">
+
+<h3>Home Cleaning</h3>
+
+<p>Professional home and office cleaning.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.9</span>
+
+<span>⏱ 12 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦6,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Electrician -->
+
+<div class="service-card">
+
+<img src="assets/images/electrician.jpg">
+
+<div class="service-content">
+
+<h3>Electrician</h3>
+
+<p>Electrical repairs and installations.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.8</span>
+
+<span>⏱ 15 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦8,500</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Plumbing -->
+
+<div class="service-card">
+
+<img src="assets/images/plumber.jpg">
+
+<div class="service-content">
+
+<h3>Plumbing</h3>
+
+<p>Leak repairs and pipe installations.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.9</span>
+
+<span>⏱ 14 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦7,500</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Laundry -->
+
+<div class="service-card">
+
+<img src="assets/images/laundry.jpg">
+
+<div class="service-content">
+
+<h3>Laundry</h3>
+
+<p>Pickup, washing and doorstep delivery.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.9</span>
+
+<span>⏱ 20 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦3,500</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Dispatch -->
+
+<div class="service-card">
+
+<img src="assets/images/dispatch.jpg">
+
+<div class="service-content">
+
+<h3>Dispatch Rider</h3>
+
+<p>Fast delivery within your city.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.8</span>
+
+<span>⏱ 8 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦2,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- AC Repair -->
+
+<div class="service-card">
+
+<img src="assets/images/ac.jpg">
+
+<div class="service-content">
+
+<h3>AC Repair</h3>
+
+<p>Installation and servicing.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.8</span>
+
+<span>⏱ 18 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦9,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Car Wash -->
+
+<div class="service-card">
+
+<img src="assets/images/carwash.jpg">
+
+<div class="service-content">
+
+<h3>Car Wash</h3>
+
+<p>Professional mobile car wash.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.9</span>
+
+<span>⏱ 22 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦5,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Painting -->
+
+<div class="service-card">
+
+<img src="assets/images/painting.jpg">
+
+<div class="service-content">
+
+<h3>Painting</h3>
+
+<p>Interior and exterior painting.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.7</span>
+
+<span>⏱ 30 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦15,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Carpentry -->
+
+<div class="service-card">
+
+<img src="assets/images/carpentry.jpg">
+
+<div class="service-content">
+
+<h3>Carpentry</h3>
+
+<p>Furniture repairs and custom woodwork.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.8</span>
+
+<span>⏱ 28 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦12,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Generator -->
+
+<div class="service-card">
+
+<img src="assets/images/generator.jpg">
+
+<div class="service-content">
+
+<h3>Generator Repair</h3>
+
+<p>Repair and maintenance services.</p>
+
+<div class="service-meta">
+
+<span>⭐ 4.9</span>
+
+<span>⏱ 25 mins</span>
+
+</div>
+
+<div class="service-bottom">
+
+<h4>₦10,000</h4>
+
+<a href="booking.html">Book Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===========================
+WHY CHOOSE US
+=========================== -->
+
+<section class="why-services">
+
+<div class="section-title">
+
+<span>WHY CHOOSE US</span>
+
+<h2>Why Thousands Trust SwiftErrand</h2>
+
+<p>Fast, secure and reliable services across Nigeria.</p>
+
+</div>
+
+<div class="why-grid">
+
+<div class="why-card">
+
+<div class="icon">🛡️</div>
+
+<h3>Verified Professionals</h3>
+
+<p>Every provider is screened and verified before joining SwiftErrand.</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">⚡</div>
+
+<h3>Fast Response</h3>
+
+<p>Most bookings are accepted within minutes.</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">📍</div>
+
+<h3>Live Tracking</h3>
+
+<p>Track your provider from acceptance to arrival.</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="icon">💳</div>
+
+<h3>Secure Payments</h3>
+
+<p>Safe online payments with instant receipts.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+
+<h2>Can't Find The Service You Need?</h2>
+
+<p>Request a custom service and we'll connect you with the right professional.</p>
+
+<a href="booking.html">Request Service</a>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h2>SwiftErrand</h2>
+
+<p>
+
+Nigeria's trusted platform for booking verified service providers.
+
+</p>
+
+</div>
+
+<div>
+
+<h3>Company</h3>
+
+<a href="about.html">About</a>
+
+<a href="#">Careers</a>
+
+<a href="#">Blog</a>
+
+<a href="contact.html">Contact</a>
+
+</div>
+
+<div>
+
+<h3>Services</h3>
+
+<a href="#">Cleaning</a>
+
+<a href="#">Electrical</a>
+
+<a href="#">Plumbing</a>
+
+<a href="#">Laundry</a>
+
+</div>
+
+<div>
+
+<h3>Support</h3>
+
+<a href="#">Help Center</a>
+
+<a href="#">Terms</a>
+
+<a href="#">Privacy Policy</a>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="footer-bottom">
+
+<p>© 2026 SwiftErrand. All Rights Reserved.</p>
+
+<a href="#" id="topBtn">
+
+Back to Top ↑
+
+</a>
+
+</div>
+
+</footer>
+
+<script>
+
+window.addEventListener("scroll",()=>{
+
+const nav=document.querySelector(".navbar");
+
+if(window.scrollY>60){
+
+nav.style.background="#fff";
+
+nav.style.boxShadow="0 10px 30px rgba(0,0,0,.08)";
+
+}else{
+
+nav.style.background="rgba(255,255,255,.85)";
+
+nav.style.boxShadow="0 15px 35px rgba(0,0,0,.08)";
+
+}
+
+});
+
+document.getElementById("topBtn").onclick=function(e){
+
+e.preventDefault();
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
+
+
+
+</body>
+</html>

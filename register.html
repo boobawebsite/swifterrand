@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | Register</title>
+<script>window.location.replace("login.html#signup");</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+body{background:linear-gradient(135deg,#00A651,#007A3D);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:25px;}
+.container{width:1100px;max-width:100%;background:#fff;border-radius:30px;overflow:hidden;display:grid;grid-template-columns:1fr 1.1fr;box-shadow:0 30px 80px rgba(0,0,0,.25);}
+.left{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;}
+.logo{display:flex;align-items:center;gap:15px;margin-bottom:35px;text-decoration:none;color:#fff;}
+.logo-icon{width:50px;height:50px;background:#fff;color:#00A651;border-radius:15px;display:flex;justify-content:center;align-items:center;font-size:24px;font-weight:800;}
+.left h1{font-size:42px;line-height:1.2;margin-bottom:20px;}
+.left p{font-size:16px;line-height:1.7;opacity:.95;}
+.features{margin-top:35px;}
+.features p{margin-bottom:12px;font-size:15px;display:flex;align-items:center;gap:10px;}
+.right{padding:50px 45px;display:flex;flex-direction:column;justify-content:center;}
+.form h2{font-size:32px;margin-bottom:6px;color:#0f172a;}
+.form small{color:#64748b;font-size:15px;}
+.role-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
+.role-btn{padding:12px;border:2px solid #e2e8f0;background:#fff;border-radius:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;color:#64748b;transition:.2s;}
+.role-btn.active{border-color:#00A651;background:#f0fdf4;color:#00A651;}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.input{margin-top:14px;position:relative;}
+.input i{position:absolute;left:16px;top:18px;color:#00A651;}
+.input input,.input select{width:100%;height:52px;padding-left:46px;padding-right:16px;border:2px solid #e2e8f0;border-radius:12px;font-size:14px;outline:none;transition:.3s;background:#fff;}
+.input input:focus,.input select:focus{border-color:#00A651;}
+button.submit-btn{width:100%;height:54px;border:none;background:#00A651;color:#fff;font-size:16px;font-weight:700;border-radius:14px;cursor:pointer;transition:.3s;margin-top:22px;}
+button.submit-btn:hover{background:#007A3D;transform:translateY(-2px);}
+.register{text-align:center;margin-top:20px;font-size:14px;color:#64748b;}
+.register a{text-decoration:none;font-weight:700;color:#00A651;}
+@media(max-width:900px){.container{grid-template-columns:1fr;}.left{display:none;}.right{padding:35px 20px;}.input-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div>
+        <h2 style="font-size:24px;">SwiftErrand</h2>
+        <p style="font-size:13px;opacity:.8;">Trusted Help. Delivered Fast.</p>
+      </div>
+    </a>
+    <h1>Join Nigeria's Most Trusted Marketplace.</h1>
+    <p>Whether you need reliable help for home repairs and everyday errands, or you are a skilled technician looking to grow your business in Uyo, SwiftErrand provides guaranteed accountability.</p>
+    <div class="features">
+      <p><i class="fa-solid fa-shield-halved"></i> SwiftShield™ Labor & Material Protection</p>
+      <p><i class="fa-solid fa-location-dot"></i> Landmark & Gate Pass Direct Routing</p>
+      <p><i class="fa-solid fa-clock"></i> Rapid Dispatch under 15 Minutes</p>
+      <p><i class="fa-solid fa-star"></i> Transparent 5-Star Reputation System</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="form">
+      <h2>Create Account</h2>
+      <small>Select your account type to get started</small>
+
+      <div class="role-toggle">
+        <button type="button" class="role-btn active" id="btnCust" onclick="setRole('customer')">
+          <i class="fa-solid fa-user"></i> I Need Services
+        </button>
+        <button type="button" class="role-btn" id="btnProv" onclick="setRole('provider')">
+          <i class="fa-solid fa-screwdriver-wrench"></i> I Am a Professional
+        </button>
+      </div>
+
+      <form id="regForm" onsubmit="handleRegister(event)">
+        <input type="hidden" id="regRole" value="customer">
+
+        <div class="input">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="regName" placeholder="Full Name (e.g. Victor Edet)" required>
+        </div>
+
+        <div class="input-row">
+          <div class="input">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="regEmail" placeholder="Email Address" required>
+          </div>
+          <div class="input">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" id="regPhone" placeholder="Phone / WhatsApp" required>
+          </div>
+        </div>
+
+        <div class="input">
+          <i class="fa-solid fa-location-dot"></i>
+          <select id="regLandmark" required>
+            <option value="" disabled selected>Select Nearest Uyo Landmark</option>
+            <option>Shelter Afrique Estate</option>
+            <option>Ewet Housing Estate</option>
+            <option>Osongama Estate</option>
+            <option>Ikot Ekpene Road corridor</option>
+            <option>Oron Road / 4-Lane</option>
+            <option>Aka Road / Stadium</option>
+            <option>University of Uyo (Town Campus)</option>
+            <option>University of Uyo (Perm Site)</option>
+            <option>Ibom Plaza Central</option>
+            <option>Itam Market / Transport Hub</option>
+          </select>
+        </div>
+
+        <div class="input" id="skillGroup" style="display:none;">
+          <i class="fa-solid fa-briefcase"></i>
+          <select id="regSkill">
+            <option value="" disabled selected>Select Primary Skill Category</option>
+            <option>Plumbing & Piping Repairs</option>
+            <option>Electrical, Solar & Inverter</option>
+            <option>Home & Office Deep Cleaning</option>
+            <option>AC & Refrigeration Technician</option>
+            <option>Carpentry & Furniture Assembly</option>
+            <option>Wall Painting & Screeding</option>
+            <option>Generator Servicing & Diagnostics</option>
+            <option>Express Errands & Dispatch Rider</option>
+          </select>
+        </div>
+
+        <div class="input">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="regPassword" placeholder="Create Password" required>
+        </div>
+
+        <button type="submit" class="submit-btn" id="regSubmit">Create Account</button>
+      </form>
+
+      <div class="register">
+        Already have an account? <a href="login.html">Sign In</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+function setRole(role) {
+  document.getElementById('regRole').value = role;
+  const btnC = document.getElementById('btnCust');
+  const btnP = document.getElementById('btnProv');
+  const skillGrp = document.getElementById('skillGroup');
+  const submitBtn = document.getElementById('regSubmit');
+
+  if (role === 'customer') {
+    btnC.classList.add('active');
+    btnP.classList.remove('active');
+    skillGrp.style.display = 'none';
+    submitBtn.innerText = 'Create Customer Account';
+  } else {
+    btnP.classList.add('active');
+    btnC.classList.remove('active');
+    skillGrp.style.display = 'block';
+    submitBtn.innerText = 'Register as Verified Provider';
+  }
+}
+
+function handleRegister(e) {
+  e.preventDefault();
+  const role = document.getElementById('regRole').value;
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const landmark = document.getElementById('regLandmark').value;
+  const skill = document.getElementById('regSkill').value || 'Service Professional';
+
+  const newUser = {
+    id: (role === 'customer' ? 'CUST-' : 'PROV-') + Math.floor(100 + Math.random() * 900),
+    name: name,
+    email: email,
+    phone: phone,
+    role: role,
+    landmark: landmark,
+    skill: skill,
+    avatar: role === 'customer' ? 'assets/images/customer2.jpg' : 'assets/images/provider2.jpg',
+    address: `${landmark}, Uyo, Akwa Ibom State`,
+    isOnline: true
+  };
+
+  SwiftErrand.setUser(newUser);
+  showToast(`Welcome to SwiftErrand, ${name}! Setting up your dashboard...`, 'success');
+
+  setTimeout(() => {
+    if (role === 'provider') {
+      window.location.href = 'provider-dashboard.html';
+    } else {
+      window.location.href = 'dashboard.html';
+    }
+  }, 800);
+}
+</script>
+</body>
+</html>

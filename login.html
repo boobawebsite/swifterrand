@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In or Sign Up - SwiftErrand | SwiftID</title>
+<meta name="description" content="Sign in or create your SwiftID to access verified artisans, live tracking, and SwiftShield™ escrow protection.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+:root {
+  --apple-bg: #FFFFFF;
+  --apple-offwhite: #F5F5F7;
+  --apple-text-primary: #1D1D1F;
+  --apple-text-secondary: #86868B;
+  --apple-text-muted: #A1A1A6;
+  --apple-blue: #0071E3;
+  --apple-blue-hover: #0077ED;
+  --apple-blue-focus: rgba(0, 113, 227, 0.18);
+  --apple-border: #D2D2D7;
+  --apple-border-subtle: rgba(0, 0, 0, 0.08);
+  --apple-segment-bg: #EBEBED;
+  --apple-emerald: #00A651;
+  --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Manrope", "Inter", sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-apple);
+  background-color: var(--apple-bg);
+  color: var(--apple-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--apple-blue);
+  text-decoration: none;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   SPLIT CONTAINER (50% LEFT / 50% RIGHT)
+========================================= */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* =========================================
+   LEFT SIDE: 10s ROTATING CINEMATIC HERO
+========================================= */
+.hero-visual-col {
+  position: relative;
+  background: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+/* Background image slides */
+.visual-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 8s ease-out;
+  pointer-events: none;
+}
+
+.visual-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+/* Apple Vignette & Contrast Overlay */
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Top bar on visual column */
+.visual-header {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.visual-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.visual-brand:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.visual-brand-icon {
+  width: 32px;
+  height: 32px;
+  background: #FFFFFF;
+  color: #000000;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.visual-home-btn {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 980px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.visual-home-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* Bottom Caption / Floating Glass Badge */
+.visual-caption-card {
+  position: relative;
+  z-index: 3;
+  background: rgba(18, 18, 20, 0.65);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 24px 28px;
+  color: #FFFFFF;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  max-width: 520px;
+}
+
+.visual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #2997FF;
+  margin-bottom: 8px;
+}
+
+.visual-caption-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.visual-caption-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+/* 10-Second Progress Indicator Bar */
+.visual-timer-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timer-segment {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-segment-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: #FFFFFF;
+  border-radius: 3px;
+}
+
+.timer-segment.active .timer-segment-fill {
+  width: 100%;
+  transition: width 10s linear;
+}
+
+.timer-segment.completed .timer-segment-fill {
+  width: 100%;
+}
+
+/* =========================================
+   RIGHT SIDE: AUTHENTICATION INFORMATION
+========================================= */
+.auth-form-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--apple-bg);
+  padding: 48px 8% 36px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.auth-panel-container {
+  width: 100%;
+  max-width: 440px;
+  margin: auto 0;
+}
+
+/* =========================================
+   MAIN MODE SWITCHER (SIGN IN vs SIGN UP)
+========================================= */
+.auth-mode-segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--apple-segment-bg);
+  padding: 4px;
+  border-radius: 980px;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.auth-mode-btn {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--apple-text-secondary);
+  padding: 10px 16px;
+  border-radius: 980px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.auth-mode-btn:hover {
+  color: var(--apple-text-primary);
+}
+
+.auth-mode-btn.active {
+  background: #FFFFFF;
+  color: var(--apple-text-primary);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Form Sections View Switching */
+.auth-view {
+  display: none;
+  animation: viewFade 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-view.active {
+  display: block;
+}
+
+@keyframes viewFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header within each view */
+.auth-header {
+  margin-bottom: 22px;
+}
+
+.auth-header h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--apple-text-primary);
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.auth-header p {
+  font-size: 14px;
+  color: var(--apple-text-secondary);
+  line-height: 1.45;
+}
+
+/* Demo Role Switcher in Sign-In */
+.demo-role-card {
+  background: var(--apple-offwhite);
+  border: 1px solid var(--apple-border-subtle);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+}
+
+.demo-role-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--apple-text-secondary);
+  margin-bottom: 8px;
+}
+
+.demo-role-header span.badge {
+  background: rgba(0, 113, 227, 0.1);
+  color: var(--apple-blue);
+  padding: 2px 7px;
+  border-radius: 980px;
+  font-size: 10px;
+}
+
+.demo-role-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.demo-pill-btn {
+  border: 1px solid var(--apple-border);
+  background: #FFFFFF;
+  color: var(--apple-text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.demo-pill-btn:hover {
+  background: #FAFAFB;
+  border-color: #A1A1A6;
+}
+
+.demo-pill-btn.active {
+  background: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+}
+
+/* Role Selector in Sign-Up */
+.signup-role-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.signup-role-card {
+  border: 1.5px solid var(--apple-border);
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.signup-role-card:hover {
+  border-color: #86868B;
+}
+
+.signup-role-card.active {
+  border-color: var(--apple-blue);
+  background: rgba(0, 113, 227, 0.04);
+}
+
+.signup-role-card .role-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--apple-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.signup-role-card .role-sub {
+  font-size: 11px;
+  color: var(--apple-text-secondary);
+  line-height: 1.3;
+}
+
+/* Form Inputs */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 48px;
+  padding: 0 40px 0 15px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--apple-text-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--apple-border);
+  border-radius: 11px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-box select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2386868B'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+}
+
+.input-box input::placeholder {
+  color: var(--apple-text-muted);
+}
+
+.input-box input:focus,
+.input-box select:focus {
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 4px var(--apple-blue-focus);
+}
+
+.input-box .field-action {
+  position: absolute;
+  right: 12px;
+  color: var(--apple-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.input-box .field-action:hover {
+  color: var(--apple-text-primary);
+}
+
+/* Options Bar (Remember & Forgot) */
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 2px 0 6px;
+}
+
+.custom-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  color: var(--apple-text-secondary);
+  user-select: none;
+  font-size: 13px;
+}
+
+.custom-checkbox-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--apple-border);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: all 0.15s ease;
+  background: #FFFFFF;
+}
+
+.custom-checkbox-label input[type="checkbox"]:checked {
+  background: var(--apple-blue);
+  border-color: var(--apple-blue);
+}
+
+.custom-checkbox-label input[type="checkbox"]:checked::before {
+  content: "✓";
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Primary Apple Button */
+.btn-apple-primary {
+  width: 100%;
+  height: 48px;
+  background: var(--apple-blue);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 980px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+  margin-top: 4px;
+}
+
+.btn-apple-primary:hover {
+  background: var(--apple-blue-hover);
+  transform: scale(1.008);
+}
+
+.btn-apple-primary:active {
+  transform: scale(0.99);
+}
+
+/* Divider */
+.apple-divider {
+  display: flex;
+  align-items: center;
+  margin: 18px 0;
+  color: var(--apple-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.apple-divider::before,
+.apple-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--apple-border-subtle);
+}
+
+.apple-divider span {
+  padding: 0 12px;
+}
+
+/* Social Buttons */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.btn-social {
+  width: 100%;
+  height: 42px;
+  border-radius: 980px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: all 0.2s ease;
+}
+
+.btn-apple-id {
+  background: #000000;
+  color: #FFFFFF;
+  border: none;
+}
+
+.btn-apple-id:hover {
+  background: #1D1D1F;
+}
+
+.btn-google {
+  background: #FFFFFF;
+  color: var(--apple-text-primary);
+  border: 1px solid var(--apple-border);
+}
+
+.btn-google:hover {
+  background: #FAFAFB;
+  border-color: #A1A1A6;
+}
+
+/* Footer Prompt inside Panel */
+.auth-switch-prompt {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--apple-text-secondary);
+}
+
+.auth-switch-prompt button {
+  background: none;
+  border: none;
+  color: var(--apple-blue);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.auth-switch-prompt button:hover {
+  text-decoration: underline;
+}
+
+/* Privacy Security Badge */
+.auth-privacy-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--apple-border-subtle);
+  font-size: 12px;
+  color: var(--apple-text-secondary);
+  text-align: center;
+}
+
+.auth-privacy-badge i {
+  color: var(--apple-emerald);
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+========================================= */
+@media (max-width: 960px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-visual-col {
+    min-height: 260px;
+    padding: 24px 20px;
+  }
+  .visual-caption-card {
+    display: none; /* Keep clean on small mobile header */
+  }
+  .auth-form-col {
+    padding: 36px 20px 48px;
+  }
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="split-layout">
+
+  <!-- =========================================
+       LEFT SIDE: 10s ROTATING CINEMATIC HERO
+  ========================================= -->
+  <section class="hero-visual-col" aria-label="Verified Artisans Showcase">
+    <!-- Overlay Gradient -->
+    <div class="visual-overlay"></div>
+
+    <!-- Image Slides (Preloaded for Instant Crossfade) -->
+    <img src="assets/images/hero-artisan.jpg" alt="Electrical & Solar Artisan" class="visual-slide" id="slide0">
+    <img src="assets/images/hero-plumber.jpg" alt="Plumbing & Leak Repairs" class="visual-slide" id="slide1">
+    <img src="assets/images/hero-cleaning.jpg" alt="Deep Cleaning & Fumigation" class="visual-slide" id="slide2">
+    <img src="assets/images/hero-carpenter.jpg" alt="Cabinetry & Woodwork" class="visual-slide" id="slide3">
+    <img src="assets/images/hero-ac.jpg" alt="AC & Refrigeration Technician" class="visual-slide" id="slide4">
+    <img src="assets/images/hero-generator.jpg" alt="Generator Overhaul & Maintenance" class="visual-slide" id="slide5">
+    <img src="assets/images/hero-painter.jpg" alt="Wall Painting & Finishing" class="visual-slide" id="slide6">
+    <img src="assets/images/hero-dispatch.jpg" alt="Express Logistics Runner" class="visual-slide" id="slide7">
+    <img src="assets/images/hero-cctv.jpg" alt="CCTV & Security Intercoms" class="visual-slide" id="slide8">
+    <img src="assets/images/hero-mechanic.jpg" alt="Auto Diagnostics & Mechanical" class="visual-slide" id="slide9">
+
+    <!-- Top Navigation Header -->
+    <div class="visual-header">
+      <a href="index.html" class="visual-brand">
+        <div class="visual-brand-icon"><i class="fa-solid fa-bolt"></i></div>
+        <span>SwiftErrand</span>
+      </a>
+      <a href="index.html" class="visual-home-btn">
+        <i class="fa-solid fa-arrow-left" style="font-size:11px; margin-right:4px;"></i> Home
+      </a>
+    </div>
+  </section>
+
+  <!-- =========================================
+       RIGHT SIDE: SIGN IN OR SIGN UP INFORMATIONS
+  ========================================= -->
+  <main class="auth-form-col">
+    <div class="auth-panel-container">
+
+      <!-- =========================================
+           VIEW 1: SIGN IN INFORMATION
+      ========================================= -->
+      <div class="auth-view active" id="viewSignIn">
+        <header class="auth-header">
+          <h1>Sign in to SwiftErrand</h1>
+          <p>Access verified bookings, track artisans live, and manage SwiftShield™ escrow.</p>
+        </header>
+
+        <form class="auth-form" id="signInForm" onsubmit="handleSignInSubmit(event)">
+          <div class="input-box">
+            <input type="email" id="signInEmail" placeholder="Email Address or Phone" required autocomplete="username">
+          </div>
+
+          <div class="input-box">
+            <input type="password" id="signInPassword" placeholder="Password" required autocomplete="current-password">
+            <button type="button" class="field-action" onclick="togglePasswordVisibility('signInPassword', 'signInEyeIcon')" aria-label="Toggle password visibility">
+              <i class="fa-regular fa-eye" id="signInEyeIcon"></i>
+            </button>
+          </div>
+
+          <div class="form-options">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="rememberMe" checked>
+              <span>Keep me signed in</span>
+            </label>
+            <a href="#" class="forgot-link" onclick="handleForgotPassword(event)">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-apple-primary" id="btnSignInSubmit">
+            <span>Sign In</span>
+            <i class="fa-solid fa-arrow-right" style="font-size:12px;"></i>
+          </button>
+        </form>
+
+        <div class="apple-divider"><span>or continue with</span></div>
+
+        <div class="social-buttons">
+          <button type="button" class="btn-social btn-apple-id" onclick="handleSocialAuth('Apple')">
+            <i class="fa-brands fa-apple" style="font-size:16px;"></i> Sign in with Apple
+          </button>
+          <button type="button" class="btn-social btn-google" onclick="handleSocialAuth('Google')">
+            <i class="fa-brands fa-google" style="color:#EA4335;"></i> Sign in with Google
+          </button>
+        </div>
+
+        <div class="auth-switch-prompt">
+          Don't have a SwiftID? <button type="button" onclick="setAuthMode('signup')">Sign up for free &rarr;</button>
+        </div>
+      </div>
+
+      <!-- =========================================
+           VIEW 2: SIGN UP INFORMATION
+      ========================================= -->
+      <div class="auth-view" id="viewSignUp">
+        <header class="auth-header">
+          <h1>Create your SwiftID</h1>
+          <p>Sign up as a User to hire help, or as an Agent to offer your skills and services.</p>
+        </header>
+
+        <!-- Account Type Switcher: User vs Agent -->
+        <div class="signup-role-grid">
+          <div class="signup-role-card active" id="roleCardCust" onclick="setSignUpRole('user')">
+            <div class="role-title">
+              <i class="fa-solid fa-user"></i> User
+            </div>
+            <div class="role-sub">Hire verified artisans & request errands</div>
+          </div>
+          <div class="signup-role-card" id="roleCardProv" onclick="setSignUpRole('agent')">
+            <div class="role-title">
+              <i class="fa-solid fa-id-badge"></i> Agent
+            </div>
+            <div class="role-sub">Offer your skills, take jobs & earn income</div>
+          </div>
+        </div>
+
+        <form class="auth-form" id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+          <input type="hidden" id="signUpRoleInput" value="user">
+
+          <div class="input-box">
+            <input type="text" id="signUpName" placeholder="Full Legal Name" required autocomplete="name">
+          </div>
+
+          <div class="input-row">
+            <div class="input-box">
+              <input type="email" id="signUpEmail" placeholder="Email Address" required autocomplete="email">
+            </div>
+            <div class="input-box">
+              <input type="tel" id="signUpPhone" placeholder="Phone Number" required autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="input-box" id="landmarkGroup">
+            <select id="signUpLandmark" required>
+              <option value="" disabled selected>Nearest Location / Landmark</option>
+              <option value="Shelter Afrique Estate">Shelter Afrique Estate</option>
+              <option value="Ewet Housing Estate">Ewet Housing Estate</option>
+              <option value="Osongama Estate">Osongama Estate</option>
+              <option value="Ikot Ekpene Road Corridor">Ikot Ekpene Road Corridor</option>
+              <option value="Oron Road / 4-Lane">Oron Road / 4-Lane Junction</option>
+              <option value="Aka Road / Stadium">Aka Road / Stadium</option>
+              <option value="Uyo Central">Uyo Central / Plaza</option>
+            </select>
+          </div>
+
+          <div class="input-box" id="craftGroup" style="display:none;">
+            <select id="signUpCraft">
+              <option value="" disabled selected>Select Your Agent Specialization / Skill</option>
+              <option value="Plumbing & Piping Repairs">Plumbing & Piping Specialist</option>
+              <option value="Electrical & Solar Specialist">Electrical & Solar Systems</option>
+              <option value="AC & Refrigeration">AC & Refrigeration Tech</option>
+              <option value="Home & Office Cleaning">Deep Cleaning & Sanitization</option>
+              <option value="Generator Diagnostics">Generator Servicing</option>
+              <option value="Wall Painting & Finishing">Wall Painting & POP</option>
+              <option value="Carpentry & Woodwork">Carpentry & Cabinetry</option>
+              <option value="Express Courier Logistics">Express Dispatch & Field Agent</option>
+            </select>
+          </div>
+
+          <div class="input-box">
+            <input type="password" id="signUpPassword" placeholder="Create Password (min. 8 characters)" required autocomplete="new-password">
+            <button type="button" class="field-action" onclick="togglePasswordVisibility('signUpPassword', 'signUpEyeIcon')" aria-label="Toggle password visibility">
+              <i class="fa-regular fa-eye" id="signUpEyeIcon"></i>
+            </button>
+          </div>
+
+          <label class="custom-checkbox-label" style="font-size:12px; margin-top:2px;">
+            <input type="checkbox" required checked>
+            <span>I agree to the <a href="support.html">Terms of Service</a> & <a href="support.html">SwiftShield™ Escrow Policy</a></span>
+          </label>
+
+          <button type="submit" class="btn-apple-primary" id="btnSignUpSubmit">
+            <span>Create Free Account</span>
+            <i class="fa-solid fa-arrow-right" style="font-size:12px;"></i>
+          </button>
+        </form>
+
+        <div class="apple-divider"><span>or register with</span></div>
+
+        <div class="social-buttons">
+          <button type="button" class="btn-social btn-apple-id" onclick="handleSocialAuth('Apple')">
+            <i class="fa-brands fa-apple" style="font-size:16px;"></i> Continue with Apple
+          </button>
+          <button type="button" class="btn-social btn-google" onclick="handleSocialAuth('Google')">
+            <i class="fa-brands fa-google" style="color:#EA4335;"></i> Continue with Google
+          </button>
+        </div>
+
+        <div class="auth-switch-prompt">
+          Already have an account? <button type="button" onclick="setAuthMode('signin')">Sign in &rarr;</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+/* ===================================================
+   1. ROTATING 10s CINEMATIC HERO SLIDESHOW LOGIC
+   - Changes on each page refresh (different image)
+   - Auto-advances every 10 seconds smoothly
+=================================================== */
+const slideData = [
+  {
+    src: "assets/images/hero-artisan.jpg",
+    badge: "VERIFIED ELECTRICAL & SOLAR",
+    title: "Precision craft for your home & office.",
+    sub: "Over 1,200 thoroughly vetted technicians across Nigeria. Dual-escrow security on every booking."
+  },
+  {
+    src: "assets/images/hero-plumber.jpg",
+    badge: "PRECISION PLUMBING TECH",
+    title: "Leak diagnostics & emergency piping.",
+    sub: "Guaranteed rapid response under 15 minutes with transparent callout rates and milestone escrow."
+  },
+  {
+    src: "assets/images/hero-cleaning.jpg",
+    badge: "DEEP CLEANING & SANITIZATION",
+    title: "Hospital-grade home & workspace care.",
+    sub: "Screened cleaners with NIN verification and insured property damage warranty."
+  },
+  {
+    src: "assets/images/hero-carpenter.jpg",
+    badge: "MASTER CARPENTRY & POP",
+    title: "Custom cabinetry and interior woodwork.",
+    sub: "Endorsed master artisans delivering premium finishes with zero hidden agency markups."
+  },
+  {
+    src: "assets/images/hero-ac.jpg",
+    badge: "CLIMATE & REFRIGERATION",
+    title: "Rapid cooling repairs & gas refills.",
+    sub: "Certified AC technicians equipped with diagnostic manifolds for residential and commercial units."
+  },
+  {
+    src: "assets/images/hero-generator.jpg",
+    badge: "POWER & GENERATOR OVERHAUL",
+    title: "Uninterrupted power for your facilities.",
+    sub: "Heavy-duty diesel and petrol generator diagnostics by verified industrial mechanics."
+  },
+  {
+    src: "assets/images/hero-painter.jpg",
+    badge: "ARCHITECTURAL WALL FINISHING",
+    title: "Flawless painting and screeding.",
+    sub: "Transform your living spaces with tested paint formulations and meticulous masking."
+  },
+  {
+    src: "assets/images/hero-dispatch.jpg",
+    badge: "EXPRESS LOGISTICS & COURIER",
+    title: "On-demand city dispatch in minutes.",
+    sub: "Live GPS tracking, landmark-based door delivery, and instant recipient confirmation."
+  },
+  {
+    src: "assets/images/hero-cctv.jpg",
+    badge: "SMART SECURITY & INTERCOMS",
+    title: "Continuous 24/7 smart surveillance.",
+    sub: "Complete CCTV camera installation, network NVR setup, and smartphone video access."
+  },
+  {
+    src: "assets/images/hero-mechanic.jpg",
+    badge: "AUTO DIAGNOSTICS & RESCUE",
+    title: "On-site mechanical roadside rescue.",
+    sub: "Computer OBD-II scanning, battery jumpstarts, and mobile mechanic assistance wherever you are."
+  }
+];
+
+// Pick a different image on page load/refresh
+let lastStoredIndex = parseInt(localStorage.getItem('swift_auth_img_idx'), 10);
+let currentSlideIndex = 0;
+
+if (!isNaN(lastStoredIndex)) {
+  currentSlideIndex = (lastStoredIndex + 1) % slideData.length;
+} else {
+  currentSlideIndex = Math.floor(Math.random() * slideData.length);
+}
+localStorage.setItem('swift_auth_img_idx', currentSlideIndex.toString());
+
+function showSlide(index) {
+  const slides = document.querySelectorAll('.visual-slide');
+  slides.forEach((s, i) => {
+    if (i === index) {
+      s.classList.add('active');
+    } else {
+      s.classList.remove('active');
+    }
+  });
+
+  const badge = document.getElementById('slideBadge');
+  const title = document.getElementById('slideTitle');
+  const sub = document.getElementById('slideSub');
+  const data = slideData[index];
+  if (badge && data) badge.innerHTML = `<i class="fa-solid fa-certificate"></i> ${data.badge}`;
+  if (title && data) title.textContent = data.title;
+  if (sub && data) sub.textContent = data.sub;
+
+  const segments = document.querySelectorAll('.timer-segment');
+  if (segments.length) {
+    segments.forEach((seg, i) => {
+      const activeMod = index % segments.length;
+      seg.classList.remove('active', 'completed');
+      if (i < activeMod) {
+        seg.classList.add('completed');
+      } else if (i === activeMod) {
+        void seg.offsetWidth;
+        seg.classList.add('active');
+      }
+    });
+  }
+}
+
+// Initial slide render
+showSlide(currentSlideIndex);
+
+// Check URL hash or query params for sign-up mode
+if (window.location.hash === '#signup' || window.location.search.includes('mode=signup') || window.location.search.includes('tab=signup')) {
+  setAuthMode('signup');
+}
+
+// Auto-advance every 10 seconds (10,000ms)
+let slideTimer = setInterval(advanceSlide, 10000);
+
+function advanceSlide() {
+  currentSlideIndex = (currentSlideIndex + 1) % slideData.length;
+  showSlide(currentSlideIndex);
+  localStorage.setItem('swift_auth_img_idx', currentSlideIndex.toString());
+}
+
+/* ===================================================
+   2. AUTH MODE TOGGLE (SIGN IN vs SIGN UP)
+=================================================== */
+function setAuthMode(mode) {
+  const tabSignIn = document.getElementById('tabSignIn');
+  const tabSignUp = document.getElementById('tabSignUp');
+  const viewSignIn = document.getElementById('viewSignIn');
+  const viewSignUp = document.getElementById('viewSignUp');
+
+  if (mode === 'signin') {
+    if (tabSignIn) tabSignIn.classList.add('active');
+    if (tabSignUp) tabSignUp.classList.remove('active');
+    if (viewSignIn) viewSignIn.classList.add('active');
+    if (viewSignUp) viewSignUp.classList.remove('active');
+  } else {
+    if (tabSignUp) tabSignUp.classList.add('active');
+    if (tabSignIn) tabSignIn.classList.remove('active');
+    if (viewSignUp) viewSignUp.classList.add('active');
+    if (viewSignIn) viewSignIn.classList.remove('active');
+  }
+}
+
+/* ===================================================
+   3. DEMO ROLE AUTO-FILL & AUTH ACTIONS
+=================================================== */
+const demoCredentials = {
+  customer: { email: 'sarah.akpan@example.com', pass: 'password123' },
+  provider: { email: 'emeka.okon@example.com', pass: 'password123' },
+  admin: { email: 'admin@swifterrand.ng', pass: 'password123' }
+};
+
+function selectSignInRole(role) {
+  document.querySelectorAll('.demo-pill-btn').forEach(b => b.classList.remove('active'));
+  if (role === 'customer') document.getElementById('btnRoleCust').classList.add('active');
+  if (role === 'provider') document.getElementById('btnRoleProv').classList.add('active');
+  if (role === 'admin') document.getElementById('btnRoleAdmin').classList.add('active');
+
+  const cred = demoCredentials[role];
+  if (cred) {
+    document.getElementById('signInEmail').value = cred.email;
+    document.getElementById('signInPassword').value = cred.pass;
+  }
+
+  if (typeof showToast === 'function') {
+    const titles = { customer: 'User (Dr. Sarah Akpan)', provider: 'Agent (Emeka Okon)', admin: 'Administrator' };
+    showToast(`Quick Test Selected: ${titles[role]}`, 'info');
+  }
+}
+
+/* Sign-Up Role Selector */
+function setSignUpRole(role) {
+  const isAgent = (role === 'agent' || role === 'provider');
+  document.getElementById('signUpRoleInput').value = isAgent ? 'agent' : 'user';
+  const cardCust = document.getElementById('roleCardCust');
+  const cardProv = document.getElementById('roleCardProv');
+  const craftGroup = document.getElementById('craftGroup');
+
+  if (!isAgent) {
+    cardCust.classList.add('active');
+    cardProv.classList.remove('active');
+    craftGroup.style.display = 'none';
+  } else {
+    cardProv.classList.add('active');
+    cardCust.classList.remove('active');
+    craftGroup.style.display = 'block';
+  }
+}
+
+/* Show/Hide Password */
+function togglePasswordVisibility(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}
+
+/* Forgot Password */
+function handleForgotPassword(e) {
+  e.preventDefault();
+  if (typeof showToast === 'function') {
+    showToast('Password reset link sent to your registered contact.', 'info');
+  } else {
+    alert('Password reset link sent.');
+  }
+}
+
+/* Social Sign-In */
+function handleSocialAuth(provider) {
+  if (typeof showToast === 'function') {
+    showToast(`Connecting securely via ${provider}...`, 'info');
+  }
+  setTimeout(() => {
+    SwiftErrand.loginAs('customer');
+  }, 400);
+}
+
+/* Sign In Submit */
+function handleSignInSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('signInEmail').value.trim().toLowerCase();
+  const btn = document.getElementById('btnSignInSubmit');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    if (email.includes('admin')) {
+      SwiftErrand.loginAs('admin');
+    } else if (email.includes('provider') || email.includes('artisan') || email.includes('emeka')) {
+      SwiftErrand.loginAs('provider');
+    } else {
+      SwiftErrand.loginAs('customer');
+    }
+  }, 350);
+}
+
+/* Sign Up Submit */
+function handleSignUpSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('signUpName').value.trim();
+  const email = document.getElementById('signUpEmail').value.trim();
+  const phone = document.getElementById('signUpPhone').value.trim();
+  const role = document.getElementById('signUpRoleInput').value;
+  const btn = document.getElementById('btnSignUpSubmit');
+
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+  btn.disabled = true;
+
+  const isAgent = (role === 'agent' || role === 'provider');
+  const newUser = {
+    id: isAgent ? `PROV-${Math.floor(100 + Math.random() * 900)}` : `CUST-${Math.floor(100 + Math.random() * 900)}`,
+    name: name,
+    email: email,
+    phone: phone,
+    role: isAgent ? 'provider' : 'customer',
+    accountType: isAgent ? 'Agent' : 'User',
+    avatar: isAgent ? 'assets/images/provider1.jpg' : 'assets/images/customer1.jpg'
+  };
+
+  setTimeout(() => {
+    SwiftErrand.setUser(newUser);
+    if (typeof showToast === 'function') {
+      showToast(`Welcome to SwiftErrand, ${name}! Your ${isAgent ? 'Agent' : 'User'} account is active.`, 'success');
+    }
+    setTimeout(() => {
+      if (isAgent) {
+        window.location.href = 'provider-dashboard.html';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }, 600);
+  }, 500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Provider Dashboard | SwiftErrand</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Manrope',sans-serif;
+}
+
+body{
+background:#F8FAFC;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:270px;
+height:100vh;
+position:fixed;
+background:#0F172A;
+padding:30px;
+color:white;
+overflow:auto;
+}
+
+.sidebar h2{
+margin-bottom:40px;
+color:#22C55E;
+}
+
+.sidebar a{
+display:flex;
+align-items:center;
+gap:15px;
+padding:16px;
+margin-bottom:12px;
+text-decoration:none;
+color:#CBD5E1;
+border-radius:12px;
+transition:.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+background:#16A34A;
+color:white;
+}
+
+.main{
+margin-left:270px;
+width:100%;
+padding:40px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+}
+
+.topbar h1{
+font-size:35px;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-bottom:40px;
+}
+
+.stat-card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 12px 30px rgba(0,0,0,.06);
+}
+
+.stat-card i{
+font-size:35px;
+color:#16A34A;
+margin-bottom:20px;
+}
+
+.stat-card h2{
+font-size:34px;
+margin-bottom:8px;
+}
+
+.stat-card p{
+color:#64748B;
+}
+
+/* BOOKINGS */
+
+.bookings{
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 12px 30px rgba(0,0,0,.06);
+}
+
+.bookings h2{
+margin-bottom:25px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:18px;
+text-align:left;
+border-bottom:1px solid #E5E7EB;
+}
+
+.status{
+
+padding:8px 15px;
+border-radius:20px;
+font-size:13px;
+font-weight:700;
+}
+
+.pending{
+
+background:#FEF3C7;
+color:#92400E;
+}
+
+.completed{
+
+background:#DCFCE7;
+color:#166534;
+}
+
+@media(max-width:950px){
+
+.sidebar{
+display:none;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+table{
+display:block;
+overflow-x:auto;
+}
+
+}
+
+/*=========================
+DASHBOARD GRID
+=========================*/
+
+.dashboard-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+
+gap:30px;
+
+margin-top:40px;
+
+}
+
+.dashboard-card{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+}
+
+.dashboard-card h2{
+
+margin-bottom:25px;
+
+}
+
+.wallet-balance h1{
+
+font-size:42px;
+
+color:#16A34A;
+
+}
+
+.wallet-buttons{
+
+display:flex;
+
+gap:15px;
+
+margin-top:30px;
+
+}
+
+.wallet-buttons button{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:700;
+
+}
+
+.wallet-buttons .outline{
+
+background:white;
+
+border:2px solid #16A34A;
+
+color:#16A34A;
+
+}
+
+.job{
+
+display:flex;
+
+gap:15px;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.job img{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.review{
+
+background:#F8FAFC;
+
+padding:18px;
+
+border-radius:12px;
+
+margin-bottom:20px;
+
+line-height:1.7;
+
+}
+
+.switch{
+
+position:relative;
+
+display:inline-block;
+
+width:70px;
+
+height:36px;
+
+}
+
+.switch input{
+
+display:none;
+
+}
+
+.slider{
+
+position:absolute;
+
+cursor:pointer;
+
+top:0;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+background:#CBD5E1;
+
+border-radius:50px;
+
+transition:.3s;
+
+}
+
+.slider:before{
+
+content:"";
+
+position:absolute;
+
+width:28px;
+
+height:28px;
+
+left:4px;
+
+bottom:4px;
+
+background:white;
+
+border-radius:50%;
+
+transition:.3s;
+
+}
+
+input:checked + .slider{
+
+background:#16A34A;
+
+}
+
+input:checked + .slider:before{
+
+transform:translateX(34px);
+
+}
+
+/*=========================
+CHART
+=========================*/
+
+.chart{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-end;
+
+height:220px;
+
+margin-top:25px;
+
+}
+
+.bar{
+
+width:45px;
+
+background:linear-gradient(to top,#16A34A,#4ADE80);
+
+border-radius:12px 12px 0 0;
+
+position:relative;
+
+transition:.3s;
+
+}
+
+.bar:hover{
+
+opacity:.85;
+
+}
+
+.bar span{
+
+position:absolute;
+
+bottom:-28px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+/*=========================
+NOTIFICATIONS
+=========================*/
+
+.notification{
+
+display:flex;
+
+gap:15px;
+
+align-items:flex-start;
+
+padding:18px 0;
+
+border-bottom:1px solid #E5E7EB;
+
+}
+
+.notification:last-child{
+
+border-bottom:none;
+
+}
+
+.notification i{
+
+font-size:22px;
+
+color:#16A34A;
+
+margin-top:5px;
+
+}
+
+/*=========================
+QUICK ACTIONS
+=========================*/
+
+.quick-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.quick-grid a{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:15px;
+
+background:#F0FDF4;
+
+border-radius:12px;
+
+text-decoration:none;
+
+font-weight:700;
+
+color:#16A34A;
+
+transition:.3s;
+
+}
+
+.quick-grid a:hover{
+
+background:#16A34A;
+
+color:white;
+
+}
+
+/*=========================
+FOOTER
+=========================*/
+
+.dashboard-footer{
+
+margin-top:40px;
+
+padding:25px;
+
+text-align:center;
+
+color:#64748B;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>SwiftErrand</h2>
+
+<a href="#" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+<a href="#"><i class="fas fa-calendar-check"></i> Bookings</a>
+
+<a href="#"><i class="fas fa-wallet"></i> Wallet</a>
+
+<a href="#"><i class="fas fa-star"></i> Reviews</a>
+
+<a href="#"><i class="fas fa-user"></i> Profile</a>
+
+<a href="#"><i class="fas fa-cog"></i> Settings</a>
+
+<a href="login.html"><i class="fas fa-right-from-bracket"></i> Logout</a>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>Welcome back, Esther 👋</h1>
+
+<div class="profile">
+
+<img src="assets/images/provider1.jpg">
+
+<div>
+
+<h3>Esther Johnson</h3>
+
+<p>Verified Provider</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<i class="fas fa-wallet"></i>
+
+<h2>₦245,000</h2>
+
+<p>Total Earnings</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fas fa-calendar-check"></i>
+
+<h2>128</h2>
+
+<p>Completed Jobs</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fas fa-star"></i>
+
+<h2>4.9</h2>
+
+<p>Average Rating</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fas fa-bell"></i>
+
+<h2>18</h2>
+
+<p>New Requests</p>
+
+</div>
+
+</div>
+
+<div class="bookings">
+
+<h2>Recent Bookings</h2>
+
+<table>
+
+<tr>
+
+<th>Customer</th>
+
+<th>Service</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>Grace Edet</td>
+
+<td>Cleaning</td>
+
+<td>14 Jul 2026</td>
+
+<td><span class="status pending">Pending</span></td>
+
+</tr>
+
+<tr>
+
+<td>Michael Okon</td>
+
+<td>Electrical</td>
+
+<td>13 Jul 2026</td>
+
+<td><span class="status completed">Completed</span></td>
+
+</tr>
+
+<!-- PART 2 STARTS HERE -->
+
+<tr>
+
+<td>David James</td>
+
+<td>Plumbing</td>
+
+<td>12 Jul 2026</td>
+
+<td><span class="status completed">Completed</span></td>
+
+</tr>
+
+<tr>
+
+<td>Mercy Daniel</td>
+
+<td>Laundry</td>
+
+<td>12 Jul 2026</td>
+
+<td><span class="status pending">Pending</span></td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- DASHBOARD GRID -->
+
+<div class="dashboard-grid">
+
+<!-- WALLET -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-wallet"></i> Wallet</h2>
+
+<div class="wallet-balance">
+
+<h1>₦245,000</h1>
+
+<p>Available Balance</p>
+
+</div>
+
+<div class="wallet-buttons">
+
+<button>Withdraw</button>
+
+<button class="outline">History</button>
+
+</div>
+
+</div>
+
+<!-- UPCOMING BOOKINGS -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-calendar"></i> Upcoming Jobs</h2>
+
+<div class="job">
+
+<img src="assets/images/customer1.jpg">
+
+<div>
+
+<h4>Grace Edet</h4>
+
+<p>Home Cleaning • 10:00 AM</p>
+
+</div>
+
+</div>
+
+<div class="job">
+
+<img src="assets/images/customer2.jpg">
+
+<div>
+
+<h4>Michael Okon</h4>
+
+<p>Electrical Repair • 1:30 PM</p>
+
+</div>
+
+</div>
+
+<div class="job">
+
+<img src="assets/images/customer3.jpg">
+
+<div>
+
+<h4>Amina Bello</h4>
+
+<p>Laundry Pickup • 5:00 PM</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REVIEWS -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-star"></i> Latest Reviews</h2>
+
+<div class="review">
+
+⭐⭐⭐⭐⭐
+
+<p>
+
+"Excellent service and arrived on time."
+
+</p>
+
+<strong>- Grace Edet</strong>
+
+</div>
+
+<div class="review">
+
+⭐⭐⭐⭐⭐
+
+<p>
+
+"Professional and very polite."
+
+</p>
+
+<strong>- David James</strong>
+
+</div>
+
+</div>
+
+<!-- ONLINE STATUS -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-toggle-on"></i> Availability</h2>
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span class="slider"></span>
+
+</label>
+
+<p style="margin-top:20px;color:#16A34A;font-weight:700;">
+
+You're currently Online
+
+</p>
+
+</div>
+
+</div>
+
+<!-- PART 3 STARTS HERE -->
+
+<!-- EARNINGS CHART -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-chart-line"></i> Monthly Earnings</h2>
+
+<div class="chart">
+
+<div class="bar" style="height:65%;"><span>Jan</span></div>
+
+<div class="bar" style="height:80%;"><span>Feb</span></div>
+
+<div class="bar" style="height:55%;"><span>Mar</span></div>
+
+<div class="bar" style="height:90%;"><span>Apr</span></div>
+
+<div class="bar" style="height:100%;"><span>May</span></div>
+
+<div class="bar" style="height:75%;"><span>Jun</span></div>
+
+</div>
+
+</div>
+
+<!-- NOTIFICATIONS -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-bell"></i> Notifications</h2>
+
+<div class="notification">
+
+<i class="fas fa-circle-check"></i>
+
+<div>
+
+<h4>Booking Confirmed</h4>
+
+<p>You have a cleaning appointment tomorrow at 10:00 AM.</p>
+
+</div>
+
+</div>
+
+<div class="notification">
+
+<i class="fas fa-wallet"></i>
+
+<div>
+
+<h4>Withdrawal Successful</h4>
+
+<p>₦35,000 has been transferred to your bank account.</p>
+
+</div>
+
+</div>
+
+<div class="notification">
+
+<i class="fas fa-star"></i>
+
+<div>
+
+<h4>New Review</h4>
+
+<p>Grace Edet gave you a 5-star rating.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+
+<div class="dashboard-card">
+
+<h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+
+<div class="quick-grid">
+
+<a href="#">Edit Profile</a>
+
+<a href="#">My Wallet</a>
+
+<a href="#">Bookings</a>
+
+<a href="#">Settings</a>
+
+<a href="#">Support</a>
+
+<a href="#">Go Online</a>
+
+</div>
+
+</div>
+
+</div>
+
+<footer class="dashboard-footer">
+
+<p>© 2026 SwiftErrand Provider Dashboard. All Rights Reserved.</p>
+
+</footer>
+
+<script>
+
+const toggle=document.querySelector(".switch input");
+
+const status=document.querySelector(".switch").nextElementSibling;
+
+toggle.addEventListener("change",function(){
+
+status.innerHTML=this.checked
+
+? "🟢 You're currently Online"
+
+: "🔴 You're currently Offline";
+
+status.style.color=this.checked ? "#16A34A" : "#EF4444";
+
+});
+
+</script>
+
+</body>
+
+</html>

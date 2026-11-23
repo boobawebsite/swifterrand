@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | Wallet & Escrow Balances</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+body{background:#f8fafc;color:#0f172a;}
+nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
+.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:600;}
+.container{max-width:1150px;margin:35px auto 80px;padding:0 20px;display:grid;grid-template-columns:1.8fr 1.2fr;gap:30px;}
+.card{background:#fff;border-radius:24px;padding:30px;box-shadow:0 10px 30px rgba(0,0,0,.04);border:1px solid #f1f5f9;margin-bottom:25px;}
+.wallet-hero{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;border-radius:24px;padding:35px;box-shadow:0 20px 40px rgba(0,166,81,.2);margin-bottom:25px;}
+.wallet-bal{font-size:42px;font-weight:800;margin:10px 0;}
+.hero-btns{display:flex;gap:12px;margin-top:20px;}
+.btn-topup{padding:12px 24px;background:#fff;color:#00A651;border:none;border-radius:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+.btn-topup:hover{background:#f0fdf4;}
+.btn-withdraw{padding:12px 24px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:12px;font-weight:800;cursor:pointer;}
+.txn-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f1f5f9;}
+.txn-item:last-child{border-bottom:none;}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:9999;padding:20px;}
+.modal-content{background:#fff;padding:35px;border-radius:24px;max-width:440px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.3);position:relative;}
+.close-modal{position:absolute;top:20px;right:20px;font-size:22px;color:#94a3b8;cursor:pointer;border:none;background:none;}
+@media(max-width:900px){.container{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+    <span>SwiftErrand Wallet</span>
+  </a>
+  <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+</nav>
+
+<div class="container">
+  <div>
+    <div class="wallet-hero">
+      <span style="font-size:13px;font-weight:700;text-transform:uppercase;opacity:.85;">Total Available Balance</span>
+      <div class="wallet-bal" id="walletDisplay">₦35,500</div>
+      <p style="opacity:.9;font-size:14px;"><i class="fa-solid fa-shield-halved"></i> Protected under SwiftShield™ Escrow Guarantee</p>
+
+      <div class="hero-btns">
+        <button type="button" class="btn-topup" onclick="openTopup()"><i class="fa-solid fa-plus"></i> Top Up Balance</button>
+        <button type="button" class="btn-withdraw" onclick="showToast('Withdrawals are processed instantly to your linked Nigerian bank account.','info')"><i class="fa-solid fa-arrow-up-from-bracket"></i> Withdraw</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:20px;margin-bottom:20px;">Recent Wallet & Escrow Ledger</h3>
+      <div id="txnList">
+        <!-- Loaded by JS -->
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <!-- Dedicated Virtual NUBAN Card -->
+    <div class="card" style="background:#f0fdf4;border:2px dashed #00A651;">
+      <div style="text-align:center;">
+        <span style="font-size:12px;font-weight:800;color:#166534;text-transform:uppercase;">Dedicated Virtual Account (Providus Bank)</span>
+        <div style="font-size:32px;font-weight:800;color:#00A651;letter-spacing:2px;margin:8px 0;">9023 481 023</div>
+        <p style="font-size:13px;color:#334155;margin-bottom:15px;"><strong>Account Name:</strong> SwiftErrand / Dr. Sarah Akpan</p>
+        <button type="button" onclick="copyNuban()" style="padding:10px 18px;background:#00A651;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;">
+          <i class="fa-regular fa-copy"></i> Copy NUBAN Number
+        </button>
+      </div>
+      <p style="font-size:12px;color:#64748b;margin-top:15px;line-height:1.5;text-align:center;">
+        Transfer funds here from any Nigerian bank (GTBank, Zenith, Access, Kuda, OPay) for instant wallet funding without card fees.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="font-size:17px;margin-bottom:12px;">SwiftShield™ Security</h4>
+      <p style="font-size:13px;color:#64748b;line-height:1.6;">
+        Funds in your wallet are held securely in a regulated CBN-licensed trust account. When you book a task, funds are placed into escrow until you approve the completed job with your 4-digit release PIN.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Topup Modal -->
+<div class="modal" id="topupModal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeTopup()">&times;</button>
+    <h3 style="margin-bottom:8px;">Top Up Wallet</h3>
+    <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Enter amount to add to your SwiftErrand wallet balance:</p>
+    <div style="margin-bottom:20px;">
+      <input type="number" id="topupAmount" value="10000" style="width:100%;padding:14px;border:2px solid #00A651;border-radius:12px;font-size:24px;font-weight:800;text-align:center;color:#00A651;outline:none;">
+    </div>
+    <button type="button" onclick="confirmTopup()" style="width:100%;padding:16px;background:#00A651;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:16px;cursor:pointer;">
+      Confirm Instant Funding
+    </button>
+  </div>
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+function renderWallet() {
+  const bal = SwiftErrand.getWalletBalance();
+  document.getElementById('walletDisplay').innerText = SwiftErrand.formatNaira(bal);
+
+  const txns = SwiftErrand.getTransactions();
+  const list = document.getElementById('txnList');
+  list.innerHTML = '';
+  txns.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'txn-item';
+    const isCredit = t.amount > 0;
+    d.innerHTML = `
+      <div>
+        <h5 style="font-size:15px;font-weight:700;">${t.title}</h5>
+        <small style="color:#64748b;">${t.date} • ${t.status}</small>
+      </div>
+      <div style="text-align:right;">
+        <strong style="font-size:16px;color:${isCredit ? '#16a34a' : '#0f172a'};">${isCredit ? '+' : ''}${SwiftErrand.formatNaira(t.amount)}</strong>
+      </div>
+    `;
+    list.appendChild(d);
+  });
+}
+
+function openTopup() { document.getElementById('topupModal').style.display = 'flex'; }
+function closeTopup() { document.getElementById('topupModal').style.display = 'none'; }
+
+function confirmTopup() {
+  const val = parseInt(document.getElementById('topupAmount').value, 10);
+  if (!val || val <= 0) return;
+
+  SwiftErrand.updateWalletBalance(val);
+  SwiftErrand.addTransaction({
+    id: "TXN-" + Math.floor(100 + Math.random() * 900),
+    title: "Wallet Top-Up via Bank Transfer",
+    date: "Just now",
+    amount: val,
+    type: "credit",
+    status: "Successful"
+  });
+
+  closeTopup();
+  showToast(`₦${val.toLocaleString()} added to your wallet!`, "success");
+  renderWallet();
+}
+
+function copyNuban() {
+  navigator.clipboard.writeText("9023481023");
+  showToast("Account number copied! Transfer from your mobile bank app.", "success");
+}
+
+renderWallet();
+</script>
+</body>
+</html>

@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | Trusted Help. Delivered Fast.</title>
+<meta name="description" content="Nigeria's premier marketplace for verified home services, technical repairs, and everyday errands. Live in Uyo, Akwa Ibom State.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #00A651;
+  --primary-dark: #007A3D;
+  --primary-light: #F0FDF4;
+  --primary-border: #BBF7D0;
+  --dark: #0F172A;
+  --dark-surface: #1E293B;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --bg-canvas: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --border-subtle: #E2E8F0;
+  --border-hairline: rgba(15, 23, 42, 0.06);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+  --shadow-elevated: 0 25px 50px -12px rgba(0, 166, 81, 0.15);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --font-heading: 'Manrope', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================
+   NAVIGATION (FROSTED GLASSBAR)
+========================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-ghost:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 166, 81, 0.35);
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 16px;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Navbar States & Transitions */
+.nav-content-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-content-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  animation: fadeInDown 0.25s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-search-widget {
+  flex: 1;
+  max-width: 680px;
+  background: #fff;
+  padding: 6px 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.header-search-widget .search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+}
+
+.header-search-widget .search-field i {
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.header-search-widget .search-field select {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.header-search-widget .search-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+.btn-close-search {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: #fff;
+  color: var(--text-muted);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-close-search:hover {
+  background: #F1F5F9;
+  color: var(--dark);
+  border-color: #CBD5E1;
+}
+
+/* =========================================
+   HERO SECTION (DYNAMIC JOB HEADLINE & 3D BOOK)
+========================================= */
+.hero {
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
+  margin-top: 76px;
+  padding: 12px 5%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: center;
+  width: 100%;
+}
+
+.hero-text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+}
+
+.dynamic-headline {
+  font-size: clamp(38px, 4.8vw, 76px);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: #0B0F19;
+  font-weight: 800;
+  margin: 0;
+  text-align: left;
+  text-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+}
+
+.dynamic-headline .article-word {
+  color: #0B0F19;
+  display: inline-block;
+  transition: opacity 0.25s ease;
+}
+
+/* Wrapper to guarantee full drop-shadow rendering around transparent clipped text */
+.job-wrapper {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  /* Multi-tier spatial drop shadow: sharp edge contrast + ambient depth */
+  filter: drop-shadow(0 3px 6px rgba(15, 23, 42, 0.35)) 
+          drop-shadow(0 10px 24px rgba(15, 23, 42, 0.22)) 
+          drop-shadow(0 22px 50px rgba(15, 23, 42, 0.14));
+}
+
+.dynamic-headline .highlight-job {
+  white-space: nowrap;
+  background-image: url('assets/images/hero-cleaning.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.22);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  will-change: opacity, transform, filter, background-image;
+}
+
+.dynamic-headline .highlight-job.fade-out {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+}
+
+/* =========================================
+   APPLE-GRADE SPATIAL 3D BOOK & DECK
+========================================= */
+.hero-media-col {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient Spatial Glow (Subtle diffuse radiance behind the book) */
+.book-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(550px, 48vw);
+  height: clamp(380px, calc(100vh - 110px), 550px);
+  height: clamp(380px, calc(100dvh - 110px), 550px);
+  aspect-ratio: 440 / 460;
+  perspective: 1600px;
+  perspective-origin: 50% 35%;
+  margin: 0 auto;
+}
+
+.book-stage::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(0, 166, 81, 0.16) 0%, rgba(15, 23, 42, 0.08) 50%, transparent 75%);
+  filter: blur(52px);
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* 3D Isometric Book Assembly */
+.book-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(14deg) rotateY(-18deg) rotateZ(1.5deg);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: grab;
+}
+
+.book-3d:active {
+  cursor: grabbing;
+}
+
+/* Precision-Engineered 3D Book Thickness (Stacked Pages Block) */
+.book-pages-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  background: #FFFFFF;
+  transform: translateZ(-32px);
+  /* Precision stepped page edges with diffuse Apple ambient shadow */
+  box-shadow: 
+    1px 1px 0 #F1F5F9,
+    2px 2px 0 #E2E8F0,
+    3px 3px 0 #E2E8F0,
+    4px 4px 0 #CBD5E1,
+    5px 5px 0 #CBD5E1,
+    6px 6px 0 #CBD5E1,
+    7px 7px 0 #94A3B8,
+    8px 8px 0 #94A3B8,
+    9px 9px 0 #94A3B8,
+    10px 10px 0 #94A3B8,
+    11px 11px 0 #64748B,
+    12px 12px 0 #64748B,
+    13px 13px 0 #64748B,
+    14px 14px 0 #475569,
+    15px 15px 0 #334155,
+    18px 24px 50px -10px rgba(15, 23, 42, 0.28),
+    32px 45px 85px -15px rgba(15, 23, 42, 0.16);
+  pointer-events: none;
+}
+
+/* Simulated micro-ruled book page lines on right & bottom edge */
+.book-pages-base::after {
+  content: '';
+  position: absolute;
+  right: -15px;
+  bottom: -15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0px,
+    rgba(255, 255, 255, 0.95) 2px,
+    rgba(226, 232, 240, 0.8) 3px,
+    rgba(203, 213, 225, 0.8) 4px
+  );
+  z-index: -1;
+  opacity: 0.9;
+}
+
+/* Individual Picture Card Leaves in the Book */
+.book-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #0B0F19;
+  user-select: none;
+  transform-origin: left bottom;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.6s ease;
+  will-change: transform, opacity;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+/* Specular Light Sheen across top glass surface (Apple glass finish) */
+.book-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Depth Layers inside the Book Stack with Apple-calibrated steps */
+.book-card[data-depth="0"] {
+  transform: translate3d(0, 0, 0);
+  z-index: 12;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.book-card[data-depth="1"] {
+  transform: translate3d(3px, 3px, -7px);
+  z-index: 10;
+  opacity: 0.96;
+  pointer-events: none;
+}
+
+.book-card[data-depth="2"] {
+  transform: translate3d(6px, 6px, -14px);
+  z-index: 8;
+  opacity: 0.88;
+  pointer-events: none;
+}
+
+.book-card[data-depth="3"] {
+  transform: translate3d(9px, 9px, -21px);
+  z-index: 6;
+  opacity: 0.76;
+  pointer-events: none;
+}
+
+.book-card[data-depth="4"] {
+  transform: translate3d(12px, 12px, -28px);
+  z-index: 4;
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+/* Apple-style Fluid Spring Page Flip Animation */
+.book-card.flipping-away {
+  transform: translate3d(130%, -45px, 80px) rotateY(32deg) rotateX(-8deg) rotateZ(8deg) scale(0.96) !important;
+  opacity: 0 !important;
+  z-index: 25 !important;
+  transition: transform 0.85s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.65s cubic-bezier(0.3, 0, 0.8, 1) !important;
+}
+
+.book-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  border-radius: 24px;
+}
+
+
+.search-widget {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto 40px;
+}
+
+.search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+}
+
+.search-field i {
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.search-field select, .search-field input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: transparent;
+  font-family: inherit;
+}
+
+.search-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-subtle);
+}
+
+/* =========================================
+   APPLE-GRADE VERTICAL BENTO VIDEO MOSAIC (3+ SCREENS TALL)
+========================================= */
+.apple-gallery-section {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 0;
+  background: #000000;
+  overflow: visible;
+}
+
+/* 4-Column Seamless Bento Grid extending 3+ Viewport Heights */
+.apple-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: clamp(280px, 24vw, 320px);
+  gap: 3px;
+  width: 100%;
+  background: #000000; /* Crisp dark hairline seam between tiles */
+}
+
+/* Base Mosaic Tile (Flush, Edge-to-Edge Apple Studio Feel) */
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  background: #111827;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.bento-card:hover {
+  opacity: 0.94;
+}
+
+/* Bento Tile Sizing Variations */
+.bento-span-1 {
+  grid-column: span 1;
+}
+
+.bento-span-2 {
+  grid-column: span 2;
+}
+
+.bento-row-span-2 {
+  grid-row: span 2;
+}
+
+/* Edge-to-Edge Media / Video filling tile */
+.bento-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Subtle Minimalist Title Label (Apple Style) */
+.bento-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px 26px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 75%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bento-card:hover .bento-overlay {
+  opacity: 1;
+}
+
+.bento-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.bento-sub {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 3px 0 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Apple Terracotta & Color-Blocked Typography Banner Tiles */
+.bento-text-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(36px, 4vw, 56px);
+  color: #FFFFFF;
+  position: relative;
+}
+
+/* Exact Apple Terracotta from Screenshot */
+.bento-text-card.theme-terracotta {
+  background: #C8481A;
+}
+
+/* Deep Apple Midnight Blue */
+.bento-text-card.theme-navy {
+  background: #081B38;
+}
+
+/* Deep Apple Forest Green */
+.bento-text-card.theme-green {
+  background: #052E16;
+}
+
+/* Royal Apple Deep Purple */
+.bento-text-card.theme-purple {
+  background: #3B0764;
+}
+
+/* Apple Sunset Amber */
+.bento-text-card.theme-amber {
+  background: #B45309;
+}
+
+/* Apple Deep Crimson Wine */
+.bento-text-card.theme-wine {
+  background: #881337;
+}
+
+/* Apple Royal Cobalt Blue */
+.bento-text-card.theme-blue {
+  background: #1E3A8A;
+}
+
+.bento-text-headline {
+  font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: clamp(32px, 3.2vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0 0 12px 0;
+  line-height: 1.05;
+  color: #FFFFFF;
+}
+
+.bento-text-sub {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-size: clamp(15px, 1.4vw, 20px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.bento-text-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  width: fit-content;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.bento-text-cta:hover {
+  border-bottom-color: #FFFFFF;
+  gap: 12px;
+}
+
+/* Color-Blocked Visual Card Accents */
+.card-bg-amber { background: #D97706; }
+.card-bg-yellow { background: #FBBF24; }
+.card-bg-cream { background: #FEF3C7; }
+.card-bg-cyan { background: #0284C7; }
+.card-bg-purple { background: #3B0764; }
+.card-bg-charcoal { background: #18181B; }
+
+@media (max-width: 960px) {
+  .apple-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+  }
+}
+
+@media (max-width: 580px) {
+  .apple-bento-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+  }
+  .bento-span-2 {
+    grid-column: span 1;
+  }
+  .bento-row-span-2 {
+    grid-row: span 1;
+  }
+}
+
+/* =========================================
+   APPLE SIGNATURE 2-COLUMN DUO SHOWCASE
+   (Box 1: Join the Club | Box 2: Hire Someone Today)
+   Crisp sharp rectangular edges - exactly like Apple.com
+========================================= */
+.apple-duo-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: 12px;
+  margin-bottom: 24px;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.apple-duo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.apple-duo-card {
+  position: relative;
+  border-radius: 0; /* Pure sharp edges, exactly like Apple.com */
+  overflow: hidden;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: clamp(60px, 6vw, 90px) clamp(24px, 4vw, 56px);
+  box-sizing: border-box;
+}
+
+/* DARK THEME (Apple Watch Series 12 style) */
+.apple-duo-card.dark-card {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+/* LIGHT THEME (AirPods Pro style) */
+.apple-duo-card.light-card {
+  background: #F5F5F7;
+  color: #1D1D1F;
+}
+
+.apple-duo-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 520px;
+}
+
+.apple-duo-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dark-card .apple-duo-eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.apple-duo-title {
+  font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0 0 12px 0;
+}
+
+.dark-card .apple-duo-title {
+  color: #FFFFFF;
+}
+
+.light-card .apple-duo-title {
+  color: #1D1D1F;
+}
+
+.apple-duo-desc {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.38;
+  margin: 0 0 24px 0;
+  max-width: 440px;
+  letter-spacing: -0.015em;
+}
+
+.dark-card .apple-duo-desc {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.light-card .apple-duo-desc {
+  color: #6E6E73;
+}
+
+/* Apple Signature Action Pills */
+.apple-duo-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  z-index: 3;
+}
+
+.apple-btn-pill {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+/* Primary Blue Pill (AirPods style) */
+.apple-btn-blue {
+  background: #0071E3;
+  color: #FFFFFF;
+}
+
+.apple-btn-blue:hover {
+  background: #0077ED;
+  transform: scale(1.02);
+}
+
+/* Outline Blue Pill */
+.apple-btn-outline-blue {
+  background: transparent;
+  color: #0071E3;
+  border: 1px solid #0071E3;
+}
+
+.apple-btn-outline-blue:hover {
+  background: #0071E3;
+  color: #FFFFFF;
+}
+
+/* White Pill for Dark Card */
+.apple-btn-white {
+  background: #0071E3;
+  color: #FFFFFF;
+}
+
+.apple-btn-white:hover {
+  background: #0077ED;
+  transform: scale(1.02);
+}
+
+.apple-btn-outline-white {
+  background: transparent;
+  color: #2997FF;
+  border: 1px solid #2997FF;
+}
+
+.apple-btn-outline-white:hover {
+  background: #2997FF;
+  color: #FFFFFF;
+}
+
+/* Media Container in Lower Half of Card (Zero radius, sharp bottom) */
+.apple-duo-media {
+  position: relative;
+  width: 100%;
+  height: 330px;
+  margin-top: auto;
+  border-radius: 0; /* Zero border radius */
+  overflow: hidden;
+}
+
+.apple-duo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-duo-card:hover .apple-duo-img {
+  transform: scale(1.03);
+}
+
+/* Dark Card gradient overlay over image */
+.dark-card .apple-duo-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #000000 0%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+}
+
+.light-card .apple-duo-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #F5F5F7 0%, transparent 20%, transparent 80%, rgba(245, 245, 247, 0.3) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .apple-duo-grid {
+    grid-template-columns: 1fr;
+  }
+  .apple-duo-card {
+    min-height: 380px;
+    padding: 48px 20px;
+  }
+}
+
+/* Apple Cinema Video Modal */
+.apple-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 15, 25, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-video-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.apple-modal-box {
+  width: 100%;
+  max-width: 860px;
+  background: #151D2A;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  position: relative;
+  transform: scale(0.94);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-video-modal.open .apple-modal-box {
+  transform: scale(1);
+}
+
+.apple-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(11, 15, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.apple-modal-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+
+.apple-modal-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.apple-modal-media-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.apple-modal-info {
+  padding: 24px 28px;
+  color: #fff;
+}
+
+.apple-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.apple-modal-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+}
+
+.apple-modal-desc {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+
+/* =========================================
+   TWO CORE MODES (DO IT & MOVE IT)
+========================================= */
+.section {
+  padding: 90px 6%;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 50px;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.8vw, 42px);
+  margin-bottom: 14px;
+}
+
+.section-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+/* Mode Switch Tabs - Modern Clean Underline Navigation (Zero Pills, Unboxed) */
+.mode-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  margin: 0 auto 48px;
+  border-bottom: 1px solid #E2E8F0;
+  max-width: 680px;
+  position: relative;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 14px 12px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #64748B;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+  margin-bottom: -1px;
+}
+
+.tab-btn i {
+  font-size: 16px;
+  color: #94A3B8;
+  transition: color 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: #0F172A;
+}
+
+.tab-btn:hover i {
+  color: #00A651;
+}
+
+.tab-btn.active {
+  background: transparent;
+  color: #0F172A;
+  font-weight: 800;
+  border-bottom: 2px solid #00A651;
+  box-shadow: none;
+}
+
+.tab-btn.active i {
+  color: #00A651;
+}
+
+/* Service Grid (Clean, Edge-to-Edge Visuals) */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.service-item {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(0, 166, 81, 0.3);
+}
+
+.service-thumb {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.service-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.service-item:hover .service-thumb img {
+  transform: scale(1.05);
+}
+
+.service-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.service-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.service-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.service-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-hairline);
+  padding-top: 14px;
+}
+
+.service-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.service-price small {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* =========================================
+   HOW IT WORKS (STREAMLINED FLOW)
+========================================= */
+.how-section {
+  background: #fff;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  position: relative;
+}
+
+.step-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-num {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 800;
+  color: #E2E8F0;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.step-col h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.step-col p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* =========================================
+   SWIFTSHIELD & SWIFTTRUST (MINIMALIST SPLIT)
+========================================= */
+.feature-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.shield-card {
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shield-card h3 {
+  color: #fff;
+  font-size: 28px;
+  margin: 12px 0;
+}
+
+.shield-card p {
+  color: #94A3B8;
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.shield-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shield-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.shield-list i {
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.trust-card {
+  background: #fff;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: 45px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.trust-card h3 {
+  font-size: 28px;
+  margin: 12px 0;
+}
+
+.trust-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.trust-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tier-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--bg-canvas);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tier-item i {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+/* =========================================
+   MODERN SEAMLESS PRE-FOOTER CTA
+========================================= */
+.cta-horizon {
+  background: #090D16;
+  background-image: radial-gradient(circle at 50% -20%, rgba(0, 166, 81, 0.22) 0%, rgba(9, 13, 22, 1) 65%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 110px 6% 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-horizon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 166, 81, 0.6), transparent);
+}
+
+.cta-horizon-content {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-horizon h2 {
+  color: #FFFFFF;
+  font-size: clamp(34px, 4.8vw, 54px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.cta-horizon h2 span {
+  background: linear-gradient(135deg, #4ADE80, #00A651);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-horizon p {
+  color: #94A3B8;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto 36px;
+}
+
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.cta-btn-primary {
+  padding: 16px 34px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(0, 166, 81, 0.4);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 166, 81, 0.5);
+}
+
+.cta-btn-secondary {
+  padding: 16px 28px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.cta-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.cta-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.cta-trust-item i {
+  color: #4ADE80;
+  font-size: 14px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.footer {
+  background: #fff;
+  border-top: 1px solid var(--border-hairline);
+  padding: 70px 6% 40px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 50px;
+  max-width: 1350px;
+  margin: 0 auto 50px;
+}
+
+.footer-about p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 16px 0 20px;
+  max-width: 320px;
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+  color: var(--dark);
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col a {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  max-width: 1350px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border-hairline);
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* =========================================
+   RESPONSIVENESS
+========================================= */
+@media (max-width: 860px) {
+  .hero {
+    min-height: auto;
+    padding: 100px 6% 40px;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .hero-text-col {
+    align-items: center;
+    text-align: center;
+  }
+  .dynamic-headline {
+    text-align: center;
+    font-size: clamp(34px, 7vw, 56px);
+  }
+  .book-stage {
+    height: 360px;
+    max-width: 380px;
+  }
+  .book-3d {
+    transform: rotateX(12deg) rotateY(-12deg) rotateZ(1deg);
+  }
+  .steps-row, .feature-split {
+    grid-template-columns: 1fr;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu, .nav-actions .btn-ghost {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .mode-tabs {
+    gap: 20px;
+    width: 100%;
+  }
+
+  .tab-btn {
+    font-size: 14px;
+    padding: 12px 6px 14px;
+  }
+
+  .search-widget {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto 40px;
+  }
+
+  .search-divider {
+    display: none;
+  }
+
+  .search-widget .btn {
+    width: 100%;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<header class="navbar" id="navbar">
+  <!-- STANDARD NAVBAR VIEW -->
+  <div class="nav-content-default" id="navDefault">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+        <span class="brand-sub">Trusted Help. Fast.</span>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="#shield" class="nav-link">SwiftShield™</a></li>
+      <li><a href="become-provider.html" class="nav-link">For Artisans</a></li>
+      <li><a href="support.html" class="nav-link">Support Desk</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost">Sign In</a>
+      <button type="button" class="btn btn-primary" onclick="toggleHeaderSearch(true)">
+        <i class="fa-solid fa-magnifying-glass"></i> Find Help
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- EXPANDED SEARCH VIEW INSIDE HEADER -->
+  <div class="nav-content-search" id="navSearch" style="display:none;">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+      </div>
+    </a>
+
+    <!-- Header Search Widget -->
+    <form class="header-search-widget" onsubmit="handleHeaderSearch(event)">
+      <div class="search-field">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <select id="headerCategory" required>
+          <option value="" disabled selected>Select service category...</option>
+          <option value="Plumbing & Leak Repair">Plumbing & Piping Repairs</option>
+          <option value="Electrical & Inverter Maintenance">Electrical, Solar & Inverter</option>
+          <option value="AC Servicing & Gas Refill">AC Servicing & Gas Refill</option>
+          <option value="Home & Office Deep Cleaning">Home & Office Deep Cleaning</option>
+          <option value="Generator Servicing & Diagnostics">Generator Servicing</option>
+          <option value="Express Logistics & Market Errands">Express Errands & Courier</option>
+        </select>
+      </div>
+
+      <div class="search-divider"></div>
+
+      <div class="search-field">
+        <i class="fa-solid fa-location-dot"></i>
+        <select id="headerLandmark" required>
+          <option value="" disabled selected>Choose Uyo landmark...</option>
+          <option value="Shelter Afrique Estate">Shelter Afrique Estate</option>
+          <option value="Ewet Housing Estate">Ewet Housing Estate</option>
+          <option value="Osongama Estate">Osongama Estate</option>
+          <option value="Ikot Ekpene Road Corridor">Ikot Ekpene Road Corridor</option>
+          <option value="Oron Road / 4-Lane Junction">Oron Road / 4-Lane</option>
+          <option value="Aka Road / Stadium">Aka Road / Stadium Area</option>
+          <option value="Uniuyo Permanent Site">Uniuyo Perm Site</option>
+          <option value="Ibom Plaza Central">Ibom Plaza / Center</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="padding:10px 22px;">Find Help</button>
+    </form>
+
+    <button type="button" class="btn-close-search" onclick="toggleHeaderSearch(false)" aria-label="Close Search">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<main>
+  <section class="hero">
+    <div class="hero-grid">
+      <!-- LEFT COLUMN: DYNAMIC JOB QUESTION WITH HIGH-CONTRAST SHADOW -->
+      <div class="hero-text-col">
+        <h1 class="dynamic-headline">
+          Do you need <span class="article-word" id="articleWord">a</span><br>
+          <span class="job-wrapper"><span class="highlight-job" id="jobWord">Cleaner?</span></span>
+        </h1>
+      </div>
+
+      <!-- RIGHT COLUMN: INTERACTIVE PICTURE PACK (AUTO-FLIPS EVERY 3s) -->
+            <!-- RIGHT COLUMN: 3D BOOK / DEPTH PHOTO STACK (100+ PROFESSIONS) -->
+      <div class="hero-media-col">
+        <div class="book-stage" id="bookStage">
+          <div class="book-3d" id="heroBook" aria-label="Book of 100+ Verified Professions in Akwa Ibom">
+            <!-- Physical Stack Depth Base (The Book Edge / Ream of Sheets) -->
+            <div class="book-pages-base" aria-hidden="true"></div>
+
+            <!-- Visible Layered Cards (Dynamic Flip Deck) -->
+            <div class="book-card" data-depth="0" id="card0">
+              <img src="assets/images/hero-artisan.jpg" alt="Electrical & Solar Specialist" class="book-card-img">
+            </div>
+            <div class="book-card" data-depth="1" id="card1">
+              <img src="assets/images/hero-plumber.jpg" alt="Plumbing & Leak Repairs" class="book-card-img">
+            </div>
+            <div class="book-card" data-depth="2" id="card2">
+              <img src="assets/images/hero-cleaning.jpg" alt="Deep Cleaning & Fumigation" class="book-card-img">
+            </div>
+            <div class="book-card" data-depth="3" id="card3">
+              <img src="assets/images/hero-dispatch.jpg" alt="Express Courier Logistics" class="book-card-img">
+            </div>
+            <div class="book-card" data-depth="4" id="card4">
+              <img src="assets/images/hero-painter.jpg" alt="Wall Painting & Finishing" class="book-card-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLE-STYLE FULL-BLEED 4-COLUMN VERTICAL BENTO VIDEO MOSAIC (3+ SCREENS TALL) -->
+  <section class="apple-gallery-section" id="jobsInMotion" aria-label="Apple-Grade Video Mosaic of Various Jobs">
+    <div class="apple-bento-grid" id="bentoGrid">
+      
+      <!-- ================= ROW 1 ================= -->
+      <!-- Tile 1 (Span 2): Welder & Aluminum Fabricator -->
+      <article class="bento-card bento-span-2" onclick="openAppleVideoModal(0)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Welding & Fabrication">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Aluminum & Welding</h4>
+          <p class="bento-sub">Argon & Metal Fabrication</p>
+        </div>
+      </article>
+
+      <!-- Tile 2 (Span 1, Amber): Master Woodworker -->
+      <article class="bento-card bento-span-1 card-bg-amber" onclick="openAppleVideoModal(1)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Carpentry">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Custom Furniture</h4>
+          <p class="bento-sub">Hardwood Joinery & Cabinets</p>
+        </div>
+      </article>
+
+      <!-- Tile 3 (Span 1, Pale Gold): Solar Inverter Setup -->
+      <article class="bento-card bento-span-1 card-bg-cream" onclick="openAppleVideoModal(2)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-artisan.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-artisan.jpg" alt="Solar & Electrical">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Solar & Inverters</h4>
+          <p class="bento-sub">Lithium Battery & Hybrid Setups</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 2 & ROW 3 ================= -->
+      <!-- Tile 4 (Tall: Span 1, Row-Span 2): Mobile Auto Diagnostics -->
+      <article class="bento-card bento-span-1 bento-row-span-2 card-bg-charcoal" onclick="openAppleVideoModal(3)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-mechanic.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-mechanic.jpg" alt="Auto Mechanic">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Automotive Diagnostics</h4>
+          <p class="bento-sub">OBD-II computer scan & engine repair</p>
+        </div>
+      </article>
+
+      <!-- Tile 5 (Span 2): Apple Terracotta Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-terracotta">
+        <h2 class="bento-text-headline">Crafted with pride.</h2>
+        <p class="bento-text-sub">Watch verified local artisans in action across Uyo.</p>
+        <a href="services.html" class="bento-text-cta">Explore all services &rarr;</a>
+      </div>
+
+      <!-- Tile 6 (Span 1, Cyan): Commercial & Domestic Plumbing -->
+      <article class="bento-card bento-span-1 card-bg-cyan" onclick="openAppleVideoModal(4)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-plumber.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-plumber-working-on-pipes-under-a-sink-42866-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-plumber.jpg" alt="Plumbing">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Piping & Pumps</h4>
+          <p class="bento-sub">Acoustic leak detection</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 3 (Cols 2, 3-4) ================= -->
+      <!-- Tile 7 (Span 1): Hospital-Grade Deep Cleaning -->
+      <article class="bento-card bento-span-1" onclick="openAppleVideoModal(5)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cleaning.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-cleaning-the-floor-with-a-mop-41618-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cleaning.jpg" alt="Deep Cleaning">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Deep Cleaning</h4>
+          <p class="bento-sub">Steam extraction & marble polish</p>
+        </div>
+      </article>
+
+      <!-- Tile 8 (Span 2, Amber): Wall Screeding & Stucco Paint -->
+      <article class="bento-card bento-span-2 card-bg-amber" onclick="openAppleVideoModal(6)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-painter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-painter-painting-a-wall-with-a-roller-42869-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-painter.jpg" alt="Painting">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Wall Screeding & Finish</h4>
+          <p class="bento-sub">Architectural satin & Venetian marble</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 4 & ROW 5 ================= -->
+      <!-- Tile 9 (Span 2): Apple Midnight Navy Escrow Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-navy">
+        <h2 class="bento-text-headline">SwiftShield™ Protected.</h2>
+        <p class="bento-text-sub">Funds remain in safe dual-escrow until you inspect and approve.</p>
+        <a href="#shield" class="bento-text-cta">How escrow works &rarr;</a>
+      </div>
+
+      <!-- Tile 10 (Span 1, Purple): Smart CCTV & Fiber Optics -->
+      <article class="bento-card bento-span-1 card-bg-purple" onclick="openAppleVideoModal(7)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cctv.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-technician-installing-a-security-camera-42871-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cctv.jpg" alt="CCTV & Security">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Smart CCTV & Fiber</h4>
+          <p class="bento-sub">Perimeter AI surveillance</p>
+        </div>
+      </article>
+
+      <!-- Tile 11 (Tall: Span 1, Row-Span 2): Borehole Drilling & Industrial Water -->
+      <article class="bento-card bento-span-1 bento-row-span-2 card-bg-charcoal" onclick="openAppleVideoModal(4)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-plumber.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-plumber-working-on-pipes-under-a-sink-42866-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-plumber.jpg" alt="Borehole Drilling">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Borehole Engineering</h4>
+          <p class="bento-sub">Deep aquifer drilling & industrial pumps</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 5 (Cols 1, 2-3) ================= -->
+      <!-- Tile 12 (Span 1, Charcoal): Generator Overhaul & Heavy Power -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(9)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-generator.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-generator.jpg" alt="Generator Mechanic">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Generator Overhaul</h4>
+          <p class="bento-sub">Carburetor tuning & AVR calibration</p>
+        </div>
+      </article>
+
+      <!-- Tile 13 (Span 2, Cyan): Inverter AC Servicing & Cooling -->
+      <article class="bento-card bento-span-2 card-bg-cyan" onclick="openAppleVideoModal(8)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ac.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-ac.jpg" alt="AC Technician">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Inverter AC Servicing</h4>
+          <p class="bento-sub">R410A gas refill & coil deep wash</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 6 ================= -->
+      <!-- Tile 14 (Span 2, Cream): Ceramic Tiling & Marble Flooring -->
+      <article class="bento-card bento-span-2 card-bg-cream" onclick="openAppleVideoModal(1)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Ceramic Tiling">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Ceramic & Marble Tiling</h4>
+          <p class="bento-sub">Laser-aligned porcelain & granite</p>
+        </div>
+      </article>
+
+      <!-- Tile 15 (Span 1, Amber): Express Logistics & Dispatch -->
+      <article class="bento-card bento-span-1 card-bg-amber" onclick="openAppleVideoModal(3)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-mechanic.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-mechanic.jpg" alt="Courier Dispatch">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Express Courier</h4>
+          <p class="bento-sub">Same-hour package transit</p>
+        </div>
+      </article>
+
+      <!-- Tile 16 (Span 1, Cyan): Professional Laundry & Garment Care -->
+      <article class="bento-card bento-span-1 card-bg-cyan" onclick="openAppleVideoModal(5)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cleaning.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-cleaning-the-floor-with-a-mop-41618-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cleaning.jpg" alt="Laundry">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Garment Care & Laundry</h4>
+          <p class="bento-sub">Steam press & fabric conditioning</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 7 & ROW 8 ================= -->
+      <!-- Tile 17 (Span 1, Charcoal): Roofing & Structural Timber Repairs -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(0)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Roofing">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Roofing & Trusses</h4>
+          <p class="bento-sub">Stone-coated tiles & aluminum flashing</p>
+        </div>
+      </article>
+
+      <!-- Tile 18 (Span 2): Apple Emerald Green Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-green">
+        <h2 class="bento-text-headline">Vetted to the highest bar.</h2>
+        <p class="bento-text-sub">Identity-verified, skill-assessed artisans ready for work.</p>
+        <a href="services.html" class="bento-text-cta">Meet our artisans &rarr;</a>
+      </div>
+
+      <!-- Tile 19 (Tall: Span 1, Row-Span 2): Electrical Automation & Smart Home -->
+      <article class="bento-card bento-span-1 bento-row-span-2 card-bg-purple" onclick="openAppleVideoModal(2)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-artisan.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-artisan.jpg" alt="Electrical Rewiring">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Smart Automation</h4>
+          <p class="bento-sub">Full home conduit conduit wiring</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 8 (Cols 1-2, 3) ================= -->
+      <!-- Tile 20 (Span 2, Amber): Architectural Glass & Aluminum Glazing -->
+      <article class="bento-card bento-span-2 card-bg-amber" onclick="openAppleVideoModal(0)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Glass Glazing">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Architectural Glass & Glazing</h4>
+          <p class="bento-sub">Tempered shower cubicles & facade panels</p>
+        </div>
+      </article>
+
+      <!-- Tile 21 (Span 1, Charcoal): Bespoke Upholstery & Leather Craft -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(1)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Upholstery">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Upholstery & Leather</h4>
+          <p class="bento-sub">Chesterfield restoration</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 9 ================= -->
+      <!-- Tile 22 (Span 1, Cyan): Commercial Fridge & Cold Room Repair -->
+      <article class="bento-card bento-span-1 card-bg-cyan" onclick="openAppleVideoModal(8)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ac.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-ac.jpg" alt="Refrigeration">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Cold Room & Fridges</h4>
+          <p class="bento-sub">Compressor diagnosis & cooling coils</p>
+        </div>
+      </article>
+
+      <!-- Tile 23 (Span 1, Charcoal): Soundproof Generator Canopy Fabrication -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(9)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-generator.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-generator.jpg" alt="Acoustic Enclosure">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Soundproof Canopies</h4>
+          <p class="bento-sub">Acoustic fiberglass baffling</p>
+        </div>
+      </article>
+
+      <!-- Tile 24 (Span 2): Apple Deep Purple Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-purple">
+        <h2 class="bento-text-headline">Your project. Handled effortlessly.</h2>
+        <p class="bento-text-sub">Book top-rated artisans in seconds with guaranteed peace of mind.</p>
+        <a href="booking.html" class="bento-text-cta">Get started today &rarr;</a>
+      </div>
+
+      <!-- ================= ROW 10 & ROW 11 ================= -->
+      <!-- Tile 25 (Tall: Span 1, Row-Span 2, Charcoal): Car Body Restoration & Spray Painting -->
+      <article class="bento-card bento-span-1 bento-row-span-2 card-bg-charcoal" onclick="openAppleVideoModal(3)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-mechanic.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-mechanic.jpg" alt="Car Body & Spray Booth">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Auto Body & Spray Booth</h4>
+          <p class="bento-sub">Oven-baked polyurethane finish</p>
+        </div>
+      </article>
+
+      <!-- Tile 26 (Span 2): Apple Sunset Amber Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-amber">
+        <h2 class="bento-text-headline">Direct artisan connections.</h2>
+        <p class="bento-text-sub">Zero middlemen. Transparent rates, direct live chat, and verified reviews.</p>
+        <a href="services.html" class="bento-text-cta">Browse verified pros &rarr;</a>
+      </div>
+
+      <!-- Tile 27 (Span 1, Cyan): Solar Streetlights & Estate Lighting -->
+      <article class="bento-card bento-span-1 card-bg-cyan" onclick="openAppleVideoModal(2)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-artisan.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-artisan.jpg" alt="Solar Streetlights">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Estate Solar Lights</h4>
+          <p class="bento-sub">Dusk-to-dawn LED masts</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 11 (Cols 2, 3-4) ================= -->
+      <!-- Tile 28 (Span 1, Cream): Architectural POP Ceilings -->
+      <article class="bento-card bento-span-1 card-bg-cream" onclick="openAppleVideoModal(6)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-painter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-painter-painting-a-wall-with-a-roller-42869-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-painter.jpg" alt="POP Ceiling">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">POP Ceilings & Cornice</h4>
+          <p class="bento-sub">Suspended drywall & cove lighting</p>
+        </div>
+      </article>
+
+      <!-- Tile 29 (Span 2, Amber): Stainless Steel Railings & Staircases -->
+      <article class="bento-card bento-span-2 card-bg-amber" onclick="openAppleVideoModal(0)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Stainless Steel Railings">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Stainless Railings</h4>
+          <p class="bento-sub">Grade-304 balustrades & glass clamps</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 12 & ROW 13 ================= -->
+      <!-- Tile 30 (Span 2): Apple Deep Crimson Wine Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-wine">
+        <h2 class="bento-text-headline">Backed by SwiftGuarantee.</h2>
+        <p class="bento-text-sub">Every project completed to standard, or we reassign and refund without hassle.</p>
+        <a href="#shield" class="bento-text-cta">Learn about SwiftGuarantee &rarr;</a>
+      </div>
+
+      <!-- Tile 31 (Span 1, Purple): Smart Video Intercoms & Access Control -->
+      <article class="bento-card bento-span-1 card-bg-purple" onclick="openAppleVideoModal(7)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cctv.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-technician-installing-a-security-camera-42871-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cctv.jpg" alt="Video Intercom">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Smart Intercoms</h4>
+          <p class="bento-sub">Biometric locks & video gate stations</p>
+        </div>
+      </article>
+
+      <!-- Tile 32 (Tall: Span 1, Row-Span 2, Charcoal): Swimming Pool Pumps & Water Treatment -->
+      <article class="bento-card bento-span-1 bento-row-span-2 card-bg-charcoal" onclick="openAppleVideoModal(4)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-plumber.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-plumber-working-on-pipes-under-a-sink-42866-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-plumber.jpg" alt="Pool Maintenance">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Pool Systems & Pumps</h4>
+          <p class="bento-sub">Sand filters & automatic chlorination</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 13 (Cols 1, 2-3) ================= -->
+      <!-- Tile 33 (Span 1, Charcoal): Industrial Alternator & Starter Overhaul -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(9)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-generator.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-generator.jpg" alt="Alternator Rewinding">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Alternator Rewind</h4>
+          <p class="bento-sub">Copper stator rewiring</p>
+        </div>
+      </article>
+
+      <!-- Tile 34 (Span 2, Cyan): Industrial Carpet Shampooing & Deep Sanitation -->
+      <article class="bento-card bento-span-2 card-bg-cyan" onclick="openAppleVideoModal(5)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cleaning.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-cleaning-the-floor-with-a-mop-41618-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cleaning.jpg" alt="Industrial Cleaning">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Industrial Carpet & Rug Care</h4>
+          <p class="bento-sub">Hot water extraction & sanitizing</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 14 ================= -->
+      <!-- Tile 35 (Span 2, Cream): Exterior Interlocking Pavers & Masonry -->
+      <article class="bento-card bento-span-2 card-bg-cream" onclick="openAppleVideoModal(1)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Interlocking Pavers">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Interlocking Pavers</h4>
+          <p class="bento-sub">Driveway stone laying & curbs</p>
+        </div>
+      </article>
+
+      <!-- Tile 36 (Span 1, Amber): Industrial Guttering & Aluminum Flashing -->
+      <article class="bento-card bento-span-1 card-bg-amber" onclick="openAppleVideoModal(0)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Roof Guttering">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Roof Guttering</h4>
+          <p class="bento-sub">Seamless rainwater drainage</p>
+        </div>
+      </article>
+
+      <!-- Tile 37 (Span 1, Cyan): Central Water Treatment & Reverse Osmosis -->
+      <article class="bento-card bento-span-1 card-bg-cyan" onclick="openAppleVideoModal(4)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-plumber.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-plumber-working-on-pipes-under-a-sink-42866-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-plumber.jpg" alt="Water Treatment">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Water Filtration</h4>
+          <p class="bento-sub">Reverse osmosis & iron removal</p>
+        </div>
+      </article>
+
+      <!-- ================= ROW 15 ================= -->
+      <!-- Tile 38 (Span 1, Charcoal): Perimeter Beam & Microwave Sensors -->
+      <article class="bento-card bento-span-1 card-bg-charcoal" onclick="openAppleVideoModal(7)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-cctv.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-technician-installing-a-security-camera-42871-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-cctv.jpg" alt="Perimeter Security">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Perimeter Beams</h4>
+          <p class="bento-sub">Infrared intrusion alerts</p>
+        </div>
+      </article>
+
+      <!-- Tile 39 (Span 1, Amber): Luxury Quartz Countertops & Kitchen Refacing -->
+      <article class="bento-card bento-span-1 card-bg-amber" onclick="openAppleVideoModal(1)">
+        <video class="bento-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-carpenter.jpg">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4" type="video/mp4">
+          <img src="assets/images/hero-carpenter.jpg" alt="Quartz Countertops">
+        </video>
+        <div class="bento-overlay">
+          <h4 class="bento-title">Quartz Countertops</h4>
+          <p class="bento-sub">Seamless waterfall edges</p>
+        </div>
+      </article>
+
+      <!-- Tile 40 (Span 2): Apple Royal Cobalt Blue Typography Banner -->
+      <div class="bento-card bento-span-2 bento-text-card theme-blue">
+        <h2 class="bento-text-headline">From quick fixes to grand builds.</h2>
+        <p class="bento-text-sub">Trusted by thousands of home and business owners across the region.</p>
+        <a href="booking.html" class="bento-text-cta">Start your project today &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+  <!-- =========================================
+       APPLE SIGNATURE 2-COLUMN DUO SHOWCASE
+       (Box 1: Join the Club | Box 2: Hire Someone Today)
+       Crisp sharp rectangular edges - exactly like Apple.com
+       Text-only typographic presentation (no images)
+  ========================================= -->
+  <section class="apple-duo-section" aria-label="Join the Club or Hire Someone Today">
+    <div class="apple-duo-grid">
+
+      <!-- BOX 1: JOIN THE CLUB (Apple Dark Card Style) -->
+      <div class="apple-duo-card dark-card">
+        <div class="apple-duo-content">
+          <h2 class="apple-duo-title">Join the club.</h2>
+          <p class="apple-duo-desc">
+            Sign up today, verify your credentials and skills, and access high-value contracts and jobs across Nigeria.
+          </p>
+          <div class="apple-duo-actions">
+            <a href="artisan-register.html" class="apple-btn-pill apple-btn-blue">Join the Club</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOX 2: HIRE SOMEONE TODAY (Apple Clean Light Card Style) -->
+      <div class="apple-duo-card light-card">
+        <div class="apple-duo-content">
+          <h2 class="apple-duo-title">Hire someone today.</h2>
+          <p class="apple-duo-desc">
+            Access the finest verified skills and top-tier professionals across Nigeria.
+          </p>
+          <div class="apple-duo-actions">
+            <a href="booking.html" class="apple-btn-pill apple-btn-blue">Hire Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APPLE-STYLE VIDEO POPUP MODAL -->
+  <div class="apple-video-modal" id="appleVideoModal" aria-hidden="true" onclick="closeAppleVideoModal(event)">
+    <div class="apple-modal-box" onclick="event.stopPropagation()">
+      <button class="apple-modal-close" onclick="closeAppleVideoModal()" aria-label="Close Video">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="apple-modal-media-wrap">
+        <video id="modalVideoPlayer" autoplay loop playsinline controls></video>
+      </div>
+      <div class="apple-modal-info">
+        <div class="apple-modal-header">
+          <h3 id="modalJobTitle" class="apple-modal-title">Job Title</h3>
+          <a id="modalBookingBtn" href="booking.html" class="btn btn-primary" style="padding:10px 24px;border-radius:999px;">
+            Book This Artisan &rarr;
+          </a>
+        </div>
+        <p id="modalJobDesc" class="apple-modal-desc">Job details</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">SwiftErrand</span>
+          <span class="brand-sub">Trusted Help. Fast.</span>
+        </div>
+      </div>
+      <p>Building Africa's most trusted on-demand home services and errands infrastructure. Starting in Uyo, Akwa Ibom State.</p>
+      <div style="font-size:13px;color:var(--text-muted);">
+        <i class="fa-solid fa-location-dot" style="color:var(--primary);margin-right:6px;"></i> Operational Hub: Ikot Ekpene Road Corridor, Uyo
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="booking.html?category=Plumbing">Plumbing Repairs</a></li>
+        <li><a href="booking.html?category=Electrical">Electrical & Inverters</a></li>
+        <li><a href="booking.html?category=AC">AC Servicing</a></li>
+        <li><a href="booking.html?category=Cleaning">Deep Cleaning</a></li>
+        <li><a href="booking.html?mode=MOVE%20IT">Express Dispatch</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="ai-booking.html">SwiftMatch™ AI</a></li>
+        <li><a href="become-provider.html">Become a Provider</a></li>
+        <li><a href="dashboard.html">Customer Dashboard</a></li>
+        <li><a href="provider-dashboard.html">Provider Hub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support & Safety</h4>
+      <ul>
+        <li><a href="support.html">Help & Dispute Desk</a></li>
+        <li><a href="emergency.html">SwiftSafety™ SOS</a></li>
+        <li><a href="about.html">About SwiftErrand</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Sign In</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+// Toggle Search Bar in Navbar
+function toggleHeaderSearch(show) {
+  const navDefault = document.getElementById('navDefault');
+  const navSearch = document.getElementById('navSearch');
+  if (show) {
+    navDefault.style.display = 'none';
+    navSearch.style.display = 'flex';
+    document.getElementById('headerCategory').focus();
+  } else {
+    navSearch.style.display = 'none';
+    navDefault.style.display = 'flex';
+  }
+}
+
+// Handle Header Search Submission
+function handleHeaderSearch(e) {
+  e.preventDefault();
+  const cat = document.getElementById('headerCategory').value;
+  const landmark = document.getElementById('headerLandmark').value;
+  if (!cat || !landmark) return;
+  window.location.href = `booking.html?category=${encodeURIComponent(cat)}&landmark=${encodeURIComponent(landmark)}`;
+}
+
+// Close search on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') toggleHeaderSearch(false);
+});
+
+// Mode switcher between DO IT and MOVE IT
+function switchMode(mode) {
+  const doCards = document.querySelectorAll('.mode-do');
+  const moveCards = document.querySelectorAll('.mode-move');
+  const btnDo = document.getElementById('tabDo');
+  const btnMove = document.getElementById('tabMove');
+  if (!btnDo || !btnMove) return;
+
+  if (mode === 'DO IT') {
+    doCards.forEach(c => c.style.display = 'flex');
+    moveCards.forEach(c => c.style.display = 'none');
+    btnDo.classList.add('active');
+    btnMove.classList.remove('active');
+  } else {
+    doCards.forEach(c => c.style.display = 'none');
+    moveCards.forEach(c => c.style.display = 'flex');
+    btnMove.classList.add('active');
+    btnDo.classList.remove('active');
+  }
+}
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    const menu = document.querySelector('.nav-menu');
+    if (menu) {
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+        menu.style.flexDirection = 'column';
+        menu.style.position = 'absolute';
+        menu.style.top = '76px';
+        menu.style.left = '0';
+        menu.style.right = '0';
+        menu.style.background = '#fff';
+        menu.style.padding = '20px';
+        menu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+      }
+    }
+  });
+}
+
+// 3D Spatial Book & Photo-Textured Dynamic Headline
+(function initBookOfProfessions() {
+  const book = document.getElementById('heroBook');
+  const stage = document.getElementById('bookStage');
+  const articleEl = document.getElementById('articleWord');
+  const jobEl = document.getElementById('jobWord');
+  if (!book || !stage) return;
+
+  // Real, High-Resolution Curated Photography for 100+ Professions
+  const professions = [
+    { job: "Cleaner", article: "a", title: "Home & Office Deep Cleaning", icon: "fa-broom", img: "assets/images/hero-cleaning.jpg" },
+    { job: "Electrician", article: "an", title: "Electrical, Solar & Inverters", icon: "fa-bolt", img: "assets/images/hero-artisan.jpg" },
+    { job: "Plumber", article: "a", title: "Plumbing & Piping Repairs", icon: "fa-wrench", img: "assets/images/hero-plumber.jpg" },
+    { job: "Dispatch Rider", article: "a", title: "Express Logistics & Dispatch", icon: "fa-truck-fast", img: "assets/images/hero-dispatch.jpg" },
+    { job: "Painter", article: "a", title: "Professional Wall Painting", icon: "fa-paint-roller", img: "assets/images/hero-painter.jpg" },
+    { job: "Carpenter", article: "a", title: "Carpentry & Cabinetry", icon: "fa-hammer", img: "assets/images/hero-carpenter.jpg" },
+    { job: "AC Technician", article: "an", title: "AC Servicing & Gas Refill", icon: "fa-snowflake", img: "assets/images/hero-ac.jpg" },
+    { job: "Generator Mechanic", article: "a", title: "Generator Diagnostic & Repair", icon: "fa-gears", img: "assets/images/hero-generator.jpg" },
+    { job: "Tiler", article: "a", title: "Ceramic Tiling & Masonry", icon: "fa-layer-group", img: "assets/images/hero-tiler.jpg" },
+    { job: "CCTV Installer", article: "a", title: "Smart CCTV & Security Systems", icon: "fa-video", img: "assets/images/hero-cctv.jpg" },
+    { job: "Auto Mechanic", article: "an", title: "Mobile Auto Diagnostics & Repair", icon: "fa-car", img: "assets/images/hero-mechanic.jpg" },
+    { job: "Laundry Specialist", article: "a", title: "Laundry & Garment Care", icon: "fa-shirt", img: "assets/images/hero-laundry.jpg" },
+    { job: "Borehole Engineer", article: "a", title: "Borehole & Pump Engineering", icon: "fa-faucet", img: "assets/images/hero-borehole.jpg" },
+    { job: "Aluminum Fabricator", article: "an", title: "Door & Aluminum Framing", icon: "fa-door-open", img: "assets/images/hero-carpenter.jpg" },
+    { job: "Solar Installer", article: "a", title: "Solar & Inverter Installations", icon: "fa-solar-panel", img: "assets/images/hero-artisan.jpg" }
+  ];
+
+  const totalProfessionsCount = 100;
+  const cards = [
+    document.getElementById('card0'),
+    document.getElementById('card1'),
+    document.getElementById('card2'),
+    document.getElementById('card3'),
+    document.getElementById('card4')
+  ].filter(Boolean);
+
+  const numLeaves = cards.length;
+  let currentCatalogIdx = 0;
+  let isFlipping = false;
+  let autoTimer = null;
+
+  function adjustJobFontSize() {
+    if (!jobEl) return;
+    const col = document.querySelector('.hero-text-col');
+    const availableWidth = col ? (col.clientWidth - 10) : 460;
+    
+    // Dynamic base font size according to viewport width
+    const baseSize = Math.min(Math.max(window.innerWidth * 0.052, 38), 74);
+    jobEl.style.fontSize = baseSize + 'px';
+    
+    // Mathematically guarantees the text fits on exactly ONE single line
+    const textWidth = jobEl.scrollWidth;
+    if (textWidth > availableWidth && availableWidth > 50) {
+      const scale = (availableWidth / textWidth) * 0.96;
+      const fittedSize = Math.max(Math.floor(baseSize * scale), 20);
+      jobEl.style.fontSize = fittedSize + 'px';
+    }
+  }
+
+  function setupInitialImages() {
+    cards.forEach((card, i) => {
+      const p = professions[i % professions.length];
+      const img = card.querySelector('img');
+      if (img) {
+        img.src = p.img;
+        img.alt = p.title;
+      }
+      card.setAttribute('data-depth', i);
+    });
+
+    if (jobEl) {
+      jobEl.style.backgroundImage = `url('${professions[0].img}')`;
+    }
+    updateHeadlineAndMeta(professions[0], 1);
+    adjustJobFontSize();
+    window.addEventListener('resize', adjustJobFontSize);
+  }
+
+  function updateHeadlineAndMeta(activeProf, displayNum) {
+    if (jobEl) {
+      jobEl.classList.add('fade-out');
+      setTimeout(() => {
+        if (articleEl) articleEl.textContent = activeProf.article || 'a';
+        jobEl.textContent = activeProf.job + '?';
+        // Fill the text directly with the photo's colors and texture!
+        jobEl.style.backgroundImage = `url('${activeProf.img}')`;
+        adjustJobFontSize();
+        jobEl.classList.remove('fade-out');
+      }, 240);
+    }
+  }
+
+  function flipTopPage() {
+    if (isFlipping) return;
+    isFlipping = true;
+
+    const topCard = cards.find(c => c.getAttribute('data-depth') === '0');
+    if (!topCard) {
+      isFlipping = false;
+      return;
+    }
+
+    topCard.classList.add('flipping-away');
+
+    cards.forEach(card => {
+      if (card !== topCard) {
+        const curDepth = parseInt(card.getAttribute('data-depth'), 10);
+        card.setAttribute('data-depth', curDepth - 1);
+      }
+    });
+
+    currentCatalogIdx++;
+    const nextProf = professions[currentCatalogIdx % professions.length];
+    const displayNum = (currentCatalogIdx % totalProfessionsCount) + 1;
+    updateHeadlineAndMeta(nextProf, displayNum);
+
+    setTimeout(() => {
+      topCard.style.transition = 'none';
+      topCard.classList.remove('flipping-away');
+      topCard.setAttribute('data-depth', numLeaves - 1);
+
+      const upcomingProfIdx = (currentCatalogIdx + (numLeaves - 1)) % professions.length;
+      const upcomingProf = professions[upcomingProfIdx];
+      const img = topCard.querySelector('img');
+      if (img) {
+        img.src = upcomingProf.img;
+        img.alt = upcomingProf.title;
+      }
+
+      void topCard.offsetWidth;
+      topCard.style.transition = '';
+
+      isFlipping = false;
+    }, 780);
+  }
+
+  function startFlipping() {
+    stopFlipping();
+    autoTimer = setInterval(flipTopPage, 3000);
+  }
+
+  function stopFlipping() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  book.addEventListener('click', () => {
+    stopFlipping();
+    flipTopPage();
+    startFlipping();
+  });
+
+  stage.addEventListener('mousemove', (e) => {
+    const rect = stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    const baseRotX = 14;
+    const baseRotY = -18;
+    const tiltX = baseRotX - y * 10;
+    const tiltY = baseRotY + x * 12;
+
+    book.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) rotateZ(1.5deg)`;
+  });
+
+  stage.addEventListener('mouseenter', stopFlipping);
+  stage.addEventListener('mouseleave', () => {
+    book.style.transform = '';
+    startFlipping();
+  });
+
+  setupInitialImages();
+  startFlipping();
+})();
+
+// =========================================
+// APPLE-GRADE BENTO VIDEO GALLERY & MODAL
+// =========================================
+const appleVideoData = [
+  {
+    title: "Aluminum & Metal Fabrication",
+    desc: "Precision argon welding, burglary-proof security gates, stainless steel handrails, and insulated thermal casement windows.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-welder-working-with-sparks-flying-42875-large.mp4",
+    poster: "assets/images/hero-carpenter.jpg",
+    category: "Fabrication"
+  },
+  {
+    title: "Chemical-Safe Deep Cleaning",
+    desc: "Multi-stage hospital-grade sanitization, marble polishing, steam extraction cleaning, and eco-certified fumigation.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-cleaning-the-floor-with-a-mop-41618-large.mp4",
+    poster: "assets/images/hero-cleaning.jpg",
+    category: "Cleaning"
+  },
+  {
+    title: "Solar & Hybrid Inverters",
+    desc: "Certified electrical technicians installing high-yield solar arrays, lithium battery racks, and pure sine-wave hybrid inverters across Uyo.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4",
+    poster: "assets/images/hero-artisan.jpg",
+    category: "Electrical"
+  },
+  {
+    title: "Mobile Automotive Diagnostics",
+    desc: "Complete computer OBD-II vehicle scans, suspension diagnostics, alternator rewinding, and emergency roadside engine repair.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4",
+    poster: "assets/images/hero-mechanic.jpg",
+    category: "Automobile"
+  },
+  {
+    title: "Hardwood Joinery & Cabinetry",
+    desc: "Master joinery with seasoned Akwa Ibom hardwoods, soft-close modular kitchen islands, executive desks, and acoustic wall slatted panels.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-carpenter-measuring-and-cutting-wood-42867-large.mp4",
+    poster: "assets/images/hero-carpenter.jpg",
+    category: "Carpentry"
+  },
+  {
+    title: "Commercial & Domestic Plumbing",
+    desc: "Acoustic underground leak detection, pressure accumulator pump servicing, overhead tank manifolds, and rapid drain jetting.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-plumber-working-on-pipes-under-a-sink-42866-large.mp4",
+    poster: "assets/images/hero-plumber.jpg",
+    category: "Plumbing"
+  },
+  {
+    title: "Interior & Exterior Wall Screeding",
+    desc: "Precision skim screeding, waterproof exterior emulsion, silk-coat interior rolling, and luxury Venetian marble plastering.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-painter-painting-a-wall-with-a-roller-42869-large.mp4",
+    poster: "assets/images/hero-painter.jpg",
+    category: "Painting"
+  },
+  {
+    title: "Smart CCTV & Fiber Optics",
+    desc: "Full perimeter AI-based human detection cameras, solar-powered PTZ lenses, optical fiber termination, and smartphone live streaming.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-technician-installing-a-security-camera-42871-large.mp4",
+    poster: "assets/images/hero-cctv.jpg",
+    category: "Security"
+  },
+  {
+    title: "Inverter AC Servicing & Cooling",
+    desc: "Comprehensive diagnostic vacuum checks, R410A gas refills, indoor evaporator ultrasonic wash, and condenser capacitor replacement.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-male-electrician-checking-an-electrical-box-42864-large.mp4",
+    poster: "assets/images/hero-ac.jpg",
+    category: "AC Repair"
+  },
+  {
+    title: "Diesel & Petrol Generator Overhaul",
+    desc: "High-capacity diesel and petrol power plant maintenance, AVR calibration, fuel injector decarbonization, and silent soundproof canopy tuning.",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-mechanic-checking-the-engine-of-a-car-42861-large.mp4",
+    poster: "assets/images/hero-generator.jpg",
+    category: "Generator"
+  }
+];
+
+// Video Viewport Auto-Play / Pause Observer for smooth 60fps vertical scrolling
+(function initBentoVideoObserver() {
+  const videos = document.querySelectorAll('.bento-video');
+  if (!videos.length) return;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    videos.forEach(v => observer.observe(v));
+  }
+})();
+
+// Modal Functions
+function openAppleVideoModal(index) {
+  const data = appleVideoData[index];
+  if (!data) return;
+  const modal = document.getElementById('appleVideoModal');
+  const videoPlayer = document.getElementById('modalVideoPlayer');
+  const title = document.getElementById('modalJobTitle');
+  const desc = document.getElementById('modalJobDesc');
+  const bookingBtn = document.getElementById('modalBookingBtn');
+
+  if (modal && videoPlayer) {
+    title.textContent = data.title;
+    desc.textContent = data.desc;
+    bookingBtn.href = `booking.html?category=${encodeURIComponent(data.category)}`;
+    videoPlayer.src = data.video;
+    videoPlayer.poster = data.poster;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    videoPlayer.play().catch(() => {});
+  }
+}
+
+function closeAppleVideoModal(e) {
+  if (e && e.target && e.target !== e.currentTarget && !e.target.closest('.apple-modal-close')) {
+    return;
+  }
+  const modal = document.getElementById('appleVideoModal');
+  const videoPlayer = document.getElementById('modalVideoPlayer');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    if (videoPlayer) {
+      videoPlayer.pause();
+      videoPlayer.currentTime = 0;
+    }
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeAppleVideoModal();
+  }
+});
+</script>
+</body>
+</html>

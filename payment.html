@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftErrand | Secure Payment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+body{background:#f8fafc;color:#0f172a;}
+nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
+.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:600;}
+.container{max-width:1150px;margin:40px auto 80px;padding:0 20px;display:grid;grid-template-columns:1.8fr 1.2fr;gap:35px;}
+.card{background:#fff;border-radius:24px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.04);border:1px solid #f1f5f9;}
+h2{font-size:26px;margin-bottom:8px;}
+p.sub{color:#64748b;font-size:15px;margin-bottom:25px;}
+.methods{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px;}
+.method{border:2px solid #e2e8f0;padding:18px 10px;border-radius:16px;cursor:pointer;text-align:center;transition:.2s;background:#fff;}
+.method:hover{border-color:#00A651;background:#f0fdf4;}
+.method.active{border-color:#00A651;background:#00A651;color:#fff;}
+.method.active i{color:#fff;}
+.method i{font-size:26px;color:#00A651;margin-bottom:8px;display:block;}
+.method span{font-size:13px;font-weight:700;}
+.payment-body{background:#f8fafc;padding:25px;border-radius:18px;border:1px solid #e2e8f0;margin-bottom:25px;}
+.nuban-box{background:#fff;border:2px dashed #00A651;padding:20px;border-radius:14px;text-align:center;}
+.nuban-num{font-size:30px;font-weight:800;letter-spacing:2px;color:#00A651;margin:8px 0;}
+.copy-btn{padding:8px 16px;background:#f0fdf4;color:#00A651;border:1px solid #00A651;border-radius:8px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.input-group{margin-bottom:16px;}
+.input-group label{display:block;margin-bottom:6px;font-weight:700;font-size:13px;color:#475569;}
+.input-group input{width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;background:#fff;}
+.input-group input:focus{border-color:#00A651;}
+.summary{background:linear-gradient(145deg,#00A651,#007A3D);color:#fff;padding:35px;border-radius:24px;box-shadow:0 20px 40px rgba(0,166,81,.2);position:sticky;top:100px;}
+.summary h3{font-size:22px;margin-bottom:20px;}
+.line{display:flex;justify-content:space-between;margin:14px 0;font-size:15px;opacity:.95;}
+.total-box{border-top:1px solid rgba(255,255,255,.2);margin-top:20px;padding-top:20px;}
+.total-box .price{font-size:36px;font-weight:800;margin:10px 0;}
+.btn-pay{width:100%;padding:18px;background:#fff;color:#00A651;border:none;border-radius:14px;font-size:17px;font-weight:800;cursor:pointer;transition:.3s;box-shadow:0 10px 20px rgba(0,0,0,.1);}
+.btn-pay:hover{background:#f0fdf4;transform:translateY(-2px);}
+.secure-badge{text-align:center;margin-top:20px;font-size:13px;opacity:.85;display:flex;align-items:center;justify-content:center;gap:8px;}
+@media(max-width:900px){.container{grid-template-columns:1fr;}.methods{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+    <span>SwiftErrand</span>
+  </a>
+  <a href="booking.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Change Booking</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Select Payment Channel</h2>
+    <p class="sub">All payments are protected in escrow by <strong>SwiftShield™</strong> and released only after your PIN confirmation.</p>
+
+    <div class="methods">
+      <div class="method active" id="mTransfer" onclick="selectChannel('transfer')">
+        <i class="fa-solid fa-building-columns"></i>
+        <span>Bank Transfer</span>
+      </div>
+      <div class="method" id="mCard" onclick="selectChannel('card')">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Debit Card</span>
+      </div>
+      <div class="method" id="mWallet" onclick="selectChannel('wallet')">
+        <i class="fa-solid fa-wallet"></i>
+        <span>My Wallet</span>
+      </div>
+      <div class="method" id="mUssd" onclick="selectChannel('ussd')">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <span>USSD Code</span>
+      </div>
+    </div>
+
+    <!-- Virtual NUBAN Bank Transfer Body -->
+    <div id="transferBody" class="payment-body">
+      <div class="nuban-box">
+        <span style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;">Dedicated Virtual Account (Providus Bank)</span>
+        <div class="nuban-num" id="virtualNuban">9023 481 023</div>
+        <div style="font-size:14px;color:#334155;margin-bottom:12px;"><strong>Account Name:</strong> SwiftErrand / Escrow SE-8492</div>
+        <button type="button" class="copy-btn" onclick="copyNuban()"><i class="fa-regular fa-copy"></i> Copy Account Number</button>
+      </div>
+      <p style="font-size:13px;color:#64748b;margin-top:15px;line-height:1.5;text-align:center;">
+        <i class="fa-solid fa-bolt" style="color:#00A651;"></i> Transfer the exact total from any Nigerian banking app. Payment confirms automatically in ~10 seconds.
+      </p>
+    </div>
+
+    <!-- Card Body -->
+    <div id="cardBody" class="payment-body" style="display:none;">
+      <div class="input-group">
+        <label>Card Number</label>
+        <input type="text" placeholder="5399 2011 8492 4810" value="5399 2011 8492 4810">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div class="input-group">
+          <label>Expiry Date</label>
+          <input type="text" placeholder="MM/YY" value="08/28">
+        </div>
+        <div class="input-group">
+          <label>CVV</label>
+          <input type="password" placeholder="123" value="382">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Cardholder Name</label>
+        <input type="text" placeholder="Dr. Sarah Akpan" value="Dr. Sarah Akpan">
+      </div>
+    </div>
+
+    <!-- Wallet Body -->
+    <div id="walletBody" class="payment-body" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-size:13px;color:#64748b;">Available Wallet Balance</span>
+          <h3 id="displayWalletBal" style="font-size:28px;color:#00A651;margin-top:4px;">₦35,500</h3>
+        </div>
+        <span style="background:#dcfce7;color:#166534;font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px;">Sufficient Balance</span>
+      </div>
+      <p style="font-size:13px;color:#64748b;margin-top:15px;">Amount will be locked in SwiftShield™ escrow from your wallet balance instantly.</p>
+    </div>
+
+    <!-- USSD Body -->
+    <div id="ussdBody" class="payment-body" style="display:none;text-align:center;">
+      <h4 style="margin-bottom:8px;">Dial Instant USSD Code</h4>
+      <p style="font-size:14px;color:#64748b;margin-bottom:15px;">Dial on your registered SIM card to approve escrow payment:</p>
+      <div style="font-size:24px;font-weight:800;color:#00A651;background:#fff;padding:15px;border-radius:12px;display:inline-block;border:2px dashed #00A651;">
+        *737*50*11000*8492#
+      </div>
+    </div>
+
+    <button type="button" class="btn-pay" onclick="processPayment()">
+      <i class="fa-solid fa-lock"></i> Authorize & Hold in Escrow
+    </button>
+  </div>
+
+  <div class="summary">
+    <h3>Payment Summary</h3>
+    <div class="line">
+      <span id="sumItemName">Plumbing & Leak Repair</span>
+      <strong id="sumItemPrice">₦8,500</strong>
+    </div>
+    <div class="line">
+      <span>Diagnostic / Call-Out Fee</span>
+      <strong id="sumCalloutFee">₦2,500</strong>
+    </div>
+    <div class="line">
+      <span>SwiftShield™ Protection Fee</span>
+      <strong>₦0 (Free)</strong>
+    </div>
+
+    <div class="total-box">
+      <div style="font-size:14px;opacity:.9;">Total Amount (Held in Escrow)</div>
+      <div class="price" id="sumTotalFee">₦11,000</div>
+    </div>
+
+    <div class="secure-badge">
+      <i class="fa-solid fa-shield-halved"></i> 100% Money-Back & Workmanship Guarantee
+    </div>
+  </div>
+</div>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+let currentChannel = 'transfer';
+let bookingDraft = null;
+
+// Read draft or URL params
+try {
+  bookingDraft = JSON.parse(sessionStorage.getItem('swifterrand_booking_draft'));
+} catch(e) {}
+
+const params = new URLSearchParams(window.location.search);
+const serviceName = (bookingDraft && bookingDraft.service) || params.get('service') || "Plumbing & Leak Repair";
+const totalAmt = (bookingDraft && bookingDraft.totalAmount) || parseInt(params.get('amount') || "11000", 10);
+const calloutAmt = (bookingDraft && bookingDraft.calloutFee) || 2500;
+const laborAmt = totalAmt - calloutAmt;
+
+document.getElementById('sumItemName').innerText = serviceName;
+document.getElementById('sumItemPrice').innerText = "₦" + laborAmt.toLocaleString();
+document.getElementById('sumCalloutFee').innerText = "₦" + calloutAmt.toLocaleString();
+document.getElementById('sumTotalFee').innerText = "₦" + totalAmt.toLocaleString();
+
+const bal = SwiftErrand.getWalletBalance();
+document.getElementById('displayWalletBal').innerText = SwiftErrand.formatNaira(bal);
+
+function selectChannel(ch) {
+  currentChannel = ch;
+  ['transfer', 'card', 'wallet', 'ussd'].forEach(x => {
+    document.getElementById('m' + x.charAt(0).toUpperCase() + x.slice(1)).classList.toggle('active', x === ch);
+    document.getElementById(x + 'Body').style.display = (x === ch ? 'block' : 'none');
+  });
+}
+
+function copyNuban() {
+  navigator.clipboard.writeText("9023481023");
+  showToast("Account number copied! Pay via your mobile banking app.", "success");
+}
+
+function processPayment() {
+  showToast("Confirming escrow transaction with SwiftShield™...", "info");
+  
+  setTimeout(() => {
+    // Create official confirmed booking
+    const newBooking = SwiftErrand.createBooking({
+      service: serviceName,
+      serviceMode: (bookingDraft && bookingDraft.serviceMode) || "DO IT",
+      landmark: (bookingDraft && bookingDraft.landmark) || "Shelter Afrique Estate",
+      address: (bookingDraft && bookingDraft.address) || "Plot 14, Unit C, Shelter Afrique, Uyo",
+      calloutFee: calloutAmt,
+      laborFee: laborAmt,
+      notes: (bookingDraft && bookingDraft.notes) || "Booking confirmed via " + currentChannel.toUpperCase()
+    });
+
+    sessionStorage.removeItem('swifterrand_booking_draft');
+    showToast(`Payment Held in Escrow! Booking ${newBooking.id} is confirmed.`, "success");
+
+    setTimeout(() => {
+      window.location.href = `tracking.html?id=${newBooking.id}`;
+    }, 800);
+  }, 1200);
+}
+</script>
+</body>
+</html>

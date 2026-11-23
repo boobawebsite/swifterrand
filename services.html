@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services & Verified Professionals | SwiftErrand</title>
+<meta name="description" content="Browse verified artisans and explore all services provided across Nigeria. Dual-escrow security on every booking.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #00A651;
+  --primary-dark: #007A3D;
+  --primary-light: #F0FDF4;
+  --primary-border: #BBF7D0;
+  --dark: #0F172A;
+  --dark-surface: #1E293B;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --bg-canvas: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --border-subtle: #E2E8F0;
+  --border-hairline: rgba(15, 23, 42, 0.07);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================
+   NAVIGATION (EXACT HOMEPAGE FROSTED GLASSBAR)
+========================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-ghost:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 166, 81, 0.35);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.nav-content-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-content-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  animation: fadeInDown 0.25s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-search-widget {
+  flex: 1;
+  max-width: 680px;
+  background: #fff;
+  padding: 6px 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.search-field i {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.search-field select, .search-field input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  outline: none;
+  cursor: pointer;
+}
+
+.search-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+.btn-close-search {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* =========================================
+   MAIN STAGE: TWO-COLUMN SPLIT CONTAINER
+   Left: 4-Column Verified Artisans Grid with Apple-grade Directory Toolbar
+   Right: Full-Bleed Sticky Sidebar at Edge of Screen & Header
+========================================= */
+.main-stage {
+  padding-top: 74px; /* Exact height of navbar */
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+  margin: 0;
+  background: var(--bg-canvas);
+}
+
+.split-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 0; /* Flush right against the edge */
+  width: 100%;
+  align-items: stretch; /* Stretches both columns full height all the way to the footer */
+  min-height: calc(100vh - 74px);
+}
+
+/* =========================================
+   LEFT SECTION: VERIFIED ARTISANS DIRECTORY
+========================================= */
+.artisans-col {
+  padding: 24px 3% 40px 4%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* APPLE-INSPIRED DIRECTORY TOOLBAR (CLEAN, MINIMAL, ZERO CLUNKY BORDERS) */
+.directory-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-hairline);
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.toolbar-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-heading {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.toolbar-count-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  padding: 2px 8px;
+  border-radius: 0;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-meta-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.status-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.2);
+  display: inline-block;
+}
+
+.escrow-protect-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: #FFFFFF;
+  padding: 3px 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  font-size: 11px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* APPLE SEGMENTED CONTROL TABS */
+.toolbar-segmented-tabs {
+  display: inline-flex;
+  background: #E2E8F0;
+  padding: 2px;
+  border-radius: 0;
+  gap: 2px;
+}
+
+.seg-tab {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+
+.seg-tab:hover {
+  color: var(--text-main);
+}
+
+.seg-tab.active {
+  background: #FFFFFF;
+  color: var(--text-main);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* 4-COLUMN RESPONSIVE GRID */
+.artisans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* THE VERIFIED ARTISAN CARD (APPLE PRO HARDWARE PRECISION - SHARP CORNERS) */
+.artisan-card {
+  position: relative;
+  height: 360px;
+  border-radius: 0; /* No rounded corners */
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #090D16;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  user-select: none;
+}
+
+.artisan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.22);
+  border-color: rgba(0, 166, 81, 0.4);
+}
+
+.artisan-card img.artisan-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.artisan-card:hover img.artisan-photo {
+  transform: scale(1.04);
+}
+
+/* Cinematic Dark Vignette */
+.artisan-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 13, 22, 0.42) 0%,
+    rgba(9, 13, 22, 0.08) 28%,
+    transparent 42%,
+    rgba(9, 13, 22, 0.65) 70%,
+    rgba(9, 13, 22, 0.98) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Top Badges Over Image */
+.card-top-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.card-status-pill {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.02em;
+}
+
+.live-dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ADE80;
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.35);
+  display: inline-block;
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.badge-rating-pill {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* Bottom Information Layer DIRECTLY ON IMAGE */
+.card-bottom-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 14px 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.artisan-trade-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #4ADE80;
+  margin-bottom: 2px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.artisan-name {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.artisan-meta-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 12px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.artisan-meta-strip i {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.meta-dot {
+  opacity: 0.4;
+}
+
+.card-action-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.btn-hire-pill {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: 0;
+  height: 38px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 166, 81, 0.3);
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-hire-pill:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.45);
+  color: #FFFFFF;
+}
+
+.btn-hire-pill i {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hire-pill:hover i {
+  transform: translateX(4px);
+}
+
+/* Empty State */
+.artisan-empty-state {
+  grid-column: 1 / -1;
+  background: #FFFFFF;
+  border: 1px dashed var(--border-subtle);
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 0;
+}
+
+.empty-state-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 0;
+  background: var(--bg-canvas);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-subtle);
+}
+
+.empty-state-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.empty-state-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* =========================================
+   RIGHT SECTION: STICKY SERVICES SIDEBAR
+   Starts immediately at bottom of header (top: 74px),
+   extends flush to the right edge of screen,
+   and stretches all the way down to touch the footer
+========================================= */
+.services-sidebar-col {
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-hairline);
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.services-sidebar-sticky {
+  position: sticky;
+  top: 74px;
+  height: calc(100vh - 74px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Sticky Search Bar on the Right */
+.sidebar-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.sidebar-search-box i.search-icon {
+  position: absolute;
+  left: 13px;
+  color: var(--text-muted);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.sidebar-search-box input {
+  width: 100%;
+  height: 40px;
+  padding: 0 40px 0 36px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-main);
+  background: #F8FAFC;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-search-box input:focus {
+  border-color: var(--primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2px rgba(0, 166, 81, 0.15);
+}
+
+.sidebar-search-box .search-kbd {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  padding: 1px 6px;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.sidebar-header {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.sidebar-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sidebar-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* Scrollable List of Services We Provide */
+.services-list-scroll {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+.services-list-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.services-list-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.services-list-scroll::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 0;
+}
+
+.service-item-btn {
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.service-item-btn:hover {
+  background: #F1F5F9;
+  border-color: var(--border-subtle);
+  border-left-color: var(--border-subtle);
+}
+
+.service-item-btn.active {
+  background: var(--dark);
+  color: #FFFFFF;
+  border-color: var(--dark);
+  border-left-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+.service-item-btn.active .service-item-title {
+  color: #FFFFFF;
+}
+
+.service-item-btn.active .service-item-sub,
+.service-item-btn.active .service-item-arrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.service-item-btn.active .service-icon-box {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+}
+
+.service-item-btn.active .service-count-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.service-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  background: #F1F5F9;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.service-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--dark);
+}
+
+.service-item-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.service-count-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: #F1F5F9;
+  padding: 2px 6px;
+  border-radius: 0;
+}
+
+/* SIDEBAR FOOTER TRUST ANCHOR (ELIMINATES THE EMPTY GAP BEFORE FOOTER) */
+.sidebar-trust-anchor {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-hairline);
+  flex-shrink: 0;
+  background: #F8FAFC;
+  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+}
+
+.trust-anchor-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.trust-shield-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--primary-border);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.trust-anchor-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.trust-anchor-sub {
+  font-size: 10.5px;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.trust-anchor-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.trust-anchor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trust-link {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trust-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* =========================================
+   FOOTER (EXACT HOMEPAGE FOOTER)
+========================================= */
+.footer {
+  background: #FFFFFF;
+  border-top: 1px solid var(--border-hairline);
+  padding: 70px 4% 40px;
+  margin-top: 0; /* Zero gap - touches sidebar and workspace seamlessly */
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-about p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 16px 0 20px;
+  max-width: 320px;
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+  color: var(--dark);
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col a {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+/* =========================================
+   RESPONSIVENESS (PERFECT SCALING)
+========================================= */
+@media (max-width: 1280px) {
+  .artisans-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .split-workspace {
+    grid-template-columns: 1fr;
+  }
+  .services-sidebar-col {
+    border-left: none;
+    border-bottom: 1px solid var(--border-hairline);
+    order: -1;
+    height: auto;
+  }
+  .services-sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: auto;
+    padding: 20px;
+  }
+  .services-list-scroll {
+    max-height: 240px;
+  }
+  .artisans-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .artisans-col {
+    padding: 20px 4% 60px;
+  }
+  .nav-menu, .nav-actions .btn-ghost {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .artisans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .artisans-col-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .artisans-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION (EXACT HOMEPAGE HEADER) -->
+<header class="navbar" id="navbar">
+  <div class="nav-content-default" id="navDefault">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+        <span class="brand-sub">Trusted Help. Fast.</span>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="services.html" class="nav-link active">Services</a></li>
+      <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="booking.html" class="nav-link">Book an Artisan</a></li>
+      <li><a href="become-provider.html" class="nav-link">For Artisans</a></li>
+      <li><a href="support.html" class="nav-link">Support Desk</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost">Sign In</a>
+      <button type="button" class="btn btn-primary" onclick="toggleHeaderSearch(true)">
+        <i class="fa-solid fa-magnifying-glass"></i> Find Help
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Header Search Dropdown Overlay -->
+  <div class="nav-content-search" id="navSearch" style="display:none;">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+      </div>
+    </a>
+
+    <form class="header-search-widget" onsubmit="handleHeaderSearch(event)">
+      <div class="search-field">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <select id="headerCategory" required>
+          <option value="" disabled selected>Select service category...</option>
+          <option value="Plumbing & Leak Repairs">Plumbing & Piping Repairs</option>
+          <option value="Electrical & Solar Specialist">Electrical, Solar & Inverter</option>
+          <option value="AC & Refrigeration">AC Servicing & Gas Refill</option>
+          <option value="Home & Office Cleaning">Home & Office Deep Cleaning</option>
+          <option value="Generator Diagnostics">Generator Servicing</option>
+          <option value="Express Courier Logistics">Express Errands & Courier</option>
+        </select>
+      </div>
+
+      <div class="search-divider"></div>
+
+      <div class="search-field">
+        <i class="fa-solid fa-location-dot"></i>
+        <select id="headerLandmark" required>
+          <option value="" disabled selected>Choose Uyo landmark...</option>
+          <option value="Shelter Afrique Estate">Shelter Afrique Estate</option>
+          <option value="Ewet Housing Estate">Ewet Housing Estate</option>
+          <option value="Osongama Estate">Osongama Estate</option>
+          <option value="Ikot Ekpene Road Corridor">Ikot Ekpene Road Corridor</option>
+          <option value="Oron Road / 4-Lane Junction">Oron Road / 4-Lane</option>
+          <option value="Aka Road / Stadium">Aka Road / Stadium Area</option>
+          <option value="Uniuyo Permanent Site">Uniuyo Perm Site</option>
+          <option value="Ibom Plaza Central">Ibom Plaza / Center</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="padding:10px 22px;">Find Help</button>
+    </form>
+
+    <button type="button" class="btn-close-search" onclick="toggleHeaderSearch(false)" aria-label="Close Search">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN STAGE: TWO-COLUMN SPLIT LAYOUT -->
+<main class="main-stage">
+  <div class="split-workspace">
+
+    <!-- =========================================
+         LEFT COLUMN: VERIFIED ARTISANS GRID (4-COLS)
+         (Information DIRECTLY ON the Image)
+    ========================================= -->
+    <section class="artisans-col" aria-label="Verified Professionals">
+
+      <!-- APPLE-INSPIRED DIRECTORY TOOLBAR (CLEAN, MINIMAL, ZERO CLUNKY BORDERS) -->
+      <div class="directory-toolbar">
+        <div class="toolbar-left">
+          <div class="toolbar-title-wrap">
+            <h1 class="toolbar-heading" id="directoryHeading">Verified Specialists</h1>
+            <span class="toolbar-count-badge" id="artisanCounter">12 Available</span>
+          </div>
+          <div class="toolbar-meta-strip">
+            <span class="status-live-dot"></span>
+            <span>Uyo Operational Grid</span>
+            <span class="meta-dot">·</span>
+            <span class="escrow-protect-pill"><i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> 100% Escrow Protected</span>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <div class="toolbar-segmented-tabs">
+            <button type="button" class="seg-tab active" data-preset="all" onclick="filterByPreset('all', this)">All</button>
+            <button type="button" class="seg-tab" data-preset="top-rated" onclick="filterByPreset('top-rated', this)"><i class="fa-solid fa-star" style="color:#F59E0B;font-size:10px;"></i> 4.9+ Rated</button>
+            <button type="button" class="seg-tab" data-preset="fastest" onclick="filterByPreset('fastest', this)"><i class="fa-solid fa-bolt" style="color:var(--primary);font-size:10px;"></i> Fastest ETA</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="artisans-grid" id="artisansGrid">
+
+        <!-- 1. Plumbing -->
+        <article class="artisan-card" data-category="plumbing" data-rating="4.9" data-eta="15" data-title="Plumbing Piping Emeka Okon Shelter Afrique">
+          <img src="assets/images/hero-plumber.jpg" alt="Emeka Okon - Plumbing Specialist" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+          
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">PLUMBING & PIPING</div>
+            <h3 class="artisan-name">Emeka Okon</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Shelter Afrique</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>15m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Plumbing&artisan=Emeka+Okon" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Electrical & Solar -->
+        <article class="artisan-card" data-category="electrical" data-rating="4.8" data-eta="18" data-title="Electrical Solar Jeremiah Bassey Ewet Housing">
+          <img src="assets/images/hero-artisan.jpg" alt="Jeremiah Bassey - Electrical & Solar Tech" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">SOLAR & INVERTER</div>
+            <h3 class="artisan-name">Jeremiah Bassey</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Ewet Housing</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>18m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Electrical&artisan=Jeremiah+Bassey" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. AC & Refrigeration -->
+        <article class="artisan-card" data-category="cooling" data-rating="4.9" data-eta="20" data-title="AC Cooling Aniefiok Effiong Oron Road">
+          <img src="assets/images/hero-ac.jpg" alt="Aniefiok Effiong - AC Technician" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">AC & COOLING</div>
+            <h3 class="artisan-name">Aniefiok Effiong</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Oron Road</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>20m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=AC&artisan=Aniefiok+Effiong" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Deep Cleaning -->
+        <article class="artisan-card" data-category="cleaning" data-rating="5.0" data-eta="25" data-title="Deep Cleaning Fumigation Blessing Udoh Osongama">
+          <img src="assets/images/hero-cleaning.jpg" alt="Blessing Udoh - Cleaning Lead" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 5.0</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">DEEP CLEANING</div>
+            <h3 class="artisan-name">Blessing Udoh</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Osongama</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>25m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Cleaning&artisan=Blessing+Udoh" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Generator Overhaul -->
+        <article class="artisan-card" data-category="generator" data-rating="4.8" data-eta="20" data-title="Generator Overhaul Kufre Asuquo Ikot Ekpene">
+          <img src="assets/images/hero-generator.jpg" alt="Kufre Asuquo - Generator Mechanic" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">GENERATOR REPAIR</div>
+            <h3 class="artisan-name">Kufre Asuquo</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Ikot Ekpene Rd</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>20m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Generator&artisan=Kufre+Asuquo" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Carpentry -->
+        <article class="artisan-card" data-category="carpentry" data-rating="4.9" data-eta="30" data-title="Carpentry Cabinetry Bassey Henshaw Shelter Afrique">
+          <img src="assets/images/hero-carpenter.jpg" alt="Bassey Henshaw - Master Carpenter" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">CARPENTRY & WOOD</div>
+            <h3 class="artisan-name">Bassey Henshaw</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Shelter Afrique</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>30m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Carpentry&artisan=Bassey+Henshaw" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Painting & POP -->
+        <article class="artisan-card" data-category="painting" data-rating="4.8" data-eta="35" data-title="Wall Painting Screeding POP Emmanuel Udo Ewet Housing">
+          <img src="assets/images/hero-painter.jpg" alt="Emmanuel Udo - Wall Finisher" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">PAINTING & POP</div>
+            <h3 class="artisan-name">Emmanuel Udo</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Ewet Housing</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>35m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Painting&artisan=Emmanuel+Udo" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. Express Dispatch -->
+        <article class="artisan-card" data-category="logistics" data-rating="4.9" data-eta="10" data-title="Express Logistics Dispatch Idongesit Akpan Uyo Central">
+          <img src="assets/images/hero-dispatch.jpg" alt="Idongesit Akpan - Courier Runner" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">EXPRESS DISPATCH</div>
+            <h3 class="artisan-name">Idongesit Akpan</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Uyo Central</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>10m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Logistics&artisan=Idongesit+Akpan" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9. CCTV & Security -->
+        <article class="artisan-card" data-category="security" data-rating="4.9" data-eta="25" data-title="CCTV Security Intercoms Godwin Nse 4-Lane">
+          <img src="assets/images/hero-cctv.jpg" alt="Godwin Nse - Security Tech" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">CCTV & SECURITY</div>
+            <h3 class="artisan-name">Godwin Nse</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>4-Lane Junction</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>25m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=CCTV&artisan=Godwin+Nse" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10. Auto Diagnostics -->
+        <article class="artisan-card" data-category="auto" data-rating="4.8" data-eta="20" data-title="Auto Rescue Mechanic OBD Victor Etim Aka Road">
+          <img src="assets/images/hero-mechanic.jpg" alt="Victor Etim - Auto Mechanic" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">AUTO RESCUE & OBD</div>
+            <h3 class="artisan-name">Victor Etim</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Aka Road</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>20m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Auto&artisan=Victor+Etim" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 11. Tiling & Granite -->
+        <article class="artisan-card" data-category="tiling" data-rating="4.9" data-eta="30" data-title="Tiling Granite Masonry Nsikan Obot Osongama">
+          <img src="assets/images/hero-tiler.jpg" alt="Nsikan Obot - Tiling Artisan" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">PRECISION TILING</div>
+            <h3 class="artisan-name">Nsikan Obot</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Osongama</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>30m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Tiling&artisan=Nsikan+Obot" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12. Borehole & Pumps -->
+        <article class="artisan-card" data-category="borehole" data-rating="4.9" data-eta="25" data-title="Borehole Water Pumps Ubong Sampson Ikot Ekpene">
+          <img src="assets/images/hero-borehole.jpg" alt="Ubong Sampson - Water Engineer" class="artisan-photo" loading="lazy">
+          <div class="artisan-card-gradient"></div>
+
+          <div class="card-top-badges">
+            <div class="card-status-pill"><span class="live-dot-pulse"></span> Available</div>
+            <span class="badge-rating-pill"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</span>
+          </div>
+
+          <div class="card-bottom-info">
+            <div class="artisan-trade-tag">BOREHOLE & PUMPS</div>
+            <h3 class="artisan-name">Ubong Sampson</h3>
+            <div class="artisan-meta-strip">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Ikot Ekpene Rd</span>
+              <span class="meta-dot">·</span>
+              <i class="fa-regular fa-clock"></i>
+              <span>25m ETA</span>
+            </div>
+            <div class="card-action-row">
+              <a href="booking.html?service=Borehole&artisan=Ubong+Sampson" class="btn-hire-pill">
+                <span>Hire Specialist</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Dynamic Empty State -->
+        <div class="artisan-empty-state" id="artisanEmptyState" style="display:none;">
+          <div class="empty-state-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="empty-state-title">No Specialists Found</div>
+          <p class="empty-state-text">No verified providers match your current filter or search criteria.</p>
+          <button type="button" class="btn btn-primary" onclick="resetAllFilters()">View All 12 Specialists</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================
+         RIGHT COLUMN: SEARCH & SERVICES LIST
+    ========================================= -->
+    <aside class="services-sidebar-col" aria-label="Services Directory">
+      <div class="services-sidebar-sticky">
+        
+        <div>
+          <!-- Search Bar -->
+          <div class="sidebar-search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="sidebarSearchInput" placeholder="Search service, trade, or artisan..." oninput="handleSidebarSearch()">
+            <span class="search-kbd">/</span>
+          </div>
+
+          <div class="sidebar-header">
+            <span class="sidebar-eyebrow">DIRECTORY INDEX</span>
+            <span class="sidebar-count">12 Trades</span>
+          </div>
+
+          <!-- Services List (Interactive) -->
+          <div class="services-list-scroll" id="sidebarServicesList">
+
+            <!-- All Services Button -->
+            <button type="button" class="service-item-btn active" onclick="filterByService('all', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-border-all"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">All Services</span>
+                  <span class="service-item-sub">12 verified categories</span>
+                </div>
+              </div>
+              <span class="service-count-badge">12</span>
+            </button>
+
+            <!-- 1. Plumbing -->
+            <button type="button" class="service-item-btn" onclick="filterByService('plumbing', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-wrench"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Plumbing & Piping</span>
+                  <span class="service-item-sub">Leaks, taps, pumps & tanks</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 2. Electrical & Solar -->
+            <button type="button" class="service-item-btn" onclick="filterByService('electrical', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Electrical & Solar</span>
+                  <span class="service-item-sub">Wiring, inverters & solar</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 3. AC & Cooling -->
+            <button type="button" class="service-item-btn" onclick="filterByService('cooling', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-snowflake"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">AC & Refrigeration</span>
+                  <span class="service-item-sub">Gas refill, coils & repairs</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 4. Deep Cleaning -->
+            <button type="button" class="service-item-btn" onclick="filterByService('cleaning', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-broom"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Deep Cleaning</span>
+                  <span class="service-item-sub">Post-build, home & fumigation</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 5. Generator Repairs -->
+            <button type="button" class="service-item-btn" onclick="filterByService('generator', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-gear"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Generator Overhaul</span>
+                  <span class="service-item-sub">Diesel & petrol plant repair</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 6. Carpentry -->
+            <button type="button" class="service-item-btn" onclick="filterByService('carpentry', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-hammer"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Carpentry & Cabinetry</span>
+                  <span class="service-item-sub">Woodwork, doors & wardrobes</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 7. Painting & POP -->
+            <button type="button" class="service-item-btn" onclick="filterByService('painting', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-paint-roller"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Wall Painting & POP</span>
+                  <span class="service-item-sub">Screeding, ceiling & finishes</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 8. Express Dispatch -->
+            <button type="button" class="service-item-btn" onclick="filterByService('logistics', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Express Dispatch</span>
+                  <span class="service-item-sub">Parcels, food & city errands</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 9. CCTV & Security -->
+            <button type="button" class="service-item-btn" onclick="filterByService('security', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">CCTV & Security</span>
+                  <span class="service-item-sub">Surveillance & gate intercoms</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 10. Auto Rescue -->
+            <button type="button" class="service-item-btn" onclick="filterByService('auto', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-car"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Auto Rescue & OBD</span>
+                  <span class="service-item-sub">Battery jumpstart & mechanic</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 11. Precision Tiling -->
+            <button type="button" class="service-item-btn" onclick="filterByService('tiling', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-cubes"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Precision Tiling</span>
+                  <span class="service-item-sub">Ceramic, marble & masonry</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+            <!-- 12. Borehole & Water Pumps -->
+            <button type="button" class="service-item-btn" onclick="filterByService('borehole', this)">
+              <div class="service-item-left">
+                <div class="service-icon-box"><i class="fa-solid fa-faucet-drip"></i></div>
+                <div class="service-info-text">
+                  <span class="service-item-title">Borehole & Pumps</span>
+                  <span class="service-item-sub">Drilling, treatment & pumps</span>
+                </div>
+              </div>
+              <span class="service-count-badge">1</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- SIDEBAR TRUST ANCHOR (GROUNDS SIDEBAR DOWN TO FOOTER WITH ZERO VOID) -->
+        <div class="sidebar-trust-anchor">
+          <div class="trust-anchor-top">
+            <div class="trust-shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <div class="trust-anchor-title">SwiftShield™ Dual Escrow</div>
+              <div class="trust-anchor-sub">100% Protected Payment</div>
+            </div>
+          </div>
+          <p class="trust-anchor-desc">Your payment is held safely until you inspect and approve the job. Zero risk.</p>
+          <div class="trust-anchor-actions">
+            <a href="how-it-works.html" class="trust-link">How It Works <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- FOOTER (EXACT HOMEPAGE FOOTER) -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">SwiftErrand</span>
+          <span class="brand-sub">Trusted Help. Fast.</span>
+        </div>
+      </div>
+      <p>Building Africa's most trusted on-demand home services and errands infrastructure. Starting in Uyo, Akwa Ibom State.</p>
+      <div style="font-size:13px;color:var(--text-muted);">
+        <i class="fa-solid fa-location-dot" style="color:var(--primary);margin-right:6px;"></i> Operational Hub: Ikot Ekpene Road Corridor, Uyo
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">Plumbing Repairs</a></li>
+        <li><a href="services.html">Electrical & Inverters</a></li>
+        <li><a href="services.html">AC Servicing</a></li>
+        <li><a href="services.html">Deep Cleaning</a></li>
+        <li><a href="services.html">Express Dispatch</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="services.html">Verified Directory</a></li>
+        <li><a href="login.html#signup">Become a Provider</a></li>
+        <li><a href="dashboard.html">Customer Dashboard</a></li>
+        <li><a href="provider-dashboard.html">Provider Hub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support & Safety</h4>
+      <ul>
+        <li><a href="support.html">Help & Dispute Desk</a></li>
+        <li><a href="emergency.html">SwiftSafety™ SOS</a></li>
+        <li><a href="about.html">About SwiftErrand</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Sign In</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
+<script>
+// Header Search
+function toggleHeaderSearch(show) {
+  const navDefault = document.getElementById('navDefault');
+  const navSearch = document.getElementById('navSearch');
+  if (show) {
+    navDefault.style.display = 'none';
+    navSearch.style.display = 'flex';
+    document.getElementById('headerCategory').focus();
+  } else {
+    navSearch.style.display = 'none';
+    navDefault.style.display = 'flex';
+  }
+}
+
+function handleHeaderSearch(e) {
+  e.preventDefault();
+  const cat = document.getElementById('headerCategory').value;
+  const landmark = document.getElementById('headerLandmark').value;
+  if (!cat || !landmark) return;
+  window.location.href = `booking.html?category=${encodeURIComponent(cat)}&landmark=${encodeURIComponent(landmark)}`;
+}
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    const menu = document.querySelector('.nav-menu');
+    if (menu) {
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+        menu.style.flexDirection = 'column';
+        menu.style.position = 'absolute';
+        menu.style.top = '74px';
+        menu.style.left = '0';
+        menu.style.right = '0';
+        menu.style.background = '#fff';
+        menu.style.padding = '20px';
+        menu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+      }
+    }
+  });
+}
+
+// Interactive Filtering State
+let activeCategory = 'all';
+let activePreset = 'all';
+
+function filterByService(category, btnEl) {
+  activeCategory = category;
+
+  // Update active state in sidebar
+  document.querySelectorAll('.service-item-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  if (btnEl) btnEl.classList.add('active');
+
+  // Update column heading
+  const heading = document.getElementById('directoryHeading');
+  if (heading) {
+    if (category === 'all') {
+      heading.textContent = 'Verified Specialists';
+    } else {
+      const title = btnEl ? btnEl.querySelector('.service-item-title').textContent : category;
+      heading.textContent = `Verified ${title}`;
+    }
+  }
+
+  runFilters();
+}
+
+function filterByPreset(preset, btnEl) {
+  activePreset = preset;
+
+  // Update segmented control tabs
+  document.querySelectorAll('.seg-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  if (btnEl) btnEl.classList.add('active');
+
+  runFilters();
+}
+
+function handleSidebarSearch() {
+  runFilters();
+}
+
+function resetAllFilters() {
+  activeCategory = 'all';
+  activePreset = 'all';
+  const searchInput = document.getElementById('sidebarSearchInput');
+  if (searchInput) searchInput.value = '';
+
+  document.querySelectorAll('.service-item-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const allBtn = document.querySelector('.service-item-btn[onclick*="\'all\'"]');
+  if (allBtn) allBtn.classList.add('active');
+
+  document.querySelectorAll('.seg-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  const allTab = document.querySelector('.seg-tab[data-preset="all"]');
+  if (allTab) allTab.classList.add('active');
+
+  const heading = document.getElementById('directoryHeading');
+  if (heading) heading.textContent = 'Verified Specialists';
+
+  runFilters();
+}
+
+function runFilters() {
+  const query = (document.getElementById('sidebarSearchInput').value || '').trim().toLowerCase();
+  const cards = document.querySelectorAll('.artisan-card');
+  const emptyState = document.getElementById('artisanEmptyState');
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-category');
+    const cardTitle = (card.getAttribute('data-title') || '').toLowerCase();
+    const cardText = card.textContent.toLowerCase();
+    const rating = parseFloat(card.getAttribute('data-rating') || '0');
+    const eta = parseInt(card.getAttribute('data-eta') || '999', 10);
+
+    const matchesCategory = (activeCategory === 'all' || cardCat === activeCategory);
+    const matchesSearch = !query || cardTitle.includes(query) || cardText.includes(query);
+
+    let matchesPreset = true;
+    if (activePreset === 'top-rated') {
+      matchesPreset = (rating >= 4.9);
+    } else if (activePreset === 'fastest') {
+      matchesPreset = (eta <= 20);
+    }
+
+    if (matchesCategory && matchesSearch && matchesPreset) {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  const counter = document.getElementById('artisanCounter');
+  if (counter) {
+    counter.textContent = `${visibleCount} Available`;
+  }
+
+  if (emptyState) {
+    emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+  }
+}
+
+// Global Keyboard Shortcut: Pressing "/" focuses the sidebar search
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    const searchInput = document.getElementById('sidebarSearchInput');
+    if (searchInput) {
+      searchInput.focus();
+      searchInput.select();
+    }
+  } else if (e.key === 'Escape' && document.activeElement.id === 'sidebarSearchInput') {
+    document.activeElement.blur();
+  }
+});
+</script>
+</body>
+</html>
