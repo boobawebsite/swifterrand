@@ -9,30 +9,41 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
-body{background:#f8fafc;color:#0f172a;}
-nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
-.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
-.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:600;}
-.hero{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;padding:60px 8%;text-align:center;}
-.hero h1{font-size:38px;margin-bottom:12px;}
-.hero p{font-size:18px;opacity:.9;max-width:600px;margin:auto;}
-.container{max-width:1100px;margin:-40px auto 60px;padding:0 20px;}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-.card{background:#fff;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.06);text-align:center;transition:.3s;}
-.card:hover{transform:translateY(-5px);}
-.card i{font-size:42px;color:#00A651;margin-bottom:15px;}
-.card h3{margin-bottom:10px;font-size:20px;}
-.card p{color:#64748b;font-size:15px;margin-bottom:20px;}
-.btn{display:inline-block;padding:12px 24px;background:#00A651;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;transition:.3s;border:none;cursor:pointer;}
+body{background:#f8fafc;color:#0f172a;overflow-x:hidden;}
+nav{height:74px;display:flex;justify-content:space-between;align-items:center;padding:0 4%;background:#fff;border-bottom:1px solid rgba(15,23,42,0.08);box-shadow:0 1px 3px rgba(0,0,0,.04);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:#0f172a;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:#00A651;color:#fff;border-radius:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:0;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:700;font-size:13.5px;transition:all .15s;}
+.back-btn:hover{background:#e2e8f0;}
+.hero{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;padding:60px 4%;text-align:center;}
+.hero h1{font-size:36px;font-weight:800;margin-bottom:12px;letter-spacing:-0.02em;}
+.hero p{font-size:16px;opacity:.92;max-width:600px;margin:auto;line-height:1.5;}
+.container{max-width:1100px;margin:-35px auto 60px;padding:0 4%;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.card{background:#fff;padding:30px 24px;border-radius:0;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1px solid rgba(15,23,42,0.08);text-align:center;transition:.25s;}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.08);}
+.card i{font-size:38px;color:#00A651;margin-bottom:14px;}
+.card h3{margin-bottom:8px;font-size:18px;font-weight:800;}
+.card p{color:#64748b;font-size:14px;margin-bottom:20px;line-height:1.5;}
+.btn{display:inline-block;padding:11px 22px;background:#00A651;color:#fff;border-radius:0;text-decoration:none;font-weight:700;font-size:14px;transition:.2s;border:none;cursor:pointer;}
 .btn:hover{background:#007A3D;}
-.btn-outline{background:#fff;color:#00A651;border:2px solid #00A651;}
-.support-form{background:#fff;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.06);margin-top:40px;}
-.form-group{margin-bottom:20px;}
-.form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:15px;}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#00A651;}
-.toast{position:fixed;bottom:25px;right:25px;background:#0f172a;color:#fff;padding:16px 24px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;z-index:9999;}
+.btn-outline{background:#fff;color:#00A651;border:1.5px solid #00A651;}
+.support-form{background:#fff;padding:36px 32px;border-radius:0;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1px solid rgba(15,23,42,0.08);margin-top:35px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;margin-bottom:8px;font-weight:700;font-size:13.5px;color:#334155;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:0;font-size:14px;outline:none;font-family:inherit;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#00A651;box-shadow:0 0 0 2px rgba(0,166,81,.15);}
+.toast{position:fixed;bottom:25px;right:25px;background:#0f172a;color:#fff;padding:16px 24px;border-radius:0;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;z-index:9999;}
+
+@media (max-width: 680px) {
+  .hero{padding:45px 4%;}
+  .hero h1{font-size:26px;}
+  .hero p{font-size:14px;}
+  .form-row{grid-template-columns:1fr;gap:0;}
+  .support-form{padding:24px 18px;}
+  .cards{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -75,7 +86,7 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
     <h2 style="margin-bottom:10px;">Submit a Support Request or Dispute</h2>
     <p style="color:#64748b;margin-bottom:25px;">Fill out this form and our support manager will contact you within 30 minutes.</p>
     <form id="helpForm" onsubmit="submitTicket(event)">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="form-row">
         <div class="form-group">
           <label>Your Name</label>
           <input type="text" id="ticketName" placeholder="e.g. Victor Edet" required>
@@ -85,7 +96,7 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
           <input type="tel" id="ticketPhone" placeholder="080XXXXXXXX" required>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="form-row">
         <div class="form-group">
           <label>Booking Reference (Optional)</label>
           <input type="text" id="ticketRef" placeholder="e.g. SE-8492">

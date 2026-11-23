@@ -632,12 +632,12 @@ img {
 ========================================= */
 .apple-gallery-section {
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   padding: 0;
   background: #000000;
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* 4-Column Seamless Bento Grid extending 3+ Viewport Heights */
@@ -844,14 +844,15 @@ img {
    Crisp sharp rectangular edges - exactly like Apple.com
 ========================================= */
 .apple-duo-section {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-top: 12px;
   margin-bottom: 24px;
   padding: 0;
   box-sizing: border-box;
   background: transparent;
+  overflow: hidden;
 }
 
 .apple-duo-grid {
@@ -1651,12 +1652,89 @@ img {
 }
 
 /* =========================================
-   RESPONSIVENESS
+   RESPONSIVENESS (PERFECT SCALING ACROSS ALL SCREENS)
 ========================================= */
+/* MOBILE NAVIGATION DRAWER */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 74px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.mobile-nav-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-inner {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-hairline);
+  padding: 20px 20px 26px;
+  transform: translateY(-8px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+
+.mobile-nav-drawer.open .mobile-nav-inner {
+  transform: translateY(0);
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  border-radius: 0;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.mobile-nav-link:hover, .mobile-nav-link.active {
+  background: var(--bg-canvas);
+  border-color: var(--border-subtle);
+  color: var(--primary);
+}
+
+.mobile-nav-link i {
+  width: 18px;
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.mobile-nav-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-hairline);
+}
+
 @media (max-width: 860px) {
   .hero {
     min-height: auto;
-    padding: 100px 6% 40px;
+    padding: 100px 5% 40px;
   }
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1668,14 +1746,15 @@ img {
   }
   .dynamic-headline {
     text-align: center;
-    font-size: clamp(34px, 7vw, 56px);
+    font-size: clamp(32px, 7vw, 54px);
   }
   .book-stage {
-    height: 360px;
-    max-width: 380px;
+    height: 340px;
+    max-width: 340px;
+    margin: 0 auto;
   }
   .book-3d {
-    transform: rotateX(12deg) rotateY(-12deg) rotateZ(1deg);
+    transform: rotateX(10deg) rotateY(-10deg) rotateZ(1deg);
   }
   .steps-row, .feature-split {
     grid-template-columns: 1fr;
@@ -1694,46 +1773,59 @@ img {
     display: block;
   }
 
-  .mode-tabs {
-    gap: 20px;
-    width: 100%;
-  }
-
-  .tab-btn {
-    font-size: 14px;
-    padding: 12px 6px 14px;
-  }
-
-  .search-widget {
-    width: 100%;
-    max-width: 720px;
-    background: #fff;
-    padding: 8px;
-    border-radius: 14px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 0 auto 40px;
-  }
-
-  .search-divider {
-    display: none;
-  }
-
-  .search-widget .btn {
-    width: 100%;
-  }
-
   .footer-top {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .footer-bottom {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 90px 4% 30px;
+  }
+  .dynamic-headline {
+    font-size: clamp(28px, 8.5vw, 42px);
+  }
+  .book-stage {
+    height: 290px;
+    max-width: 290px;
+  }
+  .nav-content-search {
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    padding: 16px 4% 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid var(--border-hairline);
+    z-index: 1001;
+  }
+  .header-search-widget {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    gap: 8px;
+  }
+  .header-search-widget .search-field {
+    width: 100%;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .header-search-widget .search-divider {
+    display: none;
+  }
+  .header-search-widget .btn {
+    width: 100%;
+    padding: 12px;
   }
 }
 </style>
@@ -1818,6 +1910,23 @@ img {
     </button>
   </div>
 </header>
+
+<!-- MOBILE NAVIGATION DRAWER -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer" onclick="handleDrawerBackdropClick(event)">
+  <div class="mobile-nav-inner">
+    <ul class="mobile-nav-links">
+      <li><a href="services.html" class="mobile-nav-link"><i class="fa-solid fa-list-check"></i> Services Directory</a></li>
+      <li><a href="how-it-works.html" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> How It Works</a></li>
+      <li><a href="booking.html" class="mobile-nav-link"><i class="fa-solid fa-calendar-check"></i> Book an Artisan</a></li>
+      <li><a href="become-provider.html" class="mobile-nav-link"><i class="fa-solid fa-briefcase"></i> For Artisans</a></li>
+      <li><a href="support.html" class="mobile-nav-link"><i class="fa-solid fa-headset"></i> Support Desk</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+      <a href="login.html" class="btn btn-ghost" style="width:100%;justify-content:center;border-radius:0;">Sign In</a>
+      <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;border-radius:0;"><i class="fa-solid fa-bolt"></i> Book an Artisan</a>
+    </div>
+  </div>
+</div>
 
 <!-- HERO SECTION -->
 <main>
@@ -2497,27 +2606,32 @@ function switchMode(mode) {
   }
 }
 
-// Mobile menu toggle
+// Mobile Menu Drawer Toggle
+function toggleMobileNav(open) {
+  const drawer = document.getElementById('mobileNavDrawer');
+  const toggleBtn = document.getElementById('menuToggle');
+  if (!drawer) return;
+  const willOpen = (open !== undefined) ? open : !drawer.classList.contains('open');
+  if (willOpen) {
+    drawer.classList.add('open');
+    if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.remove('open');
+    if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    document.body.style.overflow = '';
+  }
+}
+
+function handleDrawerBackdropClick(e) {
+  if (e.target.id === 'mobileNavDrawer') {
+    toggleMobileNav(false);
+  }
+}
+
 const menuToggle = document.getElementById('menuToggle');
 if (menuToggle) {
-  menuToggle.addEventListener('click', () => {
-    const menu = document.querySelector('.nav-menu');
-    if (menu) {
-      if (menu.style.display === 'flex') {
-        menu.style.display = 'none';
-      } else {
-        menu.style.display = 'flex';
-        menu.style.flexDirection = 'column';
-        menu.style.position = 'absolute';
-        menu.style.top = '76px';
-        menu.style.left = '0';
-        menu.style.right = '0';
-        menu.style.background = '#fff';
-        menu.style.padding = '20px';
-        menu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-      }
-    }
-  });
+  menuToggle.addEventListener('click', () => toggleMobileNav());
 }
 
 // 3D Spatial Book & Photo-Textured Dynamic Headline

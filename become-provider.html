@@ -156,19 +156,38 @@ margin-bottom:10px;
 }
 
 @media(max-width:768px){
-
 .grid{
-
 grid-template-columns:1fr;
-
 }
-
 .steps{
-
 grid-template-columns:1fr 1fr;
-
+}
+.hero h1{
+font-size:36px;
+}
 }
 
+@media(max-width:540px){
+.hero{
+padding:40px 16px;
+}
+.hero h1{
+font-size:26px;
+}
+.hero p{
+font-size:15px;
+}
+.form{
+padding:22px 16px;
+}
+.steps{
+grid-template-columns:1fr;
+gap:12px;
+}
+.container{
+padding:12px;
+margin:20px auto;
+}
 }
 
 </style>
