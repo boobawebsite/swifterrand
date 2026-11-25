@@ -123,32 +123,55 @@ nav{height:74px;display:flex;justify-content:space-between;align-items:center;pa
 
 <div class="toast" id="toast"><i class="fa-solid fa-circle-check" style="color:#22c55e;margin-right:8px;"></i> <span id="toastMsg">Ticket submitted!</span></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script>
-function submitTicket(e) {
+async function submitTicket(e) {
   e.preventDefault();
   const name = document.getElementById('ticketName').value;
+  const phone = document.getElementById('ticketPhone').value;
   const ref = document.getElementById('ticketRef').value || 'General';
+  const category = document.getElementById('ticketCategory').value;
+  const message = document.getElementById('ticketMsg').value;
   const toast = document.getElementById('toast');
   const msg = document.getElementById('toastMsg');
   
-  // Save to localStorage support tickets
+  let ticketId = 'TICK-' + Math.floor(1000 + Math.random() * 9000);
+
+  // Submit to Supabase
+  if (window.SwiftSupabase) {
+    try {
+      const res = await window.SwiftSupabase.submitSupportTicket({
+        name,
+        phone,
+        bookingRef: ref,
+        category,
+        message
+      });
+      if (res && res.ticket_ref) ticketId = res.ticket_ref;
+    } catch(err) {
+      console.warn("Supabase ticket submit warning:", err);
+    }
+  }
+
+  // Also cache in localStorage support tickets
   const tickets = JSON.parse(localStorage.getItem('swifterrand_tickets') || '[]');
   tickets.unshift({
-    id: 'TICK-' + Math.floor(1000 + Math.random() * 9000),
+    id: ticketId,
     name: name,
-    phone: document.getElementById('ticketPhone').value,
+    phone: phone,
     ref: ref,
-    category: document.getElementById('ticketCategory').value,
-    message: document.getElementById('ticketMsg').value,
+    category: category,
+    message: message,
     date: new Date().toLocaleString(),
     status: 'Open'
   });
   localStorage.setItem('swifterrand_tickets', JSON.stringify(tickets));
   
-  msg.innerText = `Ticket received, ${name}! Reference: ${tickets[0].id}. A representative will reach out shortly.`;
+  msg.innerText = `Ticket received, ${name}! Reference: ${ticketId}. A representative will reach out shortly.`;
   toast.style.display = 'block';
   document.getElementById('helpForm').reset();
-  setTimeout(() => { toast.style.display = 'none'; }, 5000);
+  setTimeout(() => { toast.style.display = 'none'; }, 6000);
 }
 </script>
 </body>

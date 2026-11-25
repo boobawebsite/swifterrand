@@ -195,55 +195,109 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
-const user = SwiftErrand.getUser();
-document.getElementById('userName').innerText = user.name;
-document.getElementById('userFirst').innerText = user.name.split(" ")[0];
-document.getElementById('userAvatar').src = user.avatar || 'assets/images/customer1.jpg';
+async function initDashboard() {
+  let user = SwiftErrand.getUser();
 
-const bal = SwiftErrand.getWalletBalance();
-document.getElementById('navWallet').innerText = SwiftErrand.formatNaira(bal);
-document.getElementById('statWallet').innerText = SwiftErrand.formatNaira(bal);
+  // Fetch Supabase session & user profile if available
+  if (window.SwiftSupabase) {
+    try {
+      const sbUser = await window.SwiftSupabase.getCurrentUser();
+      if (sbUser) {
+        user.name = (sbUser.user_metadata && sbUser.user_metadata.full_name) || user.name || sbUser.email.split('@')[0];
+        user.email = sbUser.email;
+        if (sbUser.user_metadata && sbUser.user_metadata.phone) user.phone = sbUser.user_metadata.phone;
+        SwiftErrand.setUser(user);
+      }
+    } catch (e) {
+      console.warn("Supabase user load:", e);
+    }
+  }
 
-const bookings = SwiftErrand.getBookings();
-const active = SwiftErrand.getActiveBooking();
+  document.getElementById('userName').innerText = user.name;
+  document.getElementById('userFirst').innerText = user.name.split(" ")[0];
+  document.getElementById('userAvatar').src = user.avatar || 'assets/images/customer1.jpg';
 
-if (active) {
-  document.getElementById('activeTitle').innerText = active.service;
-  document.getElementById('activeSub').innerHTML = `Provider: <strong>${active.providerName}</strong> • ${active.landmark}`;
-  document.getElementById('activePin').innerText = active.pin;
-  document.getElementById('activeStatus').innerText = active.status;
-} else {
-  document.getElementById('activeBookingCard').innerHTML = `
-    <div style="text-align:center;padding:20px;">
-      <i class="fa-solid fa-calendar-check" style="font-size:36px;color:#00A651;margin-bottom:10px;"></i>
-      <h4>No Active Bookings</h4>
-      <p style="color:#64748b;font-size:14px;margin-top:4px;">You have no active tasks. Ready to book trusted help in Uyo?</p>
-      <a href="booking.html" class="btn-white" style="background:#00A651;color:#fff;display:inline-block;margin-top:15px;padding:10px 20px;">Book a Service Now</a>
-    </div>
-  `;
+  const bal = SwiftErrand.getWalletBalance();
+  document.getElementById('navWallet').innerText = SwiftErrand.formatNaira(bal);
+  document.getElementById('statWallet').innerText = SwiftErrand.formatNaira(bal);
+
+  let bookings = SwiftErrand.getBookings();
+
+  // Try fetching live bookings from Supabase
+  if (window.SwiftSupabase) {
+    try {
+      const cloudBookings = await window.SwiftSupabase.getBookings();
+      if (cloudBookings && cloudBookings.length > 0) {
+        // Map to UI format and merge
+        const mapped = cloudBookings.map(cb => ({
+          id: cb.booking_ref,
+          service: cb.service_category,
+          serviceMode: cb.mode,
+          customerName: cb.client_name,
+          customerPhone: cb.client_phone,
+          providerName: cb.provider_name || 'Verified Pro',
+          landmark: cb.landmark,
+          address: cb.address,
+          totalAmount: parseFloat(cb.total_escrow),
+          status: cb.status === 'COMPLETED' ? 'Completed' : (cb.status === 'CANCELLED' ? 'Cancelled' : 'In Progress'),
+          date: cb.appointment_date || new Date(cb.created_at).toLocaleDateString('en-GB'),
+          time: cb.time_slot || '12:00 PM',
+          pin: cb.completion_pin || '4821'
+        }));
+        // Combine with unique IDs
+        const existingIds = new Set(mapped.map(m => m.id));
+        bookings = [...mapped, ...bookings.filter(b => !existingIds.has(b.id))];
+        SwiftErrand.saveBookings(bookings);
+      }
+    } catch (err) {
+      console.warn("Supabase bookings load:", err);
+    }
+  }
+
+  const active = bookings.find(b => b.status !== 'Completed' && b.status !== 'Cancelled') || bookings[0];
+
+  if (active) {
+    document.getElementById('activeTitle').innerText = active.service;
+    document.getElementById('activeSub').innerHTML = `Provider: <strong>${active.providerName}</strong> • ${active.landmark}`;
+    document.getElementById('activePin').innerText = active.pin;
+    document.getElementById('activeStatus').innerText = active.status;
+  } else {
+    document.getElementById('activeBookingCard').innerHTML = `
+      <div style="text-align:center;padding:20px;">
+        <i class="fa-solid fa-calendar-check" style="font-size:36px;color:#00A651;margin-bottom:10px;"></i>
+        <h4>No Active Bookings</h4>
+        <p style="color:#64748b;font-size:14px;margin-top:4px;">You have no active tasks. Ready to book trusted help in Uyo?</p>
+        <a href="booking.html" class="btn-white" style="background:#00A651;color:#fff;display:inline-block;margin-top:15px;padding:10px 20px;">Book a Service Now</a>
+      </div>
+    `;
+  }
+
+  // Render History
+  const listContainer = document.getElementById('bookingList');
+  listContainer.innerHTML = '';
+  bookings.forEach(b => {
+    const item = document.createElement('div');
+    item.className = 'booking-history-item';
+    item.innerHTML = `
+      <div>
+        <h5 style="font-size:15px;font-weight:700;">${b.service}</h5>
+        <small style="color:#64748b;">${b.date} • ${b.landmark}</small>
+      </div>
+      <div style="text-align:right;">
+        <strong style="color:#00A651;display:block;">${SwiftErrand.formatNaira(b.totalAmount)}</strong>
+        <span style="font-size:11px;font-weight:800;padding:3px 8px;border-radius:12px;background:${b.status === 'Completed' ? '#dcfce7' : '#fef3c7'};color:${b.status === 'Completed' ? '#166534' : '#92400e'};">${b.status}</span>
+      </div>
+    `;
+    listContainer.appendChild(item);
+  });
 }
 
-// Render History
-const listContainer = document.getElementById('bookingList');
-listContainer.innerHTML = '';
-bookings.forEach(b => {
-  const item = document.createElement('div');
-  item.className = 'booking-history-item';
-  item.innerHTML = `
-    <div>
-      <h5 style="font-size:15px;font-weight:700;">${b.service}</h5>
-      <small style="color:#64748b;">${b.date} • ${b.landmark}</small>
-    </div>
-    <div style="text-align:right;">
-      <strong style="color:#00A651;display:block;">${SwiftErrand.formatNaira(b.totalAmount)}</strong>
-      <span style="font-size:11px;font-weight:800;padding:3px 8px;border-radius:12px;background:${b.status === 'Completed' ? '#dcfce7' : '#fef3c7'};color:${b.status === 'Completed' ? '#166534' : '#92400e'};">${b.status}</span>
-    </div>
-  `;
-  listContainer.appendChild(item);
-});
+document.addEventListener('DOMContentLoaded', initDashboard);
 </script>
 </body>
 </html>

@@ -930,6 +930,8 @@ a:hover {
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
@@ -1166,60 +1168,119 @@ function handleSocialAuth(provider) {
 }
 
 /* Sign In Submit */
-function handleSignInSubmit(e) {
+async function handleSignInSubmit(e) {
   e.preventDefault();
-  const email = document.getElementById('signInEmail').value.trim().toLowerCase();
+  const email = document.getElementById('signInEmail').value.trim();
+  const password = document.getElementById('signInPassword').value;
   const btn = document.getElementById('btnSignInSubmit');
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+  const originalBtnText = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
   btn.disabled = true;
 
-  setTimeout(() => {
-    if (email.includes('admin')) {
-      SwiftErrand.loginAs('admin');
-    } else if (email.includes('provider') || email.includes('artisan') || email.includes('emeka')) {
-      SwiftErrand.loginAs('provider');
-    } else {
-      SwiftErrand.loginAs('customer');
+  try {
+    // Attempt Supabase live authentication
+    if (window.SwiftSupabase) {
+      const { user, profile } = await window.SwiftSupabase.signIn({ email, password });
+      const userRole = (profile && profile.role) || (user && user.user_metadata && user.user_metadata.role) || (email.includes('provider') ? 'provider' : (email.includes('admin') ? 'admin' : 'client'));
+      
+      if (typeof showToast === 'function') {
+        showToast(`Welcome back, ${(profile && profile.full_name) || user.email}!`, 'success');
+      }
+
+      setTimeout(() => {
+        if (userRole === 'provider' || userRole === 'agent') {
+          window.location.href = 'provider-dashboard.html';
+        } else if (userRole === 'admin') {
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      }, 500);
+      return;
     }
-  }, 350);
+  } catch (err) {
+    console.warn("Supabase signin attempt:", err.message);
+    // Check if demo credentials were used
+    if (password === 'password123' || email.includes('example.com') || email.includes('swifterrand.ng')) {
+      if (typeof showToast === 'function') {
+        showToast('Demo mode active: Signed in with local credentials', 'info');
+      }
+      if (email.includes('admin')) {
+        SwiftErrand.loginAs('admin');
+      } else if (email.includes('provider') || email.includes('artisan') || email.includes('emeka')) {
+        SwiftErrand.loginAs('provider');
+      } else {
+        SwiftErrand.loginAs('customer');
+      }
+      return;
+    }
+    
+    // Show live error toast
+    if (typeof showToast === 'function') {
+      showToast(err.message || 'Invalid email or password. Please try again.', 'error');
+    } else {
+      alert(err.message || 'Invalid credentials');
+    }
+  } finally {
+    btn.innerHTML = originalBtnText;
+    btn.disabled = false;
+  }
 }
 
 /* Sign Up Submit */
-function handleSignUpSubmit(e) {
+async function handleSignUpSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('signUpName').value.trim();
   const email = document.getElementById('signUpEmail').value.trim();
   const phone = document.getElementById('signUpPhone').value.trim();
+  const password = document.getElementById('signUpPassword').value;
   const role = document.getElementById('signUpRoleInput').value;
+  const landmark = document.getElementById('signUpLandmark').value;
+  const craft = document.getElementById('signUpCraft') ? document.getElementById('signUpCraft').value : '';
   const btn = document.getElementById('btnSignUpSubmit');
+  const originalBtnText = btn.innerHTML;
 
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating SwiftID...';
   btn.disabled = true;
 
   const isAgent = (role === 'agent' || role === 'provider');
-  const newUser = {
-    id: isAgent ? `PROV-${Math.floor(100 + Math.random() * 900)}` : `CUST-${Math.floor(100 + Math.random() * 900)}`,
-    name: name,
-    email: email,
-    phone: phone,
-    role: isAgent ? 'provider' : 'customer',
-    accountType: isAgent ? 'Agent' : 'User',
-    avatar: isAgent ? 'assets/images/provider1.jpg' : 'assets/images/customer1.jpg'
-  };
 
-  setTimeout(() => {
-    SwiftErrand.setUser(newUser);
-    if (typeof showToast === 'function') {
-      showToast(`Welcome to SwiftErrand, ${name}! Your ${isAgent ? 'Agent' : 'User'} account is active.`, 'success');
-    }
-    setTimeout(() => {
-      if (isAgent) {
-        window.location.href = 'provider-dashboard.html';
-      } else {
-        window.location.href = 'dashboard.html';
+  try {
+    if (window.SwiftSupabase) {
+      await window.SwiftSupabase.signUp({
+        email,
+        password,
+        fullName: name,
+        phone,
+        role: isAgent ? 'provider' : 'client',
+        landmark,
+        trade: craft
+      });
+
+      if (typeof showToast === 'function') {
+        showToast(`Account created successfully! Welcome to SwiftErrand, ${name}.`, 'success');
       }
-    }, 600);
-  }, 500);
+
+      setTimeout(() => {
+        if (isAgent) {
+          window.location.href = 'provider-dashboard.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      }, 700);
+      return;
+    }
+  } catch (err) {
+    console.error("Supabase signup error:", err);
+    if (typeof showToast === 'function') {
+      showToast(err.message || 'Registration failed. Please check inputs and try again.', 'error');
+    } else {
+      alert(err.message || 'Registration error');
+    }
+  } finally {
+    btn.innerHTML = originalBtnText;
+    btn.disabled = false;
+  }
 }
 </script>
 </body>

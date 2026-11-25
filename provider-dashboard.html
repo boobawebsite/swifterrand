@@ -119,6 +119,8 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
@@ -144,9 +146,36 @@ function updateOnlineUI() {
   }
 }
 
-function renderJobs() {
+async function renderJobs() {
   const list = document.getElementById('jobRequestsList');
-  const bookings = SwiftErrand.getBookings();
+  let bookings = SwiftErrand.getBookings();
+
+  if (window.SwiftSupabase) {
+    try {
+      const cloudBookings = await window.SwiftSupabase.getBookings();
+      if (cloudBookings && cloudBookings.length > 0) {
+        const mapped = cloudBookings.map(cb => ({
+          id: cb.booking_ref,
+          service: cb.service_category,
+          serviceMode: cb.mode,
+          customerName: cb.client_name,
+          customerPhone: cb.client_phone,
+          landmark: cb.landmark,
+          calloutFee: parseFloat(cb.callout_fee),
+          laborFee: parseFloat(cb.labor_fee),
+          totalAmount: parseFloat(cb.total_escrow),
+          status: cb.status === 'COMPLETED' ? 'Completed' : (cb.status === 'CANCELLED' ? 'Cancelled' : 'In Progress'),
+          pin: cb.completion_pin
+        }));
+        const existingIds = new Set(mapped.map(m => m.id));
+        bookings = [...mapped, ...bookings.filter(b => !existingIds.has(b.id))];
+        SwiftErrand.saveBookings(bookings);
+      }
+    } catch(err) {
+      console.warn("Supabase provider bookings load:", err);
+    }
+  }
+
   list.innerHTML = '';
 
   bookings.forEach(b => {
@@ -170,7 +199,7 @@ function renderJobs() {
           <a href="provider-tracking.html?id=${b.id}" class="btn-track"><i class="fa-solid fa-route"></i> Open Navigation & PIN Terminal</a>
           <button class="btn-accept" onclick="acceptJob('${b.id}')"><i class="fa-solid fa-check"></i> Mark En Route</button>
         ` : `
-          <span style="background:#dcfce7;color:#166534;font-size:12px;font-weight:800;padding:6px 14px;border-radius:12px;">Job Completed & Funds Released</span>
+          <span style="background:#dcfce7;color:#166534;font-size:12px;font-weight:800;padding:6px 14px;border-radius:0;">Job Completed & Funds Released</span>
         `}
       </div>
     `;
@@ -178,8 +207,14 @@ function renderJobs() {
   });
 }
 
-function acceptJob(id) {
+async function acceptJob(id) {
   SwiftErrand.updateBookingStatus(id, "En Route");
+  if (window.SwiftSupabase && window.SwiftSupabase.init()) {
+    try {
+      const sb = window.SwiftSupabase.init();
+      await sb.from('swift_bookings').update({ status: 'EN_ROUTE' }).eq('booking_ref', id);
+    } catch(e) {}
+  }
   showToast(`Booking ${id} accepted! Customer notified that you are en route.`, "success");
   renderJobs();
 }

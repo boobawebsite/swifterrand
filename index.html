@@ -1853,7 +1853,7 @@ img {
     </ul>
 
     <div class="nav-actions">
-      <a href="login.html" class="btn btn-ghost">Sign In</a>
+      <a href="login.html" class="btn btn-ghost" id="headerSignInBtn">Sign In</a>
       <button type="button" class="btn btn-primary" onclick="toggleHeaderSearch(true)">
         <i class="fa-solid fa-magnifying-glass"></i> Find Help
       </button>
@@ -2554,9 +2554,21 @@ img {
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
+// Check and update auth session in header
+document.addEventListener('DOMContentLoaded', () => {
+  const user = SwiftErrand.getUser();
+  const btn = document.getElementById('headerSignInBtn');
+  if (user && user.name && user.name !== "Dr. Sarah Akpan" && btn) {
+    const target = user.role === 'provider' ? 'provider-dashboard.html' : 'dashboard.html';
+    btn.innerHTML = `<i class="fa-solid fa-user-check" style="color:#00A651;margin-right:6px;"></i> ${user.name.split(' ')[0]}`;
+    btn.href = target;
+  }
+});
 // Toggle Search Bar in Navbar
 function toggleHeaderSearch(show) {
   const navDefault = document.getElementById('navDefault');

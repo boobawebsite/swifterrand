@@ -258,7 +258,7 @@ Earn money by offering trusted services in your city.
 
 <label>Full Name</label>
 
-<input type="text">
+<input type="text" id="provFullName" placeholder="e.g. Chukwuma Obi" required>
 
 </div>
 
@@ -266,7 +266,7 @@ Earn money by offering trusted services in your city.
 
 <label>Phone Number</label>
 
-<input type="tel">
+<input type="tel" id="provPhone" placeholder="e.g. 08012345678" required>
 
 </div>
 
@@ -274,7 +274,7 @@ Earn money by offering trusted services in your city.
 
 <label>Email</label>
 
-<input type="email">
+<input type="email" id="provEmail" placeholder="e.g. artisan@gmail.com" required>
 
 </div>
 
@@ -282,15 +282,16 @@ Earn money by offering trusted services in your city.
 
 <label>Service Category</label>
 
-<select>
+<select id="provTrade">
 
-<option>Cleaning</option>
-<option>Electrician</option>
-<option>Plumber</option>
-<option>Dispatch Rider</option>
-<option>Carpenter</option>
-<option>Laundry</option>
-<option>AC Technician</option>
+<option value="Plumbing & Pipefitting">Plumbing & Pipefitting</option>
+<option value="Electrical & Solar Specialist">Electrical & Solar Specialist</option>
+<option value="AC & Refrigeration">AC & Refrigeration Tech</option>
+<option value="Deep Cleaning & Fumigation">Deep Cleaning & Fumigation</option>
+<option value="Generator Diagnostics">Generator Diagnostics & Overhaul</option>
+<option value="Carpentry & Woodwork">Carpentry & Woodwork</option>
+<option value="Wall Painting & Finishing">Wall Painting & Finishing</option>
+<option value="Express Logistics Runner">Express Logistics Runner</option>
 
 </select>
 
@@ -300,15 +301,15 @@ Earn money by offering trusted services in your city.
 
 <label>Years of Experience</label>
 
-<input type="number">
+<input type="number" id="provExp" placeholder="e.g. 5" min="1">
 
 </div>
 
 <div class="input">
 
-<label>Preferred City</label>
+<label>Preferred City / Landmark</label>
 
-<input type="text" placeholder="e.g. Uyo">
+<input type="text" id="provCity" placeholder="e.g. Shelter Afrique, Uyo">
 
 </div>
 
@@ -318,7 +319,7 @@ Earn money by offering trusted services in your city.
 
 <label>Tell us about yourself</label>
 
-<textarea></textarea>
+<textarea id="provBio" placeholder="Describe your technical expertise and past commercial jobs..."></textarea>
 
 </div>
 
@@ -352,7 +353,7 @@ Upload Profile Photo
 
 </div>
 
-<button onclick="submitApplication()">
+<button id="btnSubmitProv" onclick="submitApplication()">
 
 Submit Application
 
@@ -362,23 +363,68 @@ Submit Application
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script src="toast.js"></script>
+<script src="swifterrand.js"></script>
 <script>
 
-function submitApplication(){
+async function submitApplication(){
+  const name = document.getElementById('provFullName').value.trim() || "Verified Artisan";
+  const phone = document.getElementById('provPhone').value.trim() || "08000000000";
+  const email = document.getElementById('provEmail').value.trim() || `artisan.${Date.now()}@swifterrand.ng`;
+  const trade = document.getElementById('provTrade').value;
+  const location = document.getElementById('provCity').value.trim() || "Uyo / Lagos";
+  const btn = document.getElementById('btnSubmitProv');
 
-showToast("🎉 Application Submitted Successfully");
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting Application...';
+  btn.disabled = true;
 
-setTimeout(()=>{
+  // Insert into Supabase swift_providers directory
+  if (window.SwiftSupabase && window.SwiftSupabase.init()) {
+    try {
+      const sb = window.SwiftSupabase.init();
+      await sb.from('swift_providers').insert([{
+        name: name,
+        trade: trade,
+        rating: 5.0,
+        reviews_count: 1,
+        jobs_count: 1,
+        eta: '15-30 mins',
+        location: location,
+        landmark: location,
+        badge: 'Verified Pro',
+        is_available: true
+      }]);
+    } catch(err) {
+      console.warn("Supabase provider registration notice:", err);
+    }
+  }
 
-window.location="provider-dashboard.html";
+  // Update local session
+  const provUser = {
+    id: `PROV-${Math.floor(100 + Math.random() * 900)}`,
+    name: name,
+    email: email,
+    phone: phone,
+    role: 'provider',
+    accountType: 'Agent',
+    skill: trade,
+    avatar: 'assets/images/provider1.jpg'
+  };
+  localStorage.setItem('swifterrand_user', JSON.stringify(provUser));
+  if (window.SwiftErrand) window.SwiftErrand.setUser(provUser);
 
-},1500);
+  if (typeof showToast === 'function') {
+    showToast("Application Submitted Successfully. Welcome to the Guild!", "success");
+  }
 
+  setTimeout(()=>{
+    window.location = "provider-dashboard.html";
+  }, 1000);
 }
 
 </script>
-
-<script src="toast.js"></script>
 
 </body>
 </html>

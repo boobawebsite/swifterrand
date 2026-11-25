@@ -164,6 +164,8 @@ p.sub{color:#64748b;font-size:15px;margin-bottom:25px;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
@@ -202,28 +204,45 @@ function copyNuban() {
   showToast("Account number copied! Pay via your mobile banking app.", "success");
 }
 
-function processPayment() {
+async function processPayment() {
   showToast("Confirming escrow transaction with SwiftShield™...", "info");
   
-  setTimeout(() => {
-    // Create official confirmed booking
-    const newBooking = SwiftErrand.createBooking({
-      service: serviceName,
-      serviceMode: (bookingDraft && bookingDraft.serviceMode) || "DO IT",
-      landmark: (bookingDraft && bookingDraft.landmark) || "Shelter Afrique Estate",
-      address: (bookingDraft && bookingDraft.address) || "Plot 14, Unit C, Shelter Afrique, Uyo",
-      calloutFee: calloutAmt,
-      laborFee: laborAmt,
-      notes: (bookingDraft && bookingDraft.notes) || "Booking confirmed via " + currentChannel.toUpperCase()
-    });
+  const payload = {
+    service: serviceName,
+    serviceMode: (bookingDraft && bookingDraft.serviceMode) || "DO IT",
+    landmark: (bookingDraft && bookingDraft.landmark) || "Shelter Afrique Estate",
+    address: (bookingDraft && bookingDraft.address) || "Plot 14, Unit C, Shelter Afrique, Uyo",
+    calloutFee: calloutAmt,
+    laborFee: laborAmt,
+    notes: (bookingDraft && bookingDraft.notes) || "Booking confirmed via " + currentChannel.toUpperCase()
+  };
+
+  try {
+    let bookingRef = null;
+    if (window.SwiftSupabase) {
+      const liveBooking = await window.SwiftSupabase.createBooking(payload);
+      bookingRef = liveBooking.booking_ref || liveBooking.id;
+    } else {
+      const localBooking = SwiftErrand.createBooking(payload);
+      bookingRef = localBooking.id;
+    }
 
     sessionStorage.removeItem('swifterrand_booking_draft');
-    showToast(`Payment Held in Escrow! Booking ${newBooking.id} is confirmed.`, "success");
+    showToast(`Payment Held in Escrow! Booking ${bookingRef} is confirmed.`, "success");
 
     setTimeout(() => {
-      window.location.href = `tracking.html?id=${newBooking.id}`;
+      window.location.href = `tracking.html?id=${bookingRef}`;
     }, 800);
-  }, 1200);
+  } catch (err) {
+    console.error("Payment/Booking error:", err);
+    // Fallback to local booking
+    const localBooking = SwiftErrand.createBooking(payload);
+    sessionStorage.removeItem('swifterrand_booking_draft');
+    showToast(`Payment recorded. Booking ${localBooking.id} created.`, "success");
+    setTimeout(() => {
+      window.location.href = `tracking.html?id=${localBooking.id}`;
+    }, 800);
+  }
 }
 </script>
 </body>
