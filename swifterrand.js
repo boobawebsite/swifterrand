@@ -70,15 +70,26 @@ const SwiftErrand = (() => {
 
   // --- Initialize Storage ---
   function initStorage() {
+    // Purge legacy demo mock values if present in client storage
+    const storedBal = localStorage.getItem("swifterrand_wallet_bal");
+    if (!storedBal || storedBal === "35500" || storedBal === "84500") {
+      localStorage.setItem("swifterrand_wallet_bal", "0");
+    }
+
     if (!localStorage.getItem("swifterrand_providers")) {
       localStorage.setItem("swifterrand_providers", JSON.stringify(DEFAULT_PROVIDERS));
     }
-    if (!localStorage.getItem("swifterrand_bookings")) {
+
+    try {
+      const bks = JSON.parse(localStorage.getItem("swifterrand_bookings") || "[]");
+      const cleaned = bks.filter(b => b.id !== "SE-8492" && b.id !== "SE-8319" && b.customerName !== "Dr. Sarah Akpan");
+      if (cleaned.length !== bks.length || !localStorage.getItem("swifterrand_bookings")) {
+        localStorage.setItem("swifterrand_bookings", JSON.stringify(cleaned));
+      }
+    } catch (e) {
       localStorage.setItem("swifterrand_bookings", "[]");
     }
-    if (!localStorage.getItem("swifterrand_wallet_bal")) {
-      localStorage.setItem("swifterrand_wallet_bal", "0");
-    }
+
     if (!localStorage.getItem("swifterrand_transactions")) {
       localStorage.setItem("swifterrand_transactions", "[]");
     }

@@ -97,6 +97,9 @@ const SwiftSupabase = {
         avatar: normalizedRole === "provider" ? "assets/images/provider1.jpg" : "assets/images/customer1.jpg"
       };
       localStorage.setItem("swifterrand_user", JSON.stringify(localUser));
+      localStorage.setItem("swifterrand_wallet_bal", "0");
+      localStorage.setItem("swifterrand_bookings", "[]");
+      localStorage.setItem("swifterrand_transactions", "[]");
       if (window.SwiftErrand && typeof window.SwiftErrand.setUser === "function") {
         window.SwiftErrand.setUser(localUser);
       }
@@ -148,13 +151,34 @@ const SwiftSupabase = {
         avatar: role === "provider" ? "assets/images/provider1.jpg" : (role === "admin" ? "assets/images/admin.jpg" : "assets/images/customer1.jpg")
       };
 
+      const realBal = (profile && profile.wallet_balance !== undefined) ? profile.wallet_balance.toString() : "0";
       localStorage.setItem("swifterrand_user", JSON.stringify(localUser));
+      localStorage.setItem("swifterrand_wallet_bal", realBal);
       if (window.SwiftErrand && typeof window.SwiftErrand.setUser === "function") {
         window.SwiftErrand.setUser(localUser);
       }
     }
 
     return { session: data.session, user, profile };
+  },
+
+  /**
+   * Get user profile details
+   */
+  async getUserProfile(userId) {
+    const sb = this.init();
+    if (!sb || !userId) return null;
+    try {
+      const { data, error } = await sb
+        .from("swift_profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
+      if (error) return null;
+      return data;
+    } catch (e) {
+      return null;
+    }
   },
 
   /**

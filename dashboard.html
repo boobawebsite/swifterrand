@@ -84,21 +84,21 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
     <div class="stat-card">
       <div class="stat-icon icon-green"><i class="fa-solid fa-wallet"></i></div>
       <div class="stat-info">
-        <h3 id="statWallet">₦35,500</h3>
+        <h3 id="statWallet">₦0.00</h3>
         <span>Wallet Balance</span>
       </div>
     </div>
     <div class="stat-card">
       <div class="stat-icon icon-blue"><i class="fa-solid fa-clock-rotate-left"></i></div>
       <div class="stat-info">
-        <h3 id="statActive">1 Active</h3>
+        <h3 id="statActive">0 Active</h3>
         <span>Current Assignment</span>
       </div>
     </div>
     <div class="stat-card">
       <div class="stat-icon icon-purple"><i class="fa-solid fa-circle-check"></i></div>
       <div class="stat-info">
-        <h3 id="statCompleted">12 Total</h3>
+        <h3 id="statCompleted">0 Total</h3>
         <span>Completed Services</span>
       </div>
     </div>
@@ -220,6 +220,18 @@ async function initDashboard() {
   document.getElementById('userFirst').innerText = user.name.split(" ")[0];
   document.getElementById('userAvatar').src = user.avatar || 'assets/images/customer1.jpg';
 
+  // Sync live wallet balance from Supabase profile
+  if (window.SwiftSupabase) {
+    try {
+      const profile = await window.SwiftSupabase.getUserProfile(user.id);
+      if (profile && profile.wallet_balance !== undefined) {
+        localStorage.setItem("swifterrand_wallet_bal", profile.wallet_balance.toString());
+      }
+    } catch (e) {
+      console.warn("Wallet profile sync:", e);
+    }
+  }
+
   const bal = SwiftErrand.getWalletBalance();
   document.getElementById('navWallet').innerText = SwiftErrand.formatNaira(bal);
   document.getElementById('statWallet').innerText = SwiftErrand.formatNaira(bal);
@@ -230,7 +242,7 @@ async function initDashboard() {
   if (window.SwiftSupabase) {
     try {
       const cloudBookings = await window.SwiftSupabase.getBookings();
-      if (cloudBookings && cloudBookings.length > 0) {
+      if (cloudBookings) {
         const mapped = cloudBookings.map(cb => ({
           id: cb.booking_ref,
           service: cb.service_category,
@@ -253,6 +265,12 @@ async function initDashboard() {
       console.warn("Supabase bookings load:", err);
     }
   }
+
+  // Update dynamic metric counters
+  const activeCount = bookings.filter(b => b.status !== 'Completed' && b.status !== 'Cancelled').length;
+  const completedCount = bookings.filter(b => b.status === 'Completed').length;
+  if (document.getElementById('statActive')) document.getElementById('statActive').innerText = `${activeCount} Active`;
+  if (document.getElementById('statCompleted')) document.getElementById('statCompleted').innerText = `${completedCount} Total`;
 
   const active = bookings.find(b => b.status !== 'Completed' && b.status !== 'Cancelled');
 
