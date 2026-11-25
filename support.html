@@ -8,14 +8,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;border-radius:0 !important;}
 body{background:#f8fafc;color:#0f172a;overflow-x:hidden;}
-nav{height:74px;display:flex;justify-content:space-between;align-items:center;padding:0 4%;background:#fff;border-bottom:1px solid rgba(15,23,42,0.08);box-shadow:0 1px 3px rgba(0,0,0,.04);position:sticky;top:0;z-index:100;}
+nav{height:74px;display:flex;justify-content:space-between;align-items:center;padding:0 5%;background:#fff;border-bottom:1px solid rgba(15,23,42,0.08);box-shadow:0 1px 3px rgba(0,0,0,.04);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:#0f172a;text-decoration:none;}
-.logo-icon{width:38px;height:38px;background:#00A651;color:#fff;border-radius:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.back-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:0;background:#f1f5f9;color:#0f172a;text-decoration:none;font-weight:700;font-size:13.5px;transition:all .15s;}
-.back-btn:hover{background:#e2e8f0;}
+.logo-icon{width:38px;height:38px;background:#00A651;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.nav-menu{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-link{font-size:13.5px;font-weight:700;color:#64748b;text-decoration:none;transition:color .15s;display:inline-flex;align-items:center;gap:6px;}
+.nav-link:hover, .nav-link.active{color:#00A651;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.btn-ghost{background:transparent;color:#0f172a;border:1px solid #cbd5e1;padding:8px 16px;text-decoration:none;font-weight:700;font-size:13.5px;}
+.btn-ghost:hover{background:#f1f5f9;}
 .hero{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;padding:60px 4%;text-align:center;}
+@media(max-width:1050px){.nav-menu{gap:14px;font-size:12px;}}
+@media(max-width:900px){.nav-menu{display:none;}}
 .hero h1{font-size:36px;font-weight:800;margin-bottom:12px;letter-spacing:-0.02em;}
 .hero p{font-size:16px;opacity:.92;max-width:600px;margin:auto;line-height:1.5;}
 .container{max-width:1100px;margin:-35px auto 60px;padding:0 4%;}
@@ -52,7 +58,18 @@ nav{height:74px;display:flex;justify-content:space-between;align-items:center;pa
     <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
     <span>SwiftErrand</span>
   </a>
-  <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+
+  <ul class="nav-menu">
+    <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="services.html" class="nav-link"><i class="fa-solid fa-list-check"></i> Services</a></li>
+    <li><a href="how-it-works.html" class="nav-link"><i class="fa-solid fa-shield-halved"></i> How It Works</a></li>
+    <li><a href="booking.html" class="nav-link"><i class="fa-solid fa-calendar-plus"></i> Book an Artisan</a></li>
+    <li><a href="support.html" class="nav-link active"><i class="fa-solid fa-headset"></i> Support Desk</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="login.html" class="btn-ghost" id="headerSignInBtn">Sign In</a>
+  </div>
 </nav>
 
 <div class="hero">

@@ -1151,13 +1151,47 @@ async function handleSignUpSubmit(e) {
         showToast(`Account created successfully! Welcome to SwiftErrand, ${name}.`, 'success');
       }
 
-      setTimeout(() => {
-        if (isAgent) {
-          window.location.href = 'provider-dashboard.html';
-        } else {
-          window.location.href = 'dashboard.html';
-        }
-      }, 700);
+      const targetDashboard = isAgent ? 'provider-dashboard.html' : 'dashboard.html';
+      const container = document.querySelector('.auth-panel-container');
+      if (container) {
+        container.innerHTML = `
+          <div style="background:#fff;border:1px solid #e2e8f0;padding:40px 24px;text-align:center;">
+            <div style="width:58px;height:58px;background:#dcfce7;color:#166534;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <h2 style="font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-0.02em;margin-bottom:8px;">Welcome to SwiftErrand, ${name}!</h2>
+            <p style="font-size:14px;color:#64748b;line-height:1.6;margin-bottom:26px;max-width:440px;margin-left:auto;margin-right:auto;">
+              Your verified SwiftID is active. You have full access to explore verified artisans, browse services, or manage your escrow contracts.
+            </p>
+            <div style="display:flex;flex-direction:column;gap:12px;max-width:380px;margin:0 auto;">
+              <a href="index.html" class="btn-apple-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px;font-weight:700;">
+                <i class="fa-solid fa-house"></i> Continue to Homepage & Services
+              </a>
+              <a href="${targetDashboard}" style="text-decoration:none;background:#f8fafc;color:#0f172a;border:1.5px solid #cbd5e1;padding:13px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+                <i class="fa-solid fa-gauge"></i> Open My Account Dashboard
+              </a>
+            </div>
+            <div style="margin-top:22px;font-size:12.5px;color:#94a3b8;">
+              Opening homepage in <span id="countdownSecs">4</span>s...
+            </div>
+          </div>
+        `;
+
+        let timeLeft = 4;
+        const timer = setInterval(() => {
+          timeLeft--;
+          const el = document.getElementById('countdownSecs');
+          if (el) el.innerText = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = 'index.html';
+          }
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      }
       return;
     }
   } catch (err) {

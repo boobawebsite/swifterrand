@@ -10,16 +10,22 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;border-radius:0 !important;}
 body{background:#f8fafc;color:#0f172a;}
-nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 5%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
-.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.nav-right{display:flex;align-items:center;gap:15px;}
-.provider-badge{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:30px;background:#f1f5f9;font-weight:700;font-size:14px;}
-.provider-badge img{width:36px;height:36px;border-radius:50%;object-fit:cover;}
-.toggle-online{padding:8px 16px;border-radius:20px;font-weight:800;font-size:13px;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.nav-menu{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-link{font-size:13.5px;font-weight:700;color:#64748b;text-decoration:none;transition:color .15s;display:inline-flex;align-items:center;gap:6px;}
+.nav-link:hover, .nav-link.active{color:#0284c7;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.provider-badge{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#f1f5f9;font-weight:700;font-size:13.5px;border:1px solid #e2e8f0;}
+.provider-badge img{width:30px;height:30px;object-fit:cover;}
+.toggle-online{padding:8px 14px;font-weight:800;font-size:12.5px;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;}
 .is-online{background:#dcfce7;color:#166534;}
 .is-offline{background:#fee2e2;color:#dc2626;}
-.btn-logout{padding:10px 16px;border:none;background:#fee2e2;color:#dc2626;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;}
+.btn-logout{padding:8px 14px;border:none;background:#fee2e2;color:#dc2626;font-weight:700;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;}
+.btn-logout:hover{background:#fecaca;}
+@media(max-width:1050px){.nav-menu{gap:14px;font-size:12px;}}
+@media(max-width:900px){.nav-menu{display:none;}}
 .container{max-width:1200px;margin:35px auto 80px;padding:0 20px;}
 .hero-box{background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;border-radius:24px;padding:35px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
 .hero-box h1{font-size:30px;margin-bottom:6px;}
@@ -41,17 +47,26 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
 <nav>
   <a href="index.html" class="logo">
     <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
-    <span>SwiftErrand Provider Hub</span>
+    <span>SwiftErrand</span>
   </a>
+
+  <ul class="nav-menu">
+    <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="services.html" class="nav-link"><i class="fa-solid fa-list-check"></i> Services</a></li>
+    <li><a href="how-it-works.html" class="nav-link"><i class="fa-solid fa-shield-halved"></i> How It Works</a></li>
+    <li><a href="provider-dashboard.html" class="nav-link active"><i class="fa-solid fa-gauge"></i> Provider Hub</a></li>
+    <li><a href="support.html" class="nav-link"><i class="fa-solid fa-headset"></i> Support Desk</a></li>
+  </ul>
+
   <div class="nav-right">
     <button class="toggle-online is-online" id="onlineBtn" onclick="toggleOnlineStatus()">
       <i class="fa-solid fa-circle" style="font-size:10px;"></i> <span id="onlineText">ONLINE & RECEIVING JOBS</span>
     </button>
-    <div class="provider-badge">
+    <a href="profile.html" class="provider-badge" style="text-decoration:none;color:#0f172a;">
       <img src="assets/images/provider1.jpg" id="provAvatar" alt="Provider">
       <span id="provNavName">Artisan Partner</span>
-    </div>
-    <button class="btn-logout" onclick="SwiftErrand.logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </a>
+    <button class="btn-logout" onclick="SwiftErrand.logout()" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
   </div>
 </nav>
 

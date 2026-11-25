@@ -529,23 +529,75 @@ const SwiftSupabase = {
   },
 
   /* =========================================================
-     6. HEADER SESSION STATE SYNC
+     6. HEADER SESSION STATE SYNC ACROSS PLATFORM
   ========================================================= */
-  initHeaderAuth() {
+  async syncHeaderUser(sessionUser = null) {
+    let user = sessionUser;
     const sb = this.init();
-    if (!sb) return;
 
-    sb.auth.onAuthStateChange((event, session) => {
-      const user = session ? session.user : null;
-      const userPill = document.querySelector(".header-user-btn, .login-btn");
-      if (user && userPill) {
-        const name = (user.user_metadata && user.user_metadata.full_name) || user.email.split("@")[0];
-        const role = (user.user_metadata && user.user_metadata.role) || "client";
-        const targetPage = role === "provider" ? "provider-dashboard.html" : "dashboard.html";
-        userPill.innerHTML = `<i class="fa-solid fa-user-check" style="color:#00A651;margin-right:6px;"></i> ${name}`;
-        userPill.setAttribute("href", targetPage);
+    if (!user && sb) {
+      try {
+        const { data } = await sb.auth.getUser();
+        user = data ? data.user : null;
+      } catch (e) {
+        // quiet fallback
+      }
+    }
+
+    if (!user && window.SwiftErrand && typeof window.SwiftErrand.getUser === "function") {
+      user = window.SwiftErrand.getUser();
+    }
+
+    if (!user) return;
+
+    const name = (user.user_metadata && user.user_metadata.full_name) || user.name || (user.email ? user.email.split("@")[0] : "My Account");
+    const role = (user.user_metadata && user.user_metadata.role) || user.role || "client";
+    const targetDashboard = (role === "provider" || role === "agent") ? "provider-dashboard.html" : (role === "admin" ? "admin-dashboard.html" : "dashboard.html");
+
+    // 1. Update Sign In links in desktop header
+    const signInElements = document.querySelectorAll('#headerSignInBtn, .header-user-btn, .login-btn, a[href="login.html"]:not(.modal-close):not(.footer a):not(.auth-panel-container a)');
+    signInElements.forEach(el => {
+      if (el.closest('.auth-view') || el.classList.contains('header-synced')) return;
+      el.classList.add('header-synced');
+      el.setAttribute('href', targetDashboard);
+      el.style.borderRadius = '0';
+      el.style.fontWeight = '700';
+      el.style.display = 'inline-flex';
+      el.style.alignItems = 'center';
+      el.style.gap = '6px';
+      el.innerHTML = `<i class="fa-solid fa-circle-user" style="color:#00A651;font-size:15px;"></i> <span>${name.split(" ")[0]}</span>`;
+    });
+
+    // 2. Add "Dashboard" link into .nav-menu if not present
+    const navMenus = document.querySelectorAll('.nav-menu');
+    navMenus.forEach(menu => {
+      if (!menu.querySelector('.nav-dashboard-link')) {
+        const li = document.createElement('li');
+        li.className = 'nav-dashboard-link';
+        li.innerHTML = `<a href="${targetDashboard}" class="nav-link" style="color:#00A651;font-weight:700;"><i class="fa-solid fa-gauge" style="margin-right:4px;"></i> Dashboard</a>`;
+        menu.appendChild(li);
       }
     });
+
+    // 3. Update mobile navigation drawers
+    const mobileSignIn = document.querySelectorAll('#mobileNavDrawer a[href="login.html"]');
+    mobileSignIn.forEach(btn => {
+      if (btn.classList.contains('mobile-synced')) return;
+      btn.classList.add('mobile-synced');
+      btn.setAttribute('href', targetDashboard);
+      btn.innerHTML = `<i class="fa-solid fa-gauge" style="margin-right:8px;"></i> Dashboard (${name.split(" ")[0]})`;
+    });
+  },
+
+  initHeaderAuth() {
+    const sb = this.init();
+    this.syncHeaderUser();
+
+    if (sb) {
+      sb.auth.onAuthStateChange((event, session) => {
+        this.syncHeaderUser(session ? session.user : null);
+      });
+    }
   }
 };
 
@@ -553,6 +605,7 @@ const SwiftSupabase = {
 if (typeof document !== "undefined") {
   document.addEventListener("DOMContentLoaded", () => {
     SwiftSupabase.init();
+    SwiftSupabase.initHeaderAuth();
   });
 }
 
