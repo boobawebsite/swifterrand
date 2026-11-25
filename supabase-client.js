@@ -593,6 +593,18 @@ const SwiftSupabase = {
     const sb = this.init();
     this.syncHeaderUser();
 
+    // Wire brand-icon click to AI Chat screen globally
+    document.querySelectorAll('.brand-icon').forEach(icon => {
+      icon.style.cursor = 'pointer';
+      icon.setAttribute('title', 'Chat with SwiftErrand AI Assistant');
+      icon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (window.location.pathname.indexOf('ai-chat.html') === -1) {
+          window.location.href = 'ai-chat.html';
+        }
+      });
+    });
+
     if (sb) {
       sb.auth.onAuthStateChange((event, session) => {
         this.syncHeaderUser(session ? session.user : null);

@@ -103,13 +103,21 @@ img {
   width: 40px;
   height: 40px;
   background: var(--primary);
-  border-radius: 12px;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-size: 19px;
   box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.brand-icon:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
 }
 
 .brand-text {
@@ -1836,13 +1844,15 @@ img {
 <header class="navbar" id="navbar">
   <!-- STANDARD NAVBAR VIEW -->
   <div class="nav-content-default" id="navDefault">
-    <a href="index.html" class="brand">
-      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
-      <div class="brand-text">
+    <div class="brand">
+      <a href="ai-chat.html" class="brand-icon" title="Chat with SwiftErrand AI Assistant" aria-label="SwiftErrand AI Assistant">
+        <i class="fa-solid fa-bolt"></i>
+      </a>
+      <a href="index.html" class="brand-text">
         <span class="brand-title">SwiftErrand</span>
         <span class="brand-sub">Trusted Help. Fast.</span>
-      </div>
-    </a>
+      </a>
+    </div>
 
     <ul class="nav-menu">
       <li><a href="services.html" class="nav-link">Services</a></li>
@@ -1863,12 +1873,14 @@ img {
 
   <!-- EXPANDED SEARCH VIEW INSIDE HEADER -->
   <div class="nav-content-search" id="navSearch" style="display:none;">
-    <a href="index.html" class="brand">
-      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
-      <div class="brand-text">
+    <div class="brand">
+      <a href="ai-chat.html" class="brand-icon" title="Chat with SwiftErrand AI Assistant" aria-label="SwiftErrand AI Assistant">
+        <i class="fa-solid fa-bolt"></i>
+      </a>
+      <a href="index.html" class="brand-text">
         <span class="brand-title">SwiftErrand</span>
-      </div>
-    </a>
+      </a>
+    </div>
 
     <!-- Header Search Widget -->
     <form class="header-search-widget" onsubmit="handleHeaderSearch(event)">
