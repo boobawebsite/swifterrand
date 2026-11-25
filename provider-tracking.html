@@ -38,19 +38,19 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   <div class="card">
     <div class="route-box">
       <span style="font-size:12px;font-weight:800;text-transform:uppercase;opacity:.8;">Active Destination Navigation</span>
-      <h2 id="routeLandmark" style="font-size:26px;margin:4px 0 8px;">Plot 14, Unit C, Shelter Afrique Estate</h2>
-      <p style="opacity:.9;font-size:14px;"><i class="fa-solid fa-location-dot"></i> Landmark: Opposite De Choice Fast Food, Gate 2, Uyo</p>
+      <h2 id="routeLandmark" style="font-size:26px;margin:4px 0 8px;">Customer Location</h2>
+      <p id="routeSub" style="opacity:.9;font-size:14px;"><i class="fa-solid fa-location-dot"></i> Landmark: Waiting for dispatch...</p>
     </div>
 
     <div class="client-box">
       <img src="assets/images/customer1.jpg" alt="Client">
       <div style="flex:1;">
-        <h4 id="clientName" style="font-size:18px;">Dr. Sarah Akpan</h4>
-        <p style="font-size:14px;color:#64748b;">Phone: <strong>08031234567</strong></p>
+        <h4 id="clientName" style="font-size:18px;">Customer</h4>
+        <p style="font-size:14px;color:#64748b;">Phone: <strong id="clientPhone">Available on Dispatch</strong></p>
       </div>
       <div style="display:flex;gap:8px;">
-        <a href="tel:08031234567" style="padding:10px 16px;background:#00A651;color:#fff;border-radius:10px;text-decoration:none;font-weight:700;"><i class="fa-solid fa-phone"></i> Call</a>
-        <a href="chat.html" style="padding:10px 16px;background:#f1f5f9;color:#0f172a;border-radius:10px;text-decoration:none;font-weight:700;"><i class="fa-solid fa-comment"></i> Chat</a>
+        <a href="tel:08000000000" id="clientCallBtn" style="padding:10px 16px;background:#00A651;color:#fff;border-radius:0;text-decoration:none;font-weight:700;"><i class="fa-solid fa-phone"></i> Call</a>
+        <a href="chat.html" id="clientChatBtn" style="padding:10px 16px;background:#f1f5f9;color:#0f172a;border-radius:0;text-decoration:none;font-weight:700;"><i class="fa-solid fa-comment"></i> Chat</a>
       </div>
     </div>
 
@@ -63,11 +63,11 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
       </p>
 
       <div>
-        <input type="text" maxlength="4" class="pin-input" id="inputPin" placeholder="••••" value="4821">
+        <input type="text" maxlength="4" class="pin-input" id="inputPin" placeholder="••••">
       </div>
 
       <button type="button" class="btn-complete" onclick="submitReleasePIN()">
-        <i class="fa-solid fa-bolt"></i> Validate PIN & Claim Payout (₦11,000)
+        <i class="fa-solid fa-bolt"></i> <span id="btnPayoutLabel">Validate PIN & Claim Escrow Payout</span>
       </button>
     </div>
   </div>
@@ -76,11 +76,22 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
-const active = SwiftErrand.getActiveBooking();
+const urlParams = new URLSearchParams(window.location.search);
+const targetId = urlParams.get('id');
+const active = (targetId && SwiftErrand.getBookingById(targetId)) || SwiftErrand.getActiveBooking();
 
 if (active) {
-  document.getElementById('routeLandmark').innerText = active.address;
+  document.getElementById('routeLandmark').innerText = active.address || active.landmark;
+  document.getElementById('routeSub').innerHTML = `<i class="fa-solid fa-location-dot"></i> Landmark: ${active.landmark}`;
   document.getElementById('clientName').innerText = active.customerName;
+  document.getElementById('clientPhone').innerText = active.customerPhone || "08000000000";
+  document.getElementById('clientCallBtn').href = `tel:${active.customerPhone || '08000000000'}`;
+  document.getElementById('clientChatBtn').href = `chat.html?name=${encodeURIComponent(active.customerName)}`;
+  document.getElementById('btnPayoutLabel').innerText = `Validate PIN & Claim Payout (${SwiftErrand.formatNaira(active.laborFee || 5000)})`;
+} else {
+  setTimeout(() => {
+    window.location.replace("provider-dashboard.html");
+  }, 100);
 }
 
 function submitReleasePIN() {

@@ -2521,7 +2521,7 @@ img {
 document.addEventListener('DOMContentLoaded', () => {
   const user = SwiftErrand.getUser();
   const btn = document.getElementById('headerSignInBtn');
-  if (user && user.name && user.name !== "Dr. Sarah Akpan" && btn) {
+  if (user && user.name && btn) {
     const target = user.role === 'provider' ? 'provider-dashboard.html' : 'dashboard.html';
     btn.innerHTML = `<i class="fa-solid fa-user-check" style="color:#00A651;margin-right:6px;"></i> ${user.name.split(' ')[0]}`;
     btn.href = target;

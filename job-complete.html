@@ -39,12 +39,12 @@ textarea:focus{border-color:#00A651;}
     <div class="check-icon"><i class="fa-solid fa-check"></i></div>
     <h2 style="font-size:28px;margin-bottom:8px;">Job Completed Successfully!</h2>
     <p style="color:#64748b;font-size:15px;line-height:1.6;">
-      Escrow funds of <strong>₦11,000</strong> have been safely released to <strong>Emeka Okon</strong> under SwiftShield™ protection.
+      Escrow funds of <strong id="completePayout">funds</strong> have been safely released to <strong id="completeProvName">your technician</strong> under SwiftShield™ protection.
     </p>
 
     <div style="border-top:1px solid #f1f5f9;margin:30px 0;padding-top:25px;">
       <h3 style="font-size:20px;margin-bottom:6px;">Rate Your Experience</h3>
-      <p style="font-size:14px;color:#64748b;">Help other Uyo residents by rating Emeka's workmanship and punctuality.</p>
+      <p style="font-size:14px;color:#64748b;">Help other clients by rating your technician's workmanship and punctuality.</p>
 
       <div class="stars" id="starContainer">
         <i class="fa-solid fa-star star active" onclick="setStar(1)"></i>
@@ -54,7 +54,7 @@ textarea:focus{border-color:#00A651;}
         <i class="fa-solid fa-star star active" onclick="setStar(5)"></i>
       </div>
 
-      <textarea id="feedbackText" rows="3" placeholder="Tell us how Emeka did... (e.g. Arrived on time at Shelter Afrique, fixed the leak neatly and cleaned up afterwards.)">Arrived promptly at Shelter Afrique Gate 2. Fixed the plumbing leak neatly and tested the water pressure. Highly recommended!</textarea>
+      <textarea id="feedbackText" rows="3" placeholder="Tell us about the service quality, punctuality, and professionalism..."></textarea>
 
       <button type="button" class="btn-submit" onclick="submitReview()">
         <i class="fa-solid fa-award"></i> Submit Review & Earn ₦500 Credit
@@ -64,8 +64,18 @@ textarea:focus{border-color:#00A651;}
 </div>
 
 <script src="toast.js"></script>
+<script src="swifterrand.js"></script>
 <script>
 let rating = 5;
+
+const urlParams = new URLSearchParams(window.location.search);
+const targetId = urlParams.get('id');
+const booking = (targetId && SwiftErrand.getBookingById(targetId)) || SwiftErrand.getActiveBooking();
+
+if (booking) {
+  document.getElementById('completePayout').innerText = SwiftErrand.formatNaira(booking.totalAmount || booking.laborFee || 5000);
+  document.getElementById('completeProvName').innerText = booking.providerName || "your technician";
+}
 
 function setStar(n) {
   rating = n;

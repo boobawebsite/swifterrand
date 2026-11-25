@@ -56,11 +56,11 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   </a>
   <div class="nav-right">
     <a href="wallet.html" style="text-decoration:none;font-weight:800;color:#00A651;font-size:14px;margin-right:10px;">
-      <i class="fa-solid fa-wallet"></i> <span id="navWallet">₦35,500</span>
+      <i class="fa-solid fa-wallet"></i> <span id="navWallet">₦0.00</span>
     </a>
     <a href="profile.html" class="user-pill">
       <img src="assets/images/customer1.jpg" id="userAvatar" alt="User">
-      <span id="userName">Dr. Sarah Akpan</span>
+      <span id="userName">My Account</span>
     </a>
     <button class="btn-logout" onclick="SwiftErrand.logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
   </div>
@@ -70,8 +70,8 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   <!-- Welcome Hero -->
   <div class="welcome-hero">
     <div>
-      <h1>Welcome back, <span id="userFirst">Sarah</span>! 👋</h1>
-      <p>Your requests in Uyo are protected under <strong>SwiftShield™</strong> with verified artisans and release PIN escrow.</p>
+      <h1>Welcome back, <span id="userFirst">User</span>!</h1>
+      <p>Your requests are protected under <strong>SwiftShield™</strong> with verified artisans and release PIN escrow.</p>
     </div>
     <div class="hero-btns">
       <a href="booking.html" class="btn-white"><i class="fa-solid fa-plus"></i> Book New Service</a>
@@ -122,19 +122,9 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
         </div>
 
         <div class="active-booking-box" id="activeBookingCard">
-          <span class="status-tag" id="activeStatus">In Progress</span>
-          <h4 id="activeTitle" style="font-size:20px;margin-bottom:6px;">Plumbing & Leak Repair</h4>
-          <p id="activeSub" style="color:#475569;font-size:14px;margin-bottom:15px;">
-            Provider: <strong>Emeka Okon</strong> (Plumber) • Shelter Afrique Estate
-          </p>
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid #bbf7d0;padding-top:15px;">
-            <div>
-              <span style="font-size:12px;color:#166534;font-weight:700;">YOUR 4-DIGIT RELEASE PIN:</span>
-              <strong id="activePin" style="font-size:22px;color:#00A651;letter-spacing:2px;display:block;">4821</strong>
-            </div>
-            <a href="tracking.html" class="btn-white" style="background:#00A651;color:#fff;padding:10px 20px;font-size:14px;">
-              <i class="fa-solid fa-location-crosshairs"></i> Track Live Arrival & Job
-            </a>
+          <div style="text-align:center;padding:20px;color:#64748b;">
+            <i class="fa-solid fa-spinner fa-spin" style="color:#00A651;font-size:24px;margin-bottom:8px;"></i>
+            <p style="font-size:14px;">Loading active tasks...</p>
           </div>
         </div>
       </div>
@@ -208,6 +198,8 @@ async function initDashboard() {
     try {
       const sbUser = await window.SwiftSupabase.getCurrentUser();
       if (sbUser) {
+        if (!user) user = {};
+        user.id = sbUser.id;
         user.name = (sbUser.user_metadata && sbUser.user_metadata.full_name) || user.name || sbUser.email.split('@')[0];
         user.email = sbUser.email;
         if (sbUser.user_metadata && sbUser.user_metadata.phone) user.phone = sbUser.user_metadata.phone;
@@ -216,6 +208,12 @@ async function initDashboard() {
     } catch (e) {
       console.warn("Supabase user load:", e);
     }
+  }
+
+  // Enforce authentication
+  if (!user || !user.name) {
+    window.location.replace("login.html");
+    return;
   }
 
   document.getElementById('userName').innerText = user.name;
@@ -228,12 +226,11 @@ async function initDashboard() {
 
   let bookings = SwiftErrand.getBookings();
 
-  // Try fetching live bookings from Supabase
+  // Fetch live bookings from Supabase
   if (window.SwiftSupabase) {
     try {
       const cloudBookings = await window.SwiftSupabase.getBookings();
       if (cloudBookings && cloudBookings.length > 0) {
-        // Map to UI format and merge
         const mapped = cloudBookings.map(cb => ({
           id: cb.booking_ref,
           service: cb.service_category,
@@ -249,9 +246,7 @@ async function initDashboard() {
           time: cb.time_slot || '12:00 PM',
           pin: cb.completion_pin || '4821'
         }));
-        // Combine with unique IDs
-        const existingIds = new Set(mapped.map(m => m.id));
-        bookings = [...mapped, ...bookings.filter(b => !existingIds.has(b.id))];
+        bookings = mapped;
         SwiftErrand.saveBookings(bookings);
       }
     } catch (err) {
@@ -259,20 +254,33 @@ async function initDashboard() {
     }
   }
 
-  const active = bookings.find(b => b.status !== 'Completed' && b.status !== 'Cancelled') || bookings[0];
+  const active = bookings.find(b => b.status !== 'Completed' && b.status !== 'Cancelled');
 
+  const activeBox = document.getElementById('activeBookingCard');
   if (active) {
-    document.getElementById('activeTitle').innerText = active.service;
-    document.getElementById('activeSub').innerHTML = `Provider: <strong>${active.providerName}</strong> • ${active.landmark}`;
-    document.getElementById('activePin').innerText = active.pin;
-    document.getElementById('activeStatus').innerText = active.status;
+    activeBox.innerHTML = `
+      <span class="status-tag">${active.status}</span>
+      <h4 style="font-size:20px;margin-bottom:6px;">${active.service}</h4>
+      <p style="color:#475569;font-size:14px;margin-bottom:15px;">
+        Provider: <strong>${active.providerName}</strong> • ${active.landmark}
+      </p>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid #bbf7d0;padding-top:15px;">
+        <div>
+          <span style="font-size:12px;color:#166534;font-weight:700;">YOUR 4-DIGIT RELEASE PIN:</span>
+          <strong style="font-size:22px;color:#00A651;letter-spacing:2px;display:block;">${active.pin}</strong>
+        </div>
+        <a href="tracking.html?id=${active.id}" class="btn-white" style="background:#00A651;color:#fff;padding:10px 20px;font-size:14px;border-radius:0;">
+          <i class="fa-solid fa-location-crosshairs"></i> Track Live Arrival & Job
+        </a>
+      </div>
+    `;
   } else {
-    document.getElementById('activeBookingCard').innerHTML = `
-      <div style="text-align:center;padding:20px;">
+    activeBox.innerHTML = `
+      <div style="text-align:center;padding:24px 16px;">
         <i class="fa-solid fa-calendar-check" style="font-size:36px;color:#00A651;margin-bottom:10px;"></i>
         <h4>No Active Bookings</h4>
-        <p style="color:#64748b;font-size:14px;margin-top:4px;">You have no active tasks. Ready to book trusted help in Uyo?</p>
-        <a href="booking.html" class="btn-white" style="background:#00A651;color:#fff;display:inline-block;margin-top:15px;padding:10px 20px;">Book a Service Now</a>
+        <p style="color:#64748b;font-size:14px;margin-top:4px;">You have no active tasks. Ready to book trusted help?</p>
+        <a href="booking.html" class="btn-white" style="background:#00A651;color:#fff;display:inline-block;margin-top:15px;padding:12px 24px;border-radius:0;">Book a Service Now</a>
       </div>
     `;
   }
@@ -280,21 +288,25 @@ async function initDashboard() {
   // Render History
   const listContainer = document.getElementById('bookingList');
   listContainer.innerHTML = '';
-  bookings.forEach(b => {
-    const item = document.createElement('div');
-    item.className = 'booking-history-item';
-    item.innerHTML = `
-      <div>
-        <h5 style="font-size:15px;font-weight:700;">${b.service}</h5>
-        <small style="color:#64748b;">${b.date} • ${b.landmark}</small>
-      </div>
-      <div style="text-align:right;">
-        <strong style="color:#00A651;display:block;">${SwiftErrand.formatNaira(b.totalAmount)}</strong>
-        <span style="font-size:11px;font-weight:800;padding:3px 8px;border-radius:12px;background:${b.status === 'Completed' ? '#dcfce7' : '#fef3c7'};color:${b.status === 'Completed' ? '#166534' : '#92400e'};">${b.status}</span>
-      </div>
-    `;
-    listContainer.appendChild(item);
-  });
+  if (!bookings || bookings.length === 0) {
+    listContainer.innerHTML = `<div style="text-align:center;padding:25px;color:#64748b;font-size:14px;"><i class="fa-solid fa-clock-rotate-left" style="margin-right:6px;"></i> No past bookings recorded yet.</div>`;
+  } else {
+    bookings.forEach(b => {
+      const item = document.createElement('div');
+      item.className = 'booking-history-item';
+      item.innerHTML = `
+        <div>
+          <h5 style="font-size:15px;font-weight:700;">${b.service}</h5>
+          <small style="color:#64748b;">${b.date} • ${b.landmark}</small>
+        </div>
+        <div style="text-align:right;">
+          <strong style="color:#00A651;display:block;">${SwiftErrand.formatNaira(b.totalAmount)}</strong>
+          <span style="font-size:11px;font-weight:800;padding:3px 8px;border-radius:0;background:${b.status === 'Completed' ? '#dcfce7' : '#fef3c7'};color:${b.status === 'Completed' ? '#166534' : '#92400e'};">${b.status}</span>
+        </div>
+      `;
+      listContainer.appendChild(item);
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', initDashboard);

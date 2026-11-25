@@ -42,10 +42,10 @@ nav{height:75px;display:flex;justify-content:space-between;align-items:center;pa
   <div class="chat-header">
     <img src="assets/images/provider1.jpg" alt="Provider">
     <div style="flex:1;">
-      <h4 style="font-size:17px;">Emeka Okon</h4>
-      <small style="color:#00A651;font-weight:700;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Online • Verified Master Plumber (Shelter Afrique)</small>
+      <h4 id="chatPartnerName" style="font-size:17px;">Verified Artisan</h4>
+      <small id="chatPartnerSub" style="color:#00A651;font-weight:700;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Online • SwiftShield™ Secured</small>
     </div>
-    <a href="tel:08089876543" style="padding:10px 16px;background:#f0fdf4;color:#00A651;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;">
+    <a href="tel:08000000000" id="chatCallBtn" style="padding:10px 16px;background:#f0fdf4;color:#00A651;border-radius:0;text-decoration:none;font-weight:700;font-size:13px;">
       <i class="fa-solid fa-phone"></i> Call
     </a>
   </div>
@@ -57,7 +57,7 @@ nav{height:75px;display:flex;justify-content:space-between;align-items:center;pa
   <div class="chat-footer">
     <button type="button" style="border:none;background:none;font-size:20px;color:#64748b;cursor:pointer;" onclick="showToast('Voice note recorded! Sent to technician.','success')"><i class="fa-solid fa-microphone"></i></button>
     <button type="button" style="border:none;background:none;font-size:20px;color:#64748b;cursor:pointer;" onclick="showToast('Photo uploaded from camera!','success')"><i class="fa-solid fa-camera"></i></button>
-    <input type="text" id="chatInput" placeholder="Type instructions or message for Emeka..." onkeypress="if(event.key==='Enter')sendMessage()">
+    <input type="text" id="chatInput" placeholder="Type instructions or message..." onkeypress="if(event.key==='Enter')sendMessage()">
     <button type="button" class="btn-send" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Send</button>
   </div>
 </div>
@@ -65,12 +65,20 @@ nav{height:75px;display:flex;justify-content:space-between;align-items:center;pa
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
-const providerId = "PROV-201";
+const urlParams = new URLSearchParams(window.location.search);
+const providerId = urlParams.get('provider') || "PROV-001";
+const partnerName = urlParams.get('name') || "Verified Artisan";
+
+document.getElementById('chatPartnerName').innerText = partnerName;
 
 function renderChat() {
   const container = document.getElementById('chatMessages');
   const msgs = SwiftErrand.getChat(providerId);
   container.innerHTML = '';
+  if (!msgs || msgs.length === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:#64748b;font-size:14px;"><i class="fa-solid fa-comments" style="font-size:32px;color:#cbd5e1;margin-bottom:10px;display:block;"></i> Direct, encrypted communication channel.<br>Type a message to begin.</div>`;
+    return;
+  }
   msgs.forEach(m => {
     const el = document.createElement('div');
     el.className = `msg msg-${m.sender}`;
@@ -89,10 +97,7 @@ function sendMessage() {
   if (!txt) return;
 
   input.value = '';
-  SwiftErrand.sendChatMessage(providerId, txt, "customer", (reply) => {
-    renderChat();
-    showToast("New message from Emeka Okon!", "info");
-  });
+  SwiftErrand.sendChatMessage(providerId, txt, "customer");
   renderChat();
 }
 

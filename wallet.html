@@ -43,12 +43,12 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
   <div>
     <div class="wallet-hero">
       <span style="font-size:13px;font-weight:700;text-transform:uppercase;opacity:.85;">Total Available Balance</span>
-      <div class="wallet-bal" id="walletDisplay">₦35,500</div>
+      <div class="wallet-bal" id="walletDisplay">₦0.00</div>
       <p style="opacity:.9;font-size:14px;"><i class="fa-solid fa-shield-halved"></i> Protected under SwiftShield™ Escrow Guarantee</p>
 
       <div class="hero-btns">
-        <button type="button" class="btn-topup" onclick="openTopup()"><i class="fa-solid fa-plus"></i> Top Up Balance</button>
-        <button type="button" class="btn-withdraw" onclick="showToast('Withdrawals are processed instantly to your linked Nigerian bank account.','info')"><i class="fa-solid fa-arrow-up-from-bracket"></i> Withdraw</button>
+        <button type="button" class="btn-topup" onclick="openTopup()" style="border-radius:0;"><i class="fa-solid fa-plus"></i> Top Up Balance</button>
+        <button type="button" class="btn-withdraw" onclick="showToast('Withdrawals are processed instantly to your linked Nigerian bank account.','info')" style="border-radius:0;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Withdraw</button>
       </div>
     </div>
 
@@ -66,8 +66,8 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
       <div style="text-align:center;">
         <span style="font-size:12px;font-weight:800;color:#166534;text-transform:uppercase;">Dedicated Virtual Account (Providus Bank)</span>
         <div style="font-size:32px;font-weight:800;color:#00A651;letter-spacing:2px;margin:8px 0;">9023 481 023</div>
-        <p style="font-size:13px;color:#334155;margin-bottom:15px;"><strong>Account Name:</strong> SwiftErrand / Dr. Sarah Akpan</p>
-        <button type="button" onclick="copyNuban()" style="padding:10px 18px;background:#00A651;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;">
+        <p style="font-size:13px;color:#334155;margin-bottom:15px;"><strong>Account Name:</strong> SwiftErrand / <span id="nubanUserTitle">Settlement Account</span></p>
+        <button type="button" onclick="copyNuban()" style="padding:10px 18px;background:#00A651;color:#fff;border:none;border-radius:0;font-weight:700;cursor:pointer;">
           <i class="fa-regular fa-copy"></i> Copy NUBAN Number
         </button>
       </div>
@@ -104,12 +104,24 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
 <script src="swifterrand.js"></script>
 <script>
 function renderWallet() {
+  const user = SwiftErrand.getUser();
+  if (user && user.name) {
+    const titleElem = document.getElementById('nubanUserTitle');
+    if (titleElem) titleElem.innerText = user.name;
+  }
+
   const bal = SwiftErrand.getWalletBalance();
   document.getElementById('walletDisplay').innerText = SwiftErrand.formatNaira(bal);
 
   const txns = SwiftErrand.getTransactions();
   const list = document.getElementById('txnList');
   list.innerHTML = '';
+
+  if (!txns || txns.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:30px 15px;color:#64748b;font-size:14px;"><i class="fa-solid fa-receipt" style="font-size:30px;color:#cbd5e1;margin-bottom:8px;display:block;"></i> No transaction records yet. Fund your wallet or place an order to get started.</div>`;
+    return;
+  }
+
   txns.forEach(t => {
     const d = document.createElement('div');
     d.className = 'txn-item';

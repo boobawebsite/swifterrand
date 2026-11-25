@@ -59,7 +59,7 @@ h3{font-size:20px;margin-bottom:15px;}
     <div>
       <span style="font-size:13px;color:#64748b;font-weight:700;">ACTIVE SERVICE BOOKING</span>
       <h2 id="jobTitle" style="font-size:24px;margin-top:2px;">Plumbing & Leak Repair</h2>
-      <small id="jobId" style="color:#00A651;font-weight:800;">Ref: SE-8492</small>
+      <small id="jobId" style="color:#00A651;font-weight:800;">Ref: Booking Reference</small>
     </div>
     <div class="status-pill" id="statusBadge">
       <i class="fa-solid fa-spinner fa-spin"></i> <span id="statusText">In Progress</span>
@@ -126,9 +126,9 @@ h3{font-size:20px;margin-bottom:15px;}
         <div class="provider-box">
           <img src="assets/images/provider1.jpg" id="provImg" class="provider-img" alt="Provider">
           <div>
-            <h4 id="provName" style="font-size:18px;">Emeka Okon</h4>
+            <h4 id="provName" style="font-size:18px;">Assigned Specialist</h4>
             <div style="color:#00A651;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;margin:3px 0;">
-              <i class="fa-solid fa-star" style="color:#eab308;"></i> 4.9 (84 completed jobs)
+              <i class="fa-solid fa-star" style="color:#eab308;"></i> <span id="provRatingText">4.9 (Verified Pro)</span>
             </div>
             <span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">LEVEL 3 VERIFIED</span>
           </div>
@@ -167,10 +167,10 @@ h3{font-size:20px;margin-bottom:15px;}
       <p style="font-size:14px;color:#64748b;">Share with estate security guards at the gate post.</p>
     </div>
     <div style="background:#f8fafc;padding:20px;border-radius:16px;border:2px dashed #00A651;margin-bottom:20px;font-size:14px;line-height:1.8;">
-      <div><strong>PASS CODE:</strong> <span id="passCodeText" style="color:#00A651;font-weight:800;">PASS-SE8492</span></div>
-      <div><strong>PROVIDER:</strong> Emeka Okon</div>
-      <div><strong>VISITING:</strong> Plot 14, Unit C, Shelter Afrique</div>
-      <div><strong>PURPOSE:</strong> Verified Plumbing Maintenance</div>
+      <div><strong>PASS CODE:</strong> <span id="passCodeText" style="color:#00A651;font-weight:800;">PASS-CODE</span></div>
+      <div id="gatePassProvName"><strong>PROVIDER:</strong> Assigned Artisan</div>
+      <div id="gatePassDest"><strong>VISITING:</strong> Client Location</div>
+      <div id="gatePassPurpose"><strong>PURPOSE:</strong> Verified Service</div>
       <div><strong>AUTHORIZED:</strong> SwiftErrand Logistics Security</div>
     </div>
     <button type="button" class="action-btn btn-chat" style="width:100%;" onclick="copyGatePass()">
@@ -201,7 +201,9 @@ h3{font-size:20px;margin-bottom:15px;}
 <script src="toast.js"></script>
 <script src="swifterrand.js"></script>
 <script>
-const activeBooking = SwiftErrand.getActiveBooking();
+const urlParams = new URLSearchParams(window.location.search);
+const targetId = urlParams.get('id');
+const activeBooking = (targetId && SwiftErrand.getBookingById(targetId)) || SwiftErrand.getActiveBooking();
 
 if (activeBooking) {
   document.getElementById('jobTitle').innerText = activeBooking.service;
@@ -214,12 +216,21 @@ if (activeBooking) {
   document.getElementById('provName').innerText = activeBooking.providerName;
   document.getElementById('provImg').src = activeBooking.providerAvatar || 'assets/images/provider1.jpg';
   document.getElementById('passCodeText').innerText = activeBooking.gatePassCode || ("PASS-" + activeBooking.id);
+  if (document.getElementById('gatePassProvName')) document.getElementById('gatePassProvName').innerHTML = `<strong>PROVIDER:</strong> ${activeBooking.providerName}`;
+  if (document.getElementById('gatePassDest')) document.getElementById('gatePassDest').innerHTML = `<strong>VISITING:</strong> ${activeBooking.landmark}`;
+  if (document.getElementById('gatePassPurpose')) document.getElementById('gatePassPurpose').innerHTML = `<strong>PURPOSE:</strong> ${activeBooking.service}`;
+} else {
+  // If no active booking, return to dashboard
+  setTimeout(() => {
+    window.location.replace("dashboard.html");
+  }, 100);
 }
 
 function openGatePass() { document.getElementById('gateModal').style.display = 'flex'; }
 function closeGatePass() { document.getElementById('gateModal').style.display = 'none'; }
 function copyGatePass() {
-  const txt = `*SWIFTERRAND VISITOR PASS*\nCode: ${activeBooking.gatePassCode || 'PASS-SE8492'}\nProvider: ${activeBooking.providerName}\nDestination: ${activeBooking.landmark}\nPurpose: Verified Maintenance Service.`;
+  if (!activeBooking) return;
+  const txt = `*SWIFTERRAND VISITOR PASS*\nCode: ${activeBooking.gatePassCode || 'PASS-' + activeBooking.id}\nProvider: ${activeBooking.providerName}\nDestination: ${activeBooking.landmark}\nPurpose: Verified Maintenance Service.`;
   navigator.clipboard.writeText(txt);
   showToast("Gate Pass copied! Send to your estate security WhatsApp group.", "success");
   closeGatePass();
@@ -233,6 +244,7 @@ function dispatchEmergencyAlert() {
 }
 
 function confirmJobComplete() {
+  if (!activeBooking) return;
   if (confirm(`Are you satisfied with the work done by ${activeBooking.providerName}? This will officially release escrow funds.`)) {
     SwiftErrand.updateBookingStatus(activeBooking.id, "Completed");
     showToast("Work Approved! Escrow funds released to provider.", "success");

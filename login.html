@@ -349,69 +349,6 @@ a:hover {
   line-height: 1.45;
 }
 
-/* Demo Role Switcher in Sign-In */
-.demo-role-card {
-  background: var(--apple-offwhite);
-  border: 1px solid var(--apple-border-subtle);
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 20px;
-}
-
-.demo-role-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--apple-text-secondary);
-  margin-bottom: 8px;
-}
-
-.demo-role-header span.badge {
-  background: rgba(0, 113, 227, 0.1);
-  color: var(--apple-blue);
-  padding: 2px 7px;
-  border-radius: 980px;
-  font-size: 10px;
-}
-
-.demo-role-pills {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-
-.demo-pill-btn {
-  border: 1px solid var(--apple-border);
-  background: #FFFFFF;
-  color: var(--apple-text-primary);
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 7px 4px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  transition: all 0.15s ease;
-}
-
-.demo-pill-btn:hover {
-  background: #FAFAFB;
-  border-color: #A1A1A6;
-}
-
-.demo-pill-btn.active {
-  background: #000000;
-  color: #FFFFFF;
-  border-color: #000000;
-}
-
 /* Role Selector in Sign-Up */
 .signup-role-grid {
   display: grid;
@@ -1086,33 +1023,6 @@ function setAuthMode(mode) {
   }
 }
 
-/* ===================================================
-   3. DEMO ROLE AUTO-FILL & AUTH ACTIONS
-=================================================== */
-const demoCredentials = {
-  customer: { email: 'sarah.akpan@example.com', pass: 'password123' },
-  provider: { email: 'emeka.okon@example.com', pass: 'password123' },
-  admin: { email: 'admin@swifterrand.ng', pass: 'password123' }
-};
-
-function selectSignInRole(role) {
-  document.querySelectorAll('.demo-pill-btn').forEach(b => b.classList.remove('active'));
-  if (role === 'customer') document.getElementById('btnRoleCust').classList.add('active');
-  if (role === 'provider') document.getElementById('btnRoleProv').classList.add('active');
-  if (role === 'admin') document.getElementById('btnRoleAdmin').classList.add('active');
-
-  const cred = demoCredentials[role];
-  if (cred) {
-    document.getElementById('signInEmail').value = cred.email;
-    document.getElementById('signInPassword').value = cred.pass;
-  }
-
-  if (typeof showToast === 'function') {
-    const titles = { customer: 'User (Dr. Sarah Akpan)', provider: 'Agent (Emeka Okon)', admin: 'Administrator' };
-    showToast(`Quick Test Selected: ${titles[role]}`, 'info');
-  }
-}
-
 /* Sign-Up Role Selector */
 function setSignUpRole(role) {
   const isAgent = (role === 'agent' || role === 'provider');
@@ -1151,7 +1061,7 @@ function togglePasswordVisibility(inputId, iconId) {
 function handleForgotPassword(e) {
   e.preventDefault();
   if (typeof showToast === 'function') {
-    showToast('Password reset link sent to your registered contact.', 'info');
+    showToast('Password reset instructions sent to your email.', 'info');
   } else {
     alert('Password reset link sent.');
   }
@@ -1160,11 +1070,8 @@ function handleForgotPassword(e) {
 /* Social Sign-In */
 function handleSocialAuth(provider) {
   if (typeof showToast === 'function') {
-    showToast(`Connecting securely via ${provider}...`, 'info');
+    showToast(`Redirecting to secure ${provider} authentication...`, 'info');
   }
-  setTimeout(() => {
-    SwiftErrand.loginAs('customer');
-  }, 400);
 }
 
 /* Sign In Submit */
@@ -1178,10 +1085,9 @@ async function handleSignInSubmit(e) {
   btn.disabled = true;
 
   try {
-    // Attempt Supabase live authentication
     if (window.SwiftSupabase) {
       const { user, profile } = await window.SwiftSupabase.signIn({ email, password });
-      const userRole = (profile && profile.role) || (user && user.user_metadata && user.user_metadata.role) || (email.includes('provider') ? 'provider' : (email.includes('admin') ? 'admin' : 'client'));
+      const userRole = (profile && profile.role) || (user && user.user_metadata && user.user_metadata.role) || 'client';
       
       if (typeof showToast === 'function') {
         showToast(`Welcome back, ${(profile && profile.full_name) || user.email}!`, 'success');
@@ -1199,25 +1105,9 @@ async function handleSignInSubmit(e) {
       return;
     }
   } catch (err) {
-    console.warn("Supabase signin attempt:", err.message);
-    // Check if demo credentials were used
-    if (password === 'password123' || email.includes('example.com') || email.includes('swifterrand.ng')) {
-      if (typeof showToast === 'function') {
-        showToast('Demo mode active: Signed in with local credentials', 'info');
-      }
-      if (email.includes('admin')) {
-        SwiftErrand.loginAs('admin');
-      } else if (email.includes('provider') || email.includes('artisan') || email.includes('emeka')) {
-        SwiftErrand.loginAs('provider');
-      } else {
-        SwiftErrand.loginAs('customer');
-      }
-      return;
-    }
-    
-    // Show live error toast
+    console.error("Supabase signin error:", err);
     if (typeof showToast === 'function') {
-      showToast(err.message || 'Invalid email or password. Please try again.', 'error');
+      showToast(err.message || 'Invalid email or password. Please verify your credentials or create a new account.', 'error');
     } else {
       alert(err.message || 'Invalid credentials');
     }

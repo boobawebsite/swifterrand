@@ -28,7 +28,7 @@ body{background:#f8fafc;color:#0f172a;min-height:100vh;display:flex;justify-cont
   </p>
 
   <div class="escrow-box">
-    <div><strong>BOOKING REFERENCE:</strong> <span id="sucRef" style="color:#00A651;font-weight:800;">SE-8492</span></div>
+    <div><strong>BOOKING REFERENCE:</strong> <span id="sucRef" style="color:#00A651;font-weight:800;">Confirmed</span></div>
     <div><strong>STATUS:</strong> Escrow Locked (Awaiting Job Completion)</div>
     <div><strong>RELEASE PROTOCOL:</strong> Hand over your 4-digit PIN only after inspecting finished work.</div>
   </div>
@@ -39,10 +39,15 @@ body{background:#f8fafc;color:#0f172a;min-height:100vh;display:flex;justify-cont
 
 <script src="swifterrand.js"></script>
 <script>
-const active = SwiftErrand.getActiveBooking();
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+const active = (id && SwiftErrand.getBookingById(id)) || SwiftErrand.getActiveBooking();
 if (active) {
   document.getElementById('sucRef').innerText = active.id;
   document.getElementById('trackLink').href = `tracking.html?id=${active.id}`;
+} else if (id) {
+  document.getElementById('sucRef').innerText = id;
+  document.getElementById('trackLink').href = `tracking.html?id=${id}`;
 }
 </script>
 </body>
