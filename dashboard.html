@@ -10,17 +10,135 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;border-radius:0 !important;}
 body{background:#f8fafc;color:#0f172a;}
-nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 5%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
-.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
-.logo-icon{width:42px;height:42px;background:#00A651;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.nav-menu{display:flex;align-items:center;gap:24px;list-style:none;}
-.nav-link{font-size:13.5px;font-weight:700;color:#64748b;text-decoration:none;transition:color .15s;display:inline-flex;align-items:center;gap:6px;}
-.nav-link:hover, .nav-link.active{color:#00A651;}
-.nav-right{display:flex;align-items:center;gap:12px;}
-.user-pill{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#f1f5f9;text-decoration:none;color:#0f172a;font-weight:700;font-size:13.5px;border:1px solid #e2e8f0;}
-.user-pill img{width:30px;height:30px;object-fit:cover;}
-.btn-logout{padding:8px 14px;border:none;background:#fee2e2;color:#dc2626;font-weight:700;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;}
-.btn-logout:hover{background:#fecaca;}
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+.nav-content-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: #00A651;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+.brand-title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  line-height: 1.1;
+}
+.brand-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-link:hover, .nav-link.active {
+  color: #00A651;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.btn-ghost {
+  background: transparent;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+}
+.btn-ghost:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+.btn-primary {
+  background: #00A651;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+.btn-primary:hover {
+  background: #008f45;
+}
+.btn-logout {
+  padding: 8px 14px;
+  border: none;
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-logout:hover {
+  background: #fecaca;
+}
 .container{max-width:1200px;margin:35px auto 80px;padding:0 20px;}
 .welcome-hero{background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;padding:40px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;box-shadow:0 10px 25px rgba(0,166,81,.15);}
 .welcome-hero h1{font-size:32px;margin-bottom:8px;}
@@ -49,37 +167,41 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
 .quick-act{padding:18px 14px;background:#f8fafc;text-align:center;text-decoration:none;color:#0f172a;font-weight:700;font-size:13px;transition:.2s;border:1px solid #e2e8f0;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .quick-act:hover{border-color:#00A651;background:#f0fdf4;color:#00A651;transform:translateY(-2px);}
 .quick-act i{font-size:24px;color:#00A651;}
-@media(max-width:1050px){.nav-menu{gap:14px;font-size:12px;}}
+@media(max-width:1050px){.nav-menu{gap:18px;font-size:13px;}}
 @media(max-width:900px){.nav-menu{display:none;}.dashboard-grid{grid-template-columns:1fr;}.welcome-hero{flex-direction:column;align-items:flex-start;}}
 </style>
 </head>
 <body>
-<nav>
-  <a href="index.html" class="logo">
-    <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
-    <span>SwiftErrand</span>
-  </a>
-
-  <ul class="nav-menu">
-    <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
-    <li><a href="services.html" class="nav-link"><i class="fa-solid fa-list-check"></i> Services</a></li>
-    <li><a href="how-it-works.html" class="nav-link"><i class="fa-solid fa-shield-halved"></i> How It Works</a></li>
-    <li><a href="booking.html" class="nav-link"><i class="fa-solid fa-calendar-plus"></i> Book an Artisan</a></li>
-    <li><a href="dashboard.html" class="nav-link active"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-    <li><a href="support.html" class="nav-link"><i class="fa-solid fa-headset"></i> Support Desk</a></li>
-  </ul>
-
-  <div class="nav-right">
-    <a href="wallet.html" style="text-decoration:none;font-weight:800;color:#00A651;font-size:14px;margin-right:6px;">
-      <i class="fa-solid fa-wallet"></i> <span id="navWallet">₦0.00</span>
+<header class="navbar" id="navbar">
+  <div class="nav-content-default" id="navDefault">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+        <span class="brand-sub">Trusted Help. Fast.</span>
+      </div>
     </a>
-    <a href="profile.html" class="user-pill">
-      <img src="assets/images/customer1.jpg" id="userAvatar" alt="User">
-      <span id="userName">My Account</span>
-    </a>
-    <button class="btn-logout" onclick="SwiftErrand.logout()" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+
+    <ul class="nav-menu">
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="index.html#shield" class="nav-link">SwiftShield™</a></li>
+      <li><a href="become-provider.html" class="nav-link">For Artisans</a></li>
+      <li><a href="support.html" class="nav-link">Support Desk</a></li>
+      <li class="nav-dashboard-link"><a href="dashboard.html" class="nav-link active" style="color:#00A651;font-weight:700;">Dashboard</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="profile.html" class="btn btn-ghost header-user-btn" id="headerUserBtn" style="border-radius:0;font-weight:700;display:inline-flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-circle-user" style="color:#00A651;font-size:15px;"></i> <span id="userName">My Account</span>
+      </a>
+      <a href="services.html" class="btn btn-primary">
+        <i class="fa-solid fa-magnifying-glass"></i> Find Help
+      </a>
+      <button class="btn-logout" onclick="SwiftErrand.logout()" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </div>
   </div>
-</nav>
+</header>
 
 <div class="container">
   <!-- Welcome Hero -->

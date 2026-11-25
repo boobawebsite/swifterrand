@@ -16,10 +16,141 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Manrope,sans-serif;
+border-radius:0 !important;
 }
 
 body{
 background:#f5f7fb;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 74px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+.nav-content-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: #00A651;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+.brand-title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  line-height: 1.1;
+}
+.brand-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-link:hover, .nav-link.active {
+  color: #00A651;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.btn-ghost {
+  background: transparent;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+}
+.btn-ghost:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+.btn-primary {
+  background: #00A651;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+.btn-primary:hover {
+  background: #008741;
+  transform: translateY(-1px);
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #0f172a;
+  cursor: pointer;
+}
+@media (max-width: 1050px) {
+  .nav-menu { gap: 18px; font-size: 13px; }
+}
+@media (max-width: 900px) {
+  .nav-menu { display: none; }
+  .menu-toggle { display: block; }
 }
 
 .hero{
@@ -195,6 +326,34 @@ margin:20px auto;
 </head>
 
 <body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-content-default" id="navDefault">
+    <a href="index.html" class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-text">
+        <span class="brand-title">SwiftErrand</span>
+        <span class="brand-sub">Trusted Help. Fast.</span>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="index.html#shield" class="nav-link">SwiftShield™</a></li>
+      <li><a href="become-provider.html" class="nav-link active">For Artisans</a></li>
+      <li><a href="support.html" class="nav-link">Support Desk</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost" id="headerSignInBtn">Sign In</a>
+      <a href="services.html" class="btn btn-primary">
+        <i class="fa-solid fa-magnifying-glass"></i> Find Help
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
 
 <div class="hero">
 

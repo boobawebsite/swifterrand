@@ -574,7 +574,7 @@ const SwiftSupabase = {
       if (!menu.querySelector('.nav-dashboard-link')) {
         const li = document.createElement('li');
         li.className = 'nav-dashboard-link';
-        li.innerHTML = `<a href="${targetDashboard}" class="nav-link" style="color:#00A651;font-weight:700;"><i class="fa-solid fa-gauge" style="margin-right:4px;"></i> Dashboard</a>`;
+        li.innerHTML = `<a href="${targetDashboard}" class="nav-link" style="color:#00A651;font-weight:700;">Dashboard</a>`;
         menu.appendChild(li);
       }
     });
@@ -585,7 +585,7 @@ const SwiftSupabase = {
       if (btn.classList.contains('mobile-synced')) return;
       btn.classList.add('mobile-synced');
       btn.setAttribute('href', targetDashboard);
-      btn.innerHTML = `<i class="fa-solid fa-gauge" style="margin-right:8px;"></i> Dashboard (${name.split(" ")[0]})`;
+      btn.innerHTML = `Dashboard (${name.split(" ")[0]})`;
     });
   },
 
