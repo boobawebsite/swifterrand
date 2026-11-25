@@ -366,7 +366,170 @@ const SwiftSupabase = {
   },
 
   /* =========================================================
-     5. HEADER SESSION STATE SYNC
+     5. ADMIN CONSOLE & ESCROW OVERSIGHT METHODS
+  ========================================================= */
+
+  /**
+   * Fetch all registered service providers for admin oversight
+   */
+  async getAllProviders() {
+    const sb = this.init();
+    if (!sb) return [];
+    try {
+      const { data, error } = await sb
+        .from("swift_providers")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        console.warn("getAllProviders error:", error);
+        return [];
+      }
+      return data || [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Fetch all bookings across the platform for admin oversight
+   */
+  async getAllBookings() {
+    const sb = this.init();
+    if (!sb) return [];
+    try {
+      const { data, error } = await sb
+        .from("swift_bookings")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        console.warn("getAllBookings error:", error);
+        return [];
+      }
+      return data || [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Fetch all registered profiles for admin user management
+   */
+  async getAllProfiles() {
+    const sb = this.init();
+    if (!sb) return [];
+    try {
+      const { data, error } = await sb
+        .from("swift_profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        console.warn("getAllProfiles error:", error);
+        return [];
+      }
+      return data || [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Fetch all support and dispute tickets
+   */
+  async getAllSupportTickets() {
+    const sb = this.init();
+    if (!sb) return [];
+    try {
+      const { data, error } = await sb
+        .from("swift_support_tickets")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        console.warn("getAllSupportTickets error:", error);
+        return [];
+      }
+      return data || [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Admin: Update booking status and escrow release
+   */
+  async updateBookingEscrow(bookingRef, { status, escrow_status }) {
+    const sb = this.init();
+    if (!sb) return false;
+    const payload = {};
+    if (status) payload.status = status;
+    if (escrow_status) payload.escrow_status = escrow_status;
+    const { data, error } = await sb
+      .from("swift_bookings")
+      .update(payload)
+      .eq("booking_ref", bookingRef)
+      .select();
+    if (error) {
+      console.error("updateBookingEscrow error:", error);
+      throw error;
+    }
+    return data;
+  },
+
+  /**
+   * Admin: Update support ticket status
+   */
+  async updateTicketStatus(ticketRef, status) {
+    const sb = this.init();
+    if (!sb) return false;
+    const { data, error } = await sb
+      .from("swift_support_tickets")
+      .update({ status })
+      .eq("ticket_ref", ticketRef)
+      .select();
+    if (error) {
+      console.error("updateTicketStatus error:", error);
+      throw error;
+    }
+    return data;
+  },
+
+  /**
+   * Admin: Create a new verified artisan
+   */
+  async createProvider(providerData) {
+    const sb = this.init();
+    if (!sb) return false;
+    const { data, error } = await sb
+      .from("swift_providers")
+      .insert([providerData])
+      .select()
+      .single();
+    if (error) {
+      console.error("createProvider error:", error);
+      throw error;
+    }
+    return data;
+  },
+
+  /**
+   * Admin: Toggle provider availability
+   */
+  async toggleProviderAvailability(providerId, isAvailable) {
+    const sb = this.init();
+    if (!sb) return false;
+    const { data, error } = await sb
+      .from("swift_providers")
+      .update({ is_available: isAvailable })
+      .eq("id", providerId)
+      .select();
+    if (error) {
+      console.error("toggleProviderAvailability error:", error);
+      throw error;
+    }
+    return data;
+  },
+
+  /* =========================================================
+     6. HEADER SESSION STATE SYNC
   ========================================================= */
   initHeaderAuth() {
     const sb = this.init();
