@@ -404,15 +404,15 @@ text-align:center;
 
 <div class="profile-header">
 
-<img src="assets/images/customer1.jpg">
+<img src="assets/images/customer1.jpg" id="profAvatar">
 
 <div>
 
-<h1>Jeremiah Bassey</h1>
+<h1 id="profHeaderName">User Profile</h1>
 
-<p>Premium Member • Joined July 2026</p>
+<p id="profHeaderSub">SwiftErrand Member</p>
 
-<p>basseyjeremiah734@gmail.com</p>
+<p id="profHeaderEmail">user@example.com</p>
 
 </div>
 
@@ -428,7 +428,7 @@ text-align:center;
 
 <label>First Name</label>
 
-<input type="text" value="Jeremiah">
+<input type="text" id="profFirstName" placeholder="First Name">
 
 </div>
 
@@ -436,7 +436,7 @@ text-align:center;
 
 <label>Last Name</label>
 
-<input type="text" value="Bassey">
+<input type="text" id="profLastName" placeholder="Last Name">
 
 </div>
 
@@ -444,7 +444,7 @@ text-align:center;
 
 <label>Email Address</label>
 
-<input type="email" value="basseyjeremiah734@gmail.com">
+<input type="email" id="profEmail" placeholder="Email Address">
 
 </div>
 
@@ -452,7 +452,7 @@ text-align:center;
 
 <label>Phone Number</label>
 
-<input type="tel" value="+234 xxx xxx xxxx">
+<input type="tel" id="profPhone" placeholder="08012345678">
 
 </div>
 
@@ -812,18 +812,76 @@ Save Preferences
 
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="toast.js"></script>
+<script src="supabase-client.js"></script>
+<script src="swifterrand.js"></script>
 <script>
+async function initProfileView() {
+  let user = null;
 
-document.querySelectorAll(".save-btn").forEach(button=>{
+  if (window.SwiftSupabase) {
+    try {
+      user = await window.SwiftSupabase.getCurrentUser();
+    } catch (e) {
+      console.warn("Session check error:", e);
+    }
+  }
 
-button.addEventListener("click",function(){
+  if (!user && window.SwiftErrand) {
+    user = window.SwiftErrand.getUser();
+  }
 
-alert("Your changes have been saved successfully.");
+  if (!user) {
+    // If not authenticated, redirect to login
+    window.location.href = 'login.html';
+    return;
+  }
 
+  const fullName = user.name || (user.user_metadata && user.user_metadata.full_name) || "Verified Member";
+  const email = user.email || "";
+  const phone = user.phone || (user.user_metadata && user.user_metadata.phone) || "";
+  const role = user.role || (user.user_metadata && user.user_metadata.role) || "Client";
+  
+  const nameParts = fullName.split(" ");
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ") || "";
+
+  const hName = document.getElementById("profHeaderName");
+  if (hName) hName.innerText = fullName;
+
+  const hEmail = document.getElementById("profHeaderEmail");
+  if (hEmail) hEmail.innerText = email;
+
+  const hSub = document.getElementById("profHeaderSub");
+  if (hSub) hSub.innerText = `${role.toUpperCase()} • SwiftErrand Verified`;
+
+  const fNameInput = document.getElementById("profFirstName");
+  if (fNameInput) fNameInput.value = firstName;
+
+  const lNameInput = document.getElementById("profLastName");
+  if (lNameInput) lNameInput.value = lastName;
+
+  const emailInput = document.getElementById("profEmail");
+  if (emailInput) emailInput.value = email;
+
+  const phoneInput = document.getElementById("profPhone");
+  if (phoneInput) phoneInput.value = phone;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initProfileView();
+
+  document.querySelectorAll(".save-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      if (typeof showToast === 'function') {
+        showToast("Profile details updated successfully.", "success");
+      } else {
+        alert("Your changes have been saved successfully.");
+      }
+    });
+  });
 });
-
-});
-
 </script>
 
 </div>
