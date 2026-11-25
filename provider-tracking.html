@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;border-radius:0 !important;}
 body{background:#f8fafc;color:#0f172a;}
 nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
@@ -101,9 +101,10 @@ function submitReleasePIN() {
     return;
   }
 
-  if (entered === active.pin || entered === "4821") {
+  if (entered === active.pin) {
     SwiftErrand.updateBookingStatus(active.id, "Completed");
-    showToast("PIN VERIFIED! ₦11,000 credited to your provider settlement balance.", "success");
+    const payoutAmount = SwiftErrand.formatNaira(active.laborFee || active.totalAmount || 0);
+    showToast(`PIN VERIFIED! ${payoutAmount} credited to your provider wallet balance.`, "success");
     setTimeout(() => {
       window.location.href = "provider-dashboard.html";
     }, 1200);

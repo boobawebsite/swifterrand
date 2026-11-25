@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',sans-serif;border-radius:0 !important;}
 body{background:#f8fafc;color:#0f172a;}
 nav{height:80px;display:flex;justify-content:space-between;align-items:center;padding:0 8%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px;color:#0f172a;text-decoration:none;}
@@ -75,11 +75,11 @@ nav{height:80px;display:flex;justify-content:space-between;align-items:center;pa
     </div>
     <div class="stat-card">
       <span>Completed Jobs in Uyo</span>
-      <h3>84 Jobs</h3>
+      <h3 id="provCompletedJobs">0 Jobs</h3>
     </div>
     <div class="stat-card">
       <span>On-Time Arrival Rate</span>
-      <h3>98.5%</h3>
+      <h3 id="provOnTimeRate">100%</h3>
     </div>
     <div class="stat-card">
       <span>SwiftShield™ Standing</span>
@@ -163,13 +163,18 @@ async function renderJobs() {
     } catch (e) {}
   }
 
+  const navElem = document.getElementById('provNavName');
+  const hubElem = document.getElementById('provHubTitle');
+  const subElem = document.getElementById('provSub');
+
   if (user && user.name) {
-    const navElem = document.getElementById('provNavName');
-    const hubElem = document.getElementById('provHubTitle');
-    const subElem = document.getElementById('provSub');
     if (navElem) navElem.innerText = `${user.name} (${user.skill || 'Specialist'})`;
     if (hubElem) hubElem.innerText = `Operations Hub: ${user.name}`;
     if (subElem) subElem.innerText = `SwiftTrust™ Verified • ${user.skill || 'Pro'} • ${user.landmark || 'Active'}`;
+  } else {
+    if (navElem) navElem.innerText = `Artisan Partner`;
+    if (hubElem) hubElem.innerText = `Operations Hub: Verified Partner`;
+    if (subElem) subElem.innerText = `SwiftTrust™ Verified • Accreditation Active`;
   }
 
   let bookings = SwiftErrand.getBookings();
@@ -245,8 +250,13 @@ async function renderJobs() {
     list.appendChild(d);
   });
 
+  const completedCount = bookings.filter(b => b.status === 'Completed').length;
   const earnElem = document.getElementById('provEarnings');
   if (earnElem) earnElem.innerText = SwiftErrand.formatNaira(totalEarnings);
+  const compElem = document.getElementById('provCompletedJobs');
+  if (compElem) compElem.innerText = `${completedCount} Jobs`;
+  const rateElem = document.getElementById('provOnTimeRate');
+  if (rateElem) rateElem.innerText = '100%';
 }
 
 async function acceptJob(id) {

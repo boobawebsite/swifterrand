@@ -76,6 +76,16 @@ const SwiftErrand = (() => {
       localStorage.setItem("swifterrand_wallet_bal", "0");
     }
 
+    // Purge legacy mock user sessions from client storage
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("swifterrand_user") || "null");
+      if (storedUser && (storedUser.name === "Chris Uzor" || storedUser.email === "chris@swifterrand.com" || !storedUser.id)) {
+        localStorage.removeItem("swifterrand_user");
+      }
+    } catch (e) {
+      localStorage.removeItem("swifterrand_user");
+    }
+
     if (!localStorage.getItem("swifterrand_providers")) {
       localStorage.setItem("swifterrand_providers", JSON.stringify(DEFAULT_PROVIDERS));
     }
