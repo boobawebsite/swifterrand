@@ -32,7 +32,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-body);
   border-radius: 0 !important;
 }
 
@@ -218,135 +217,6 @@ body {
   padding: 24px 20px 40px;
 }
 
-/* AI Top Meta Strip */
-.ai-header-bar {
-  background: #FFFFFF;
-  border: 1px solid var(--border-subtle);
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-.ai-profile-meta {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.ai-avatar-box {
-  width: 44px;
-  height: 44px;
-  background: var(--primary);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  position: relative;
-}
-
-.ai-status-pulse {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 10px;
-  height: 10px;
-  background: #22c55e;
-  border: 2px solid #FFFFFF;
-}
-
-.ai-meta-text h2 {
-  font-family: var(--font-heading);
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--dark);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ai-badge-live {
-  background: var(--primary-light);
-  color: var(--primary-dark);
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  padding: 2px 8px;
-  border: 1px solid var(--primary-border);
-}
-
-.ai-meta-text p {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.ai-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-pill-action {
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  color: #334155;
-  padding: 8px 14px;
-  font-size: 12.5px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-
-.btn-pill-action:hover {
-  background: #E2E8F0;
-  color: var(--dark);
-}
-
-/* Suggested Chips */
-.quick-prompts-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-  scrollbar-width: thin;
-}
-
-.quick-chip {
-  white-space: nowrap;
-  background: #FFFFFF;
-  border: 1px solid var(--border-subtle);
-  color: #475569;
-  font-size: 12.5px;
-  font-weight: 700;
-  padding: 8px 14px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-}
-
-.quick-chip:hover {
-  border-color: var(--primary);
-  color: var(--primary-dark);
-  background: var(--primary-light);
-}
-
-.quick-chip i {
-  color: var(--primary);
-  font-size: 12px;
-}
-
 /* Chat Messages Feed */
 .chat-thread-container {
   flex: 1;
@@ -354,8 +224,8 @@ body {
   border: 1px solid var(--border-subtle);
   padding: 24px;
   overflow-y: auto;
-  min-height: 440px;
-  max-height: 580px;
+  min-height: 520px;
+  max-height: calc(100vh - 220px);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -644,9 +514,7 @@ body {
 
 @media (max-width: 768px) {
   .ai-workspace { padding: 12px 10px 24px; }
-  .ai-header-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .ai-header-actions { width: 100%; justify-content: space-between; }
-  .chat-thread-container { padding: 16px 12px; min-height: 380px; max-height: calc(100vh - 360px); }
+  .chat-thread-container { padding: 16px 12px; min-height: 420px; max-height: calc(100vh - 200px); }
   .msg-row { max-width: 95%; }
   .ai-action-card { flex-direction: column; align-items: flex-start; }
   .ai-action-btns { width: 100%; justify-content: space-between; }
@@ -689,51 +557,6 @@ body {
 
 <!-- MAIN AI CHAT WORKSPACE -->
 <main class="ai-workspace">
-  <!-- Top Meta Bar -->
-  <div class="ai-header-bar">
-    <div class="ai-profile-meta">
-      <div class="ai-avatar-box">
-        <i class="fa-solid fa-bolt"></i>
-        <div class="ai-status-pulse"></div>
-      </div>
-      <div class="ai-meta-text">
-        <h2>SwiftErrand AI Assistant <span class="ai-badge-live"><i class="fa-solid fa-circle" style="font-size:6px;"></i> ONLINE</span></h2>
-        <p>Fault diagnostics • Fair price estimation • Verified artisan matching in Uyo • SwiftShield™ Escrow</p>
-      </div>
-    </div>
-
-    <div class="ai-header-actions">
-      <button type="button" class="btn-pill-action" onclick="clearAiChat()" title="Reset Conversation">
-        <i class="fa-solid fa-rotate-right"></i> Reset
-      </button>
-      <a href="booking.html" class="btn-pill-action" style="background:var(--primary-light);color:var(--primary-dark);border-color:var(--primary-border);">
-        <i class="fa-solid fa-calendar-check"></i> Book Direct
-      </a>
-    </div>
-  </div>
-
-  <!-- Quick Query Chips -->
-  <div class="quick-prompts-bar">
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('My kitchen sink is leaking heavily in Shelter Afrique')">
-      <i class="fa-solid fa-droplet"></i> Leaking Pipe (Shelter Afrique)
-    </button>
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('My split AC is blowing hot air and needs gas refill in Ewet Housing')">
-      <i class="fa-solid fa-snowflake"></i> AC Gas Refill (Ewet Housing)
-    </button>
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('How does SwiftShield™ dual escrow protect my payment before work starts?')">
-      <i class="fa-solid fa-shield-halved"></i> How SwiftShield™ Escrow Works
-    </button>
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('Generator is making loud knocking sound and smoking on Aka Road')">
-      <i class="fa-solid fa-screwdriver-wrench"></i> Generator Knocking (Aka Road)
-    </button>
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('How can I register as a verified artisan on SwiftErrand?')">
-      <i class="fa-solid fa-id-card"></i> Join Guild as Artisan
-    </button>
-    <button type="button" class="quick-chip" onclick="sendQuickPrompt('What are your standard inspection and labor prices in Uyo?')">
-      <i class="fa-solid fa-tags"></i> Standard Price List
-    </button>
-  </div>
-
   <!-- Messages Scroll Feed -->
   <div class="chat-thread-container" id="chatThread">
     <!-- Initial Assistant Welcome Message -->
@@ -777,6 +600,9 @@ body {
   <form class="ai-input-dock" id="aiChatForm" onsubmit="handleChatSubmit(event)">
     <div class="ai-input-field">
       <input type="text" id="aiInput" placeholder="Ask about repairs, pricing, escrow, or type a problem in English or Pidgin..." autocomplete="off" required>
+      <button type="button" class="btn-voice" onclick="clearAiChat()" title="Reset Conversation" style="margin-right:4px;">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
       <button type="button" class="btn-voice" id="voiceBtn" onclick="toggleVoiceInput()" title="Voice Dictation">
         <i class="fa-solid fa-microphone"></i>
       </button>
