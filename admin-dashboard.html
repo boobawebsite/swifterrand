@@ -1710,7 +1710,7 @@ function exportPlatformSummary() {
     total_artisans: adminState.providers.length,
     total_profiles: adminState.profiles.length,
     total_tickets: adminState.tickets.length,
-    bookings_sample: adminState.bookings
+    bookings_records: adminState.bookings
   };
 
   const blob = new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' });
